@@ -10,7 +10,7 @@ main {
 }
 
 .sidebar {
-    background: #006ba1;
+    background: var(--main-bg-color);
 }
 
 .nav-link a {

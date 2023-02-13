@@ -9,6 +9,10 @@ html, body {
     font-size: 1rem;
 }
 
+:root {
+    --main-bg-color: #006ba1;
+}
+
 .btn-danger {
     background: red !important;
 }
@@ -26,12 +30,12 @@ a, .btn-link {
 }
 
 .content {
-    background: #006ba1;
+    background: var(--main-bg-color);
 }
 
-    .content.auth {
-        background: #f4f4f4;
-    }
+.content.auth {
+    background: #f4f4f4;
+}
 
 .content__inner {
     padding: 1.5rem;
@@ -120,11 +124,11 @@ i.bi {
     align-items: center;
 }
 
-    .language-select .rz-dropdown {
-        width: 100px;
-        max-width: 100%;
-        margin: 0 10px;
-    }
+.language-select .rz-dropdown {
+    width: 100px;
+    max-width: 100%;
+    margin: 0 10px;
+}
 
 .logo {
     max-width: 250px;
