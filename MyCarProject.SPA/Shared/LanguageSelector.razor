@@ -1,0 +1,33 @@
+﻿@using System.Globalization
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Nav
+
+<div class="language-select">
+    <RadzenIcon Icon="language" />
+
+    <RadzenDropDown FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@supportedLanguages @bind-Value=Culture />
+</div>
+
+@code
+{
+    CultureInfo[] supportedLanguages = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("bg-BG"),
+    };
+
+    CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (CultureInfo.CurrentCulture != value)
+            {
+                var js = (IJSInProcessRuntime)JSRuntime;
+                js.InvokeVoid("appCulture.set", value.Name);
+
+                Nav.NavigateTo(Nav.Uri, forceLoad: true);
+            }
+        }
+    }
+}
