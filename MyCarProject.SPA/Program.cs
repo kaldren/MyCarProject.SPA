@@ -15,4 +15,6 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.LoginMode = "Redirect";
 });
 
+builder.Services.AddLocalization();
+
 await builder.Build().RunAsync();
