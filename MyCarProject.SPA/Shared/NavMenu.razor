@@ -1,4 +1,5 @@
 ﻿@inject IConfiguration Configuration
+@inject IStringLocalizer<Localization.Shared.Shared> LocalizerShared
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -17,22 +18,22 @@
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                        <span class="oi oi-home" aria-hidden="true"></span> @LocalizerShared["Home"]
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="counter">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                        <span class="oi oi-magnifying-glass" aria-hidden="true"></span> @LocalizerShared["Search"]
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="fetchdata">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                        <span class="oi oi-cog" aria-hidden="true"></span> @LocalizerShared["Settings"]
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="https://onebrb.b2clogin.com/onebrb.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_ProfileEdit&client_id=f79d639f-8196-4deb-b33c-c741e919831c&nonce=defaultNonce&redirect_uri=https%3A%2F%2Flocalhost%3A7130&scope=openid&response_type=id_token&prompt=login">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Edit Profile
+                        <span class="oi oi-cog" aria-hidden="true"></span> @LocalizerShared["Settings"]
                     </NavLink>
                 </div>
             </Authorized>
