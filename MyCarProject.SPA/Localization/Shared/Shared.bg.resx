@@ -126,10 +126,19 @@
   <data name="Hello" xml:space="preserve">
     <value>Здравей</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Начало</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>Изход</value>
   </data>
   <data name="NothingAtThisAddress" xml:space="preserve">
     <value>Няма нищо на този адрес.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
   </data>
 </root>

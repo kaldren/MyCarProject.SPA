@@ -1,7 +1,20 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+﻿/*#region Colors*/
+/* Primary blue: #19b5e9 */
+/*#endregion*/
+
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-size: 1rem;
+}
+
+.btn-danger {
+    background: red !important;
+}
+
+.page {
+    background: #f4f4f4;
 }
 
 h1:focus {
@@ -12,14 +25,18 @@ a, .btn-link {
     color: #0071c1;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+.content {
+    background: #006ba1;
 }
 
-.content {
-    padding-top: 1.1rem;
+    .content.auth {
+        background: #f4f4f4;
+    }
+
+.content__inner {
+    padding: 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -30,8 +47,9 @@ a, .btn-link {
     outline: 1px solid red;
 }
 
-.validation-message {
-    color: red;
+.spinner-border {
+    display: flex;
+    justify-content: center;
 }
 
 #blazor-error-ui {
@@ -62,3 +80,74 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.top-row > .container-fluid {
+    justify-content: center;
+}
+
+.rz-button {
+    text-transform: uppercase;
+    letter-spacing: 0.075rem;
+}
+
+/*#Global */
+i.bi {
+    font-size: 1.25rem;
+}
+
+.ErrorComponent__poster {
+    max-width: 100%;
+}
+
+.ErrorComponent__message {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 10px auto;
+    background: #fff;
+    padding: 0.5rem;
+}
+
+.ErrorComponent .ErrorComponent__backButton {
+    display: block;
+    margin: 0 auto;
+}
+/*#endregion Global */
+/*# Main */
+.language-select {
+    display: flex;
+    align-items: center;
+}
+
+    .language-select .rz-dropdown {
+        width: 100px;
+        max-width: 100%;
+        margin: 0 10px;
+    }
+
+.logo {
+    max-width: 250px;
+}
+/*#endregion Main*/
+
+/*#region Misc*/
+.rz-dialog-wrapper .rz-dialog {
+    width: auto !important;
+    max-width: 800px !important;
+}
+/*#endregion Misc*/
+
+/*#region Footer*/
+footer {
+    color: white;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+}
+/*#end#region Footer*/
+
+.privacy-section {
+    background: #fff;
+}
