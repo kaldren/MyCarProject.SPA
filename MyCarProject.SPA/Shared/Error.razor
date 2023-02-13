@@ -1,0 +1,59 @@
+﻿@inject IStringLocalizer<Localization.Shared.Shared> LocalizerShared
+@inject NavigationManager Navigation
+
+<div class="ErrorComponent">
+    @if (StatusCode == ResponseStatusCodeEnum.Unauthorized)
+    {
+        <a href="/">
+            <img src="/img/403.jpeg" class="ErrorComponent__poster" alt="@Message" />
+        </a>
+    }
+    else if (StatusCode == ResponseStatusCodeEnum.NotFound)
+    {
+        <a href="/">
+            <img src="/img/404.jpeg" class="ErrorComponent__poster" alt="@Message" />
+        </a>
+    }
+    else if (StatusCode == ResponseStatusCodeEnum.ServerError)
+    {
+        <a href="/">
+            <img src="/img/500.jpeg" class="ErrorComponent__poster" alt="@Message" />
+        </a>
+    }
+    else
+    {
+        <a href="/">
+            <img src="/img/500.jpeg" class="ErrorComponent__poster" alt="@Message" />
+        </a>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Message))
+    {
+        <p class="ErrorComponent__message">@Message</p>
+    }
+    <RadzenButton Text=@LocalizerShared["ErrorComponent__GoBackBtn"] Click="@OnBtnClick" class="ErrorComponent__backButton" />
+</div>
+@code {
+    [Parameter]
+    public ResponseStatusCodeEnum StatusCode { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        Message = Message ?? DefaultMessage();
+
+        return base.OnParametersSetAsync();
+    }
+
+    string DefaultMessage()
+    {
+        return @LocalizerShared["ErrorGenericMessage"];
+    }
+
+    void OnBtnClick()
+    {
+        Navigation.NavigateTo("/", true);
+    }
+}
