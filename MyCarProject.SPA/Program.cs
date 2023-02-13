@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
@@ -35,6 +36,10 @@ if (appLanguage != null)
     CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
     CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 }
+#endregion
+
+#region Other
+builder.Services.AddBlazoredLocalStorageAsSingleton();
 #endregion
 
 await builder.Build().RunAsync();
