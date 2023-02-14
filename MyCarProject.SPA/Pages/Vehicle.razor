@@ -1,11 +1,28 @@
-﻿@page "/vehicles"
+﻿@page "/vehicles/{Id:long}"
 
+@using Microsoft.AspNetCore.Authorization;
 @using MyCarProject.SPA.Components.Vehicle
 
-<div class="PagesVehicle">
-    <Slideshow />
-    <Contact />
-    <TechnicalSpecification />
-    <Equipment />
-    <Comment />
-</div>
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+Car @Id
+
+<header>
+    <Slideshow VehicleId="@Id" />
+</header>
+<main class="PagesVehicle">
+    <section>
+        <VehicleData VehicleId="@Id" />
+    </section>
+</main>
+<aside>
+    <Contact VehicleId="@Id" />
+</aside>
+<footer>
+    <Comment VehicleId="@Id" />
+</footer>
+
+@code {
+    [Parameter]
+    public long Id { get; set; }
+}

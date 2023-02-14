@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using MyCarProject.SPA;
+using MyCarProject.SPA.Interfaces;
+using OnebrbApi;
 using Radzen;
 using System.Globalization;
 
@@ -10,7 +12,6 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddMsalAuthentication(options =>
 {
@@ -18,6 +19,40 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.DefaultAccessTokenScopes.Add(builder.Configuration["Api:Scope"]);
     options.ProviderOptions.LoginMode = "Redirect";
 });
+
+#region Http Clients
+builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("OnebrbAPIAuth",
+        (srv, client) =>
+        {
+            client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("Api:BaseUrl"));
+        })
+.AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
+
+builder.Services.AddScoped<IOnebrbApiClient, OnebrbApiClient>((x) =>
+{
+    var httpClient = x.GetRequiredService<IHttpClientFactory>().CreateClient("OnebrbAPIAuth");
+    var client = ActivatorUtilities.CreateInstance<OnebrbApiClient>(x, builder.Configuration.GetValue<string>("Api:BaseUrl"), httpClient);
+
+    return client;
+});
+
+builder.Services.AddHttpClient("OnebrbAPINoAuth",
+        (srv, client) =>
+        {
+            client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("Api:BaseUrl"));
+        });
+
+builder.Services.AddScoped<IOnebrbApiClientPublic, OnebrbApiClient>((x) =>
+{
+    var httpClient = x.GetRequiredService<IHttpClientFactory>().CreateClient("OnebrbAPINoAuth");
+    var client = ActivatorUtilities.CreateInstance<OnebrbApiClient>(x, builder.Configuration.GetValue<string>("Api:BaseUrl"), httpClient);
+
+    return client;
+});
+
+#endregion
 
 #region Radzen
 builder.Services.AddScoped<NotificationService>();
@@ -40,6 +75,7 @@ if (appLanguage != null)
 
 #region Other
 builder.Services.AddBlazoredLocalStorageAsSingleton();
+builder.Services.AddAutoMapper(typeof(Program));
 #endregion
 
 await builder.Build().RunAsync();

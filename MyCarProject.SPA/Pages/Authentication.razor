@@ -1,7 +1,61 @@
 ﻿@page "/authentication/{action}"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-<RemoteAuthenticatorView Action="@Action" />
+@using OnebrbApi
+@using System.Net;
 
-@code{
-    [Parameter] public string? Action { get; set; }
+@inject IOnebrbApiClient OnebrbApiClient
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@*@inject IToastService ToastService*@
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
+<RemoteAuthenticatorView Action="@Action" OnLogOutSucceeded="SetLogOutState" OnLogInSucceeded="SetLogInState">
+    <LogOutSucceeded>
+        @InvokeAsync(() => Navigation.NavigateTo("/login"))
+    </LogOutSucceeded>
+</RemoteAuthenticatorView>
+
+@code {
+    private bool _authenticated;
+
+    [Parameter] public string Action { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Task<AuthenticationState> _currentAuthenticationStateTask;
+
+        AuthenticationStateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
+
+        _currentAuthenticationStateTask =
+            AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        OnAuthenticationStateChanged(_currentAuthenticationStateTask);
+    }
+
+    private void OnAuthenticationStateChanged(Task<AuthenticationState> authenticationStateTask)
+    {
+        _ = InvokeAsync(async () =>
+        {
+            var authState = await authenticationStateTask;
+
+            var user = authState.User;
+
+            _authenticated = user.Identity?.IsAuthenticated ?? false;
+        });
+    }
+
+    private async Task SetLogOutState()
+    {
+        await LocalStorage.ClearAsync();
+    }
+
+    private async Task SetLogInState()
+    {
+        //bool isLoggedIn = await LocalStorage.GetItemAsync<bool>(LocalStorageConstants.OnebrbCurrentUserLoggedIn);
+        //if (!isLoggedIn)
+        //{
+        //    await LocalStorage.RemoveItemsAsync(new List<string> { LocalStorageConstants.OnebrbCurrentUserProfile, LocalStorageConstants.Occupations, LocalStorageConstants.OnebrbCurrentUserLoggedIn });
+        //    await LocalStorage.SetItemAsync<bool>(LocalStorageConstants.OnebrbCurrentUserLoggedIn, true);
+        //}
+    }
 }

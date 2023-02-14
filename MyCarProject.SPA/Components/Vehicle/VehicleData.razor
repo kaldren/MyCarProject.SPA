@@ -1,0 +1,81 @@
+﻿@using AutoMapper;
+@using MyCarProject.SPA.Interfaces;
+@using MyCarProject.SPA.Models;
+@using OnebrbApi;
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IOnebrbApiClient OnebrbApiClient
+@inject IOnebrbApiClientPublic OnebrbApiClientPublic
+@inject IMapper Mapper
+
+<div class="VehicleDataComponent">
+    <p>@_message</p>
+
+    @if (_vehicleModel != default)
+    {
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Brand</td>
+                    <td>@_vehicleModel.Brand</td>
+                </tr>
+                <tr>
+                    <td>Model</td>
+                    <td>@_vehicleModel.Model</td>
+                </tr>
+                <tr>
+                    <td>Year</td>
+                    <td>@_vehicleModel.Year</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public long VehicleId { get; set; }
+
+    private VehicleModel _vehicleModel;
+    private string _message = "Loading...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            await LoadAuthProfileData();
+        }
+        else
+        {
+            await LoadNotAuthProfileData();
+        }
+    }
+
+    private async Task LoadAuthProfileData() 
+    { 
+        try
+        {
+            var api = await OnebrbApiClient.ApiVehiclesAsync(VehicleId);
+            _vehicleModel = Mapper.Map<VehicleModel>(api.Result.Model);
+        }
+        catch (Exception ex)
+        {
+            _message = "Couldn't fetch the data. Please try again later.";
+        }
+    }
+    private async Task LoadNotAuthProfileData()
+    {
+        try
+        {
+            var api = await OnebrbApiClientPublic.ApiVehiclesAsync(VehicleId);
+            _vehicleModel = Mapper.Map<VehicleModel>(api.Result.Model);
+        }
+        catch (Exception ex)
+        {
+            _message = "Couldn't fetch the data. Please try again later.";
+        }
+    }
+}
