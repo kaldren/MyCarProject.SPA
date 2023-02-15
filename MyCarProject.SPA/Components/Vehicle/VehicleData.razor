@@ -1,15 +1,19 @@
 ﻿@using AutoMapper;
+@using Microsoft.AspNetCore.Authorization;
 @using MyCarProject.SPA.Interfaces;
 @using MyCarProject.SPA.Models;
 @using OnebrbApi;
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IOnebrbApiClient OnebrbApiClient
-@inject IOnebrbApiClientPublic OnebrbApiClientPublic
+@inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
 
-<div class="VehicleDataComponent">
-    <p>@_message</p>
+<div class="Components__VehicleData">
+
+    @if (_isLoading)
+    {
+        <p>Loading...</p>
+    }
 
     @if (_vehicleModel != default)
     {
@@ -37,45 +41,19 @@
     public long VehicleId { get; set; }
 
     private VehicleModel _vehicleModel;
-    private string _message = "Loading...";
+    private bool _isLoading;
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
-        {
-            await LoadAuthProfileData();
-        }
-        else
-        {
-            await LoadNotAuthProfileData();
-        }
-    }
-
-    private async Task LoadAuthProfileData() 
-    { 
         try
         {
+            _isLoading = true;
             var api = await OnebrbApiClient.ApiVehiclesAsync(VehicleId);
-            _vehicleModel = Mapper.Map<VehicleModel>(api.Result.Model);
+            _vehicleModel = Mapper.Map<VehicleModel>(api.Result);
         }
-        catch (Exception ex)
+        finally
         {
-            _message = "Couldn't fetch the data. Please try again later.";
-        }
-    }
-    private async Task LoadNotAuthProfileData()
-    {
-        try
-        {
-            var api = await OnebrbApiClientPublic.ApiVehiclesAsync(VehicleId);
-            _vehicleModel = Mapper.Map<VehicleModel>(api.Result.Model);
-        }
-        catch (Exception ex)
-        {
-            _message = "Couldn't fetch the data. Please try again later.";
+            _isLoading = false;
         }
     }
 }

@@ -21,7 +21,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 
 #region Http Clients
-builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
+builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
 
 builder.Services.AddHttpClient("OnebrbAPIAuth",
         (srv, client) =>
@@ -51,7 +51,6 @@ builder.Services.AddScoped<IOnebrbApiClientPublic, OnebrbApiClient>((x) =>
 
     return client;
 });
-
 #endregion
 
 #region Radzen

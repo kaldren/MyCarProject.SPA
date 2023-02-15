@@ -1,0 +1,8 @@
+﻿.Pages__Vehicle {
+    background: #fff;
+    display: flex;
+}
+
+.Pages__Vehicle main {
+    flex: 2;
+}

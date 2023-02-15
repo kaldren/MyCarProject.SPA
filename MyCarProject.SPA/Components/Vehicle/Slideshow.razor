@@ -1,6 +1,41 @@
-﻿Slideshow gets all images from Azure Blob storage where the container is the vehicle id
+﻿@using AutoMapper;
+@using MyCarProject.SPA.Interfaces;
+@using MyCarProject.SPA.Models;
+
+@inject IOnebrbApiClientPublic OnebrbApiClient
+@inject IMapper Mapper
+
+<div class="Components__Slideshow">
+
+    @if (_isLoading)
+    {
+        <p>Loading...</p>
+    }
+
+    @if (_vehicleImageModel != default)
+    {
+        <Carousel ImageUrls="_vehicleImageModel.Select(p => p.ImageUrl).ToList()" />
+    }
+</div>
 
 @code {
     [Parameter]
     public long VehicleId { get; set; }
+
+    private List<VehicleImageModel> _vehicleImageModel;
+    private bool _isLoading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            var api = await OnebrbApiClient.ApiVehiclesImagesAsync(VehicleId);
+            _vehicleImageModel = Mapper.Map<List<VehicleImageModel>>(api.Result);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
 }

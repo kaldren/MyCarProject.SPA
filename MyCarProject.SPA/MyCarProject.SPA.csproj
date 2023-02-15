@@ -23,7 +23,7 @@
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.2" />
 		<PackageReference Include="Microsoft.JSInterop" Version="7.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-		<PackageReference Include="Radzen.Blazor" Version="4.6.8" />
+		<PackageReference Include="Radzen.Blazor" Version="4.7.0" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 		<PackageReference Include="System.Globalization" Version="4.3.0" />
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
