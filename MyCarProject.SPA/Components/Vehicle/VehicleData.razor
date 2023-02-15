@@ -3,6 +3,7 @@
 @using MyCarProject.SPA.Interfaces;
 @using MyCarProject.SPA.Models;
 @using OnebrbApi;
+@using System.Reflection;
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IOnebrbApiClientPublic OnebrbApiClient
@@ -17,22 +18,428 @@
 
     @if (_vehicleModel != default)
     {
-        <table class="table">
+        <h2>Технически спецификации</h2>
+        <table class="table table-striped">
             <tbody>
                 <tr>
-                    <td>Brand</td>
-                    <td>@_vehicleModel.Brand</td>
+                    <td>Година</td>
+                    <td>@_vehicleModel.TechnicalSpecification.Year</td>
                 </tr>
                 <tr>
-                    <td>Model</td>
-                    <td>@_vehicleModel.Model</td>
+                    <td>Двигател</td>
+                    <td>@_vehicleModel.TechnicalSpecification.Engine</td>
                 </tr>
                 <tr>
-                    <td>Year</td>
-                    <td>@_vehicleModel.Year</td>
+                    <td>Мощност (кс)</td>
+                    <td>@_vehicleModel.TechnicalSpecification.HorsePowers</td>
+                </tr>
+                <tr>
+                    <td>Евростандарт</td>
+                    <td>Евро @_vehicleModel.TechnicalSpecification.Euro</td>
+                </tr>
+                <tr>
+                    <td>Трансмисия</td>
+                    <td>@_vehicleModel.TechnicalSpecification.Transmission</td>
+                </tr>
+                <tr>
+                    <td>Цвят</td>
+                    <td>@_vehicleModel.TechnicalSpecification.Color</td>
+                </tr>
+                <tr>
+                    <td>Километри</td>
+                    <td>@_vehicleModel.TechnicalSpecification.Mileage</td>
+                </tr>
+                <tr>
+                    <td>Регистрирана</td>
+                    <td>@(_vehicleModel.TechnicalSpecification.IsRegistered == true ? "ДА" : "НЕ")</td>
+                </tr>
+                <tr>
+                    <td>Цена</td>
+                    <td>@_vehicleModel.TechnicalSpecification.Price лв</td>
                 </tr>
             </tbody>
         </table>
+
+        <h2>Екстри</h2>
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Основни
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        @if (_vehicleModel.Equipment.HasABS)
+                        {
+                            <span>ABS</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasESP)
+                        {
+                            <span>ESP</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasASR)
+                        {
+                            <span>ASR</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasHillStartAssist)
+                        {
+                            <span>HillStartAssist</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFatigueWarningSystem)
+                        {
+                            <span>HasFatigueWarningSystem</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasLaneChangeAssist)
+                        {
+                            <span>HasLaneChangeAssist</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasBlindSpotAssist)
+                        {
+                            <span>HasBlindSpotAssist</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasNightVisionAssist)
+                        {
+                            <span>HasNightVisionAssist</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasEmergencyBrakeAssist)
+                        {
+                            <span>HasEmergencyBrakeAssist</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasEmergencyCallSystem)
+                        {
+                            <span>HasEmergencyCallSystem</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasTrafficSignRecognition)
+                        {
+                            <span>HasTrafficSignRecognition</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasCruiseControl)
+                        {
+                            <span>HasCruiseControl</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAdaptiveCruiseControl)
+                        {
+                            <span>HasAdaptiveCruiseControl</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasSpeedLimitControlSystem)
+                        {
+                            <span>HasSpeedLimitControlSystem</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasDistanceWarningSystem)
+                        {
+                            <span>HasDistanceWarningSystem</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasDriverAirbag)
+                        {
+                            <span>HasDriverAirbag</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFrontAirbags)
+                        {
+                            <span>HasFrontAirbags</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFrontAndSideAirbags)
+                        {
+                            <span>HasFrontAndSideAirbags</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFrontAndSideAndMoreAirbags)
+                        {
+                            <span>HasFrontAndSideAndMoreAirbags</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasIsofix)
+                        {
+                            <span>HasIsofix</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasBiXenonHeadlights)
+                        {
+                            <span>HasBiXenonHeadlights</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasLaserHeadlights)
+                        {
+                            <span>HasLaserHeadlights</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasLedHeadlights)
+                        {
+                            <span>HasLedHeadlights</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasXenonHeadlights)
+                        {
+                            <span>HasXenonHeadlights</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasHeadlightWasherSystem)
+                        {
+                            <span>HasHeadlightWasherSystem</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasGlareFreeHighBeamHeadlights)
+                        {
+                            <span>HasGlareFreeHighBeamHeadlights</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasHighBeamAssist)
+                        {
+                            <span>HasHighBeamAssist</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAdaptiveCorneringLights)
+                        {
+                            <span>HasAdaptiveCorneringLights</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAdaptiveLighting)
+                        {
+                            <span>HasAdaptiveLighting</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFogLamp)
+                        {
+                            <span>HasFogLamp</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAlarm)
+                        {
+                            <span>HasAlarm</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasEngineImobilizer)
+                        {
+                            <span>HasEngineImobilizer</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Комфорт
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        @if (_vehicleModel.Equipment.HasAirConditioner)
+                        {
+                            <span>HasAirConditioner</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasClimateControl)
+                        {
+                            <span>HasClimateControl</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasHeatedWindshield)
+                        {
+                            <span>HasHeatedWindshield</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasHeatedSteeringWheel)
+                        {
+                            <span>HasHeatedSteeringWheel</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasSelfSteeringSystems)
+                        {
+                            <span>HasSelfSteeringSystems</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFrontParkAssistent)
+                        {
+                            <span>HasFrontParkAssistent</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasRearParkAssistent)
+                        {
+                            <span>HasRearParkAssistent</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasCameraAssistent)
+                        {
+                            <span>HasCameraAssistent</span>
+                        }
+                        @if (_vehicleModel.Equipment.Has360DegreeCameraAssistent)
+                        {
+                            <span>Has360DegreeCameraAssistent</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFrontHeatedSeats)
+                        {
+                            <span>HasFrontHeatedSeats</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasBackHeatedSeats)
+                        {
+                            <span>HasBackHeatedSeats</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasFrontAdjustableSeats)
+                        {
+                            <span>HasFrontAdjustableSeats</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasBackAdjustableSeats)
+                        {
+                            <span>HasBackAdjustableSeats</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasSportSeats)
+                        {
+                            <span>HasSportSeats</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasArmRest)
+                        {
+                            <span>HasArmRest</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasMassageSeats)
+                        {
+                            <span>HasMassageSeats</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasSeatVentilation)
+                        {
+                            <span>HasSeatVentilation</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasElectricWindows)
+                        {
+                            <span>HasElectricWindows</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasElectricSideMirror)
+                        {
+                            <span>HasElectricSideMirror</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasElectricTailgate)
+                        {
+                            <span>HasElectricTailgate</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasCentralLocking)
+                        {
+                            <span>HasCentralLocking</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasKeylessCentralLocking)
+                        {
+                            <span>HasKeylessCentralLocking</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasLightSensor)
+                        {
+                            <span>HasLightSensor</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasRainSensor)
+                        {
+                            <span>HasRainSensor</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasPowerAssistedSteering)
+                        {
+                            <span>HasPowerAssistedSteering</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAmbientLighting)
+                        {
+                            <span>HasAmbientLighting</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasLeatherSteeringWheel)
+                        {
+                            <span>HasLeatherSteeringWheel</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Устройства
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        @if (_vehicleModel.Equipment.HasRadio)
+                        {
+                            <span>HasRadio</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasCDPlayer)
+                        {
+                            <span>HasCDPlayer</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasTV)
+                        {
+                            <span>HasTV</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasNavigationSystem)
+                        {
+                            <span>HasNavigationSystem</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasSoundSystem)
+                        {
+                            <span>HasSoundSystem</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasTouchScreen)
+                        {
+                            <span>HasTouchScreen</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasVoiceControl)
+                        {
+                            <span>HasVoiceControl</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasMultifunctionSteeringWheel)
+                        {
+                            <span>HasMultifunctionSteeringWheel</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasHandsfreeKit)
+                        {
+                            <span>HasHandsfreeKit</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasUSBPort)
+                        {
+                            <span>HasUSBPort</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasBluetooth)
+                        {
+                            <span>HasBluetooth</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAppleCarPlay)
+                        {
+                            <span>HasAppleCarPlay</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAndroidAuto)
+                        {
+                            <span>HasAndroidAuto</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasOnboardComputer)
+                        {
+                            <span>HasOnboardComputer</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasHeadupDisplay)
+                        {
+                            <span>HasHeadupDisplay</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasDigitalCockpit)
+                        {
+                            <span>HasDigitalCockpit</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasSeatVentilation)
+                        {
+                            <span>HasSeatVentilation</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasElectricWindows)
+                        {
+                            <span>HasElectricWindows</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasElectricSideMirror)
+                        {
+                            <span>HasElectricSideMirror</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasElectricTailgate)
+                        {
+                            <span>HasElectricTailgate</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasCentralLocking)
+                        {
+                            <span>HasCentralLocking</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasKeylessCentralLocking)
+                        {
+                            <span>HasKeylessCentralLocking</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasLightSensor)
+                        {
+                            <span>HasLightSensor</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasRainSensor)
+                        {
+                            <span>HasRainSensor</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasPowerAssistedSteering)
+                        {
+                            <span>HasPowerAssistedSteering</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAmbientLighting)
+                        {
+                            <span>HasAmbientLighting</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasLeatherSteeringWheel)
+                        {
+                            <span>HasLeatherSteeringWheel</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </div>
 

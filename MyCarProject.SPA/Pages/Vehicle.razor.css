@@ -6,3 +6,7 @@
 .Pages__Vehicle main {
     flex: 2;
 }
+
+.Pages__Vehicle aside {
+    background: var(--main-bg-color)
+}

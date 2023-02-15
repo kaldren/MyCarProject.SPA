@@ -1,4 +1,14 @@
 ﻿.Components__VehicleData {
-    border: 2px solid red;
     background: #f4f4f4;
+    padding: 0.5rem;
+}
+
+.Components__VehicleData .accordion-body {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.Components__VehicleData .accordion-body span {
+    margin: 0.2rem 1rem;
 }

@@ -10,7 +10,10 @@ namespace MyCarProject.SPA
         {
             #region Vehicle
             CreateMap<VehicleResponseModel, VehicleModel>();
+            CreateMap<VehicleSpecification, VehicleSpecificationModel>();
+            CreateMap<VehicleEquipment, VehicleEquipmentModel>();
             CreateMap<VehicleImageResponseModel, VehicleImageModel>();
+            CreateMap<VehicleOwnerResponseModel, VehicleOwnerModel>();
             #endregion
         }
     }
