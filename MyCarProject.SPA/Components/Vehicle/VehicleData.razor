@@ -20,6 +20,8 @@
 
     @if (_vehicleModel != default)
     {
+        <h2>@LocalizerVehicle["Vehicle_Description"]</h2>
+        <p>@_vehicleModel.TechnicalSpecification.Description</p>
         <h2>@LocalizerVehicle["Specification_Title"]</h2>
         <table class="table table-striped">
             <tbody>

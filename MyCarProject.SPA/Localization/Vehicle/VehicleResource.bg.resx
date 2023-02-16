@@ -438,4 +438,7 @@
   <data name="Specification_Year" xml:space="preserve">
     <value>Година</value>
   </data>
+  <data name="Vehicle_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
 </root>
