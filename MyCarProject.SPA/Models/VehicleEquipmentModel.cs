@@ -41,10 +41,10 @@
         public bool HasHeatedWindshield { get; set; }
         public bool HasHeatedSteeringWheel { get; set; }
         public bool HasSelfSteeringSystems { get; set; }
-        public bool HasFrontParkAssistent { get; set; }
-        public bool HasRearParkAssistent { get; set; }
-        public bool HasCameraAssistent { get; set; }
-        public bool Has360DegreeCameraAssistent { get; set; }
+        public bool HasFrontParkAssistant { get; set; }
+        public bool HasRearParkAssistant { get; set; }
+        public bool HasCameraAssistant { get; set; }
+        public bool Has360DegreeCameraAssistant { get; set; }
         public bool HasFrontHeatedSeats { get; set; }
         public bool HasBackHeatedSeats { get; set; }
         public bool HasFrontAdjustableSeats { get; set; }

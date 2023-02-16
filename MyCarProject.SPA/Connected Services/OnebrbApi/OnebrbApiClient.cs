@@ -593,17 +593,17 @@ namespace OnebrbApi
         [Newtonsoft.Json.JsonProperty("hasSelfSteeringSystems", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool HasSelfSteeringSystems { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("hasFrontParkAssistent", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool HasFrontParkAssistent { get; set; }
+        [Newtonsoft.Json.JsonProperty("hasFrontParkAssistant", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool HasFrontParkAssistant { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("hasRearParkAssistent", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool HasRearParkAssistent { get; set; }
+        [Newtonsoft.Json.JsonProperty("hasRearParkAssistant", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool HasRearParkAssistant { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("hasCameraAssistent", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool HasCameraAssistent { get; set; }
+        [Newtonsoft.Json.JsonProperty("hasCameraAssistant", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool HasCameraAssistant { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("has360DegreeCameraAssistent", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool Has360DegreeCameraAssistent { get; set; }
+        [Newtonsoft.Json.JsonProperty("has360DegreeCameraAssistant", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool Has360DegreeCameraAssistant { get; set; }
 
         [Newtonsoft.Json.JsonProperty("hasFrontHeatedSeats", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool HasFrontHeatedSeats { get; set; }

@@ -405,16 +405,16 @@
           "hasSelfSteeringSystems": {
             "type": "boolean"
           },
-          "hasFrontParkAssistent": {
+          "hasFrontParkAssistant": {
             "type": "boolean"
           },
-          "hasRearParkAssistent": {
+          "hasRearParkAssistant": {
             "type": "boolean"
           },
-          "hasCameraAssistent": {
+          "hasCameraAssistant": {
             "type": "boolean"
           },
-          "has360DegreeCameraAssistent": {
+          "has360DegreeCameraAssistant": {
             "type": "boolean"
           },
           "hasFrontHeatedSeats": {

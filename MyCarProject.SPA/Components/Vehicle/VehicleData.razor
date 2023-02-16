@@ -8,6 +8,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
+@inject IStringLocalizer<Localization.Vehicle.Vehicle> LocalizerVehicle
 
 <div class="Components__VehicleData">
 
@@ -229,21 +230,21 @@
                         {
                             <span>HasSelfSteeringSystems</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFrontParkAssistent)
+                        @if (_vehicleModel.Equipment.HasFrontParkAssistant)
                         {
-                            <span>HasFrontParkAssistent</span>
+                            <span>HasFrontParkAssistant</span>
                         }
-                        @if (_vehicleModel.Equipment.HasRearParkAssistent)
+                        @if (_vehicleModel.Equipment.HasRearParkAssistant)
                         {
-                            <span>HasRearParkAssistent</span>
+                            <span>HasRearParkAssistant</span>
                         }
-                        @if (_vehicleModel.Equipment.HasCameraAssistent)
+                        @if (_vehicleModel.Equipment.HasCameraAssistant)
                         {
-                            <span>HasCameraAssistent</span>
+                            <span>HasCameraAssistant</span>
                         }
-                        @if (_vehicleModel.Equipment.Has360DegreeCameraAssistent)
+                        @if (_vehicleModel.Equipment.Has360DegreeCameraAssistant)
                         {
-                            <span>Has360DegreeCameraAssistent</span>
+                            <span>Has360DegreeCameraAssistant</span>
                         }
                         @if (_vehicleModel.Equipment.HasFrontHeatedSeats)
                         {
