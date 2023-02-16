@@ -381,6 +381,21 @@
   <data name="Specification_Euro" xml:space="preserve">
     <value>Euro</value>
   </data>
+  <data name="Specification_Extras_Additional_Title" xml:space="preserve">
+    <value>Additional</value>
+  </data>
+  <data name="Specification_Extras_Comfort_Title" xml:space="preserve">
+    <value>Comfort</value>
+  </data>
+  <data name="Specification_Extras_Devices_Title" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Specification_Extras_Main_Title" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Specification_Extras_Title" xml:space="preserve">
+    <value>Extras</value>
+  </data>
   <data name="Specification_FirstRegistration" xml:space="preserve">
     <value>First Registration</value>
   </data>
@@ -413,6 +428,9 @@
   </data>
   <data name="Specification_Seats" xml:space="preserve">
     <value>Seats</value>
+  </data>
+  <data name="Specification_Title" xml:space="preserve">
+    <value>Technical Specification</value>
   </data>
   <data name="Specification_Transmission" xml:space="preserve">
     <value>Transmission</value>

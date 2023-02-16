@@ -9,17 +9,18 @@
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
 @inject IStringLocalizer<Localization.VehicleResource> LocalizerVehicle
+@inject IStringLocalizer<Localization.SharedResource> LocalizerShared
 
 <div class="Components__VehicleData">
 
     @if (_isLoading)
     {
-        <p>Loading...</p>
+        <p>@LocalizerShared["Loading"]</p>
     }
 
     @if (_vehicleModel != default)
     {
-        <h2>Технически спецификации</h2>
+        <h2>@LocalizerVehicle["Specification_Title"]</h2>
         <table class="table table-striped">
             <tbody>
                 <tr>
@@ -61,12 +62,12 @@
             </tbody>
         </table>
 
-        <h2>Екстри</h2>
+        <h2>@LocalizerVehicle["Specification_Extras_Title"]</h2>
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        Основни
+                        @LocalizerVehicle["Specification_Extras_Main_Title"]
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -205,7 +206,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        Комфорт
+                        @LocalizerVehicle["Specification_Extras_Comfort_Title"]
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -324,7 +325,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        Устройства
+                        @LocalizerVehicle["Specification_Extras_Devices_Title"]
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -436,6 +437,45 @@
                         @if (_vehicleModel.Equipment.HasLeatherSteeringWheel)
                         {
                             <span>@LocalizerVehicle["Equipment_LeatherSteeringWheel"]</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        @LocalizerVehicle["Specification_Extras_Additional_Title"]
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        @if (_vehicleModel.Equipment.HasSummerTires)
+                        {
+                            <span>@LocalizerVehicle["Equipment_SummerTires"]</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasWinterTires)
+                        {
+                            <span>@LocalizerVehicle["Equipment_WinterTires"]</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasAllSeasonTires)
+                        {
+                            <span>@LocalizerVehicle["Equipment_AllSeasonTires"]</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasNavigationSystem)
+                        {
+                            <span>@LocalizerVehicle["Equipment_NavigationSystem"]</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasEmergencyTire)
+                        {
+                            <span>@LocalizerVehicle["Equipment_EmergencyTire"]</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasEmergencyTireKit)
+                        {
+                            <span>@LocalizerVehicle["Equipment_EmergencyTireKit"]</span>
+                        }
+                        @if (_vehicleModel.Equipment.HasPanoramicRoof)
+                        {
+                            <span>@LocalizerVehicle["Equipment_PanoramicRoof"]</span>
                         }
                     </div>
                 </div>

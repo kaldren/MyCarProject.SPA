@@ -4,12 +4,13 @@
 
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
+@inject IStringLocalizer<Localization.SharedResource> LocalizerShared
 
 <div class="Components__Slideshow">
 
     @if (_isLoading)
     {
-        <p>Loading...</p>
+        <p>@LocalizerShared["Loading"]</p>
     }
 
     @if (_vehicleImageModel != default)

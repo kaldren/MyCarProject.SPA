@@ -1,6 +1,6 @@
 ﻿namespace MyCarProject.SPA.Localization
 {
-    public class ContactResource
+    public class SharedResource
     {
     }
 }

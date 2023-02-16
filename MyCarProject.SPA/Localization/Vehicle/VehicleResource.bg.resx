@@ -381,6 +381,21 @@
   <data name="Specification_Euro" xml:space="preserve">
     <value>Евростандарт</value>
   </data>
+  <data name="Specification_Extras_Additional_Title" xml:space="preserve">
+    <value>Допълнителни</value>
+  </data>
+  <data name="Specification_Extras_Comfort_Title" xml:space="preserve">
+    <value>Комфорт</value>
+  </data>
+  <data name="Specification_Extras_Devices_Title" xml:space="preserve">
+    <value>Устройства</value>
+  </data>
+  <data name="Specification_Extras_Main_Title" xml:space="preserve">
+    <value>Основни</value>
+  </data>
+  <data name="Specification_Extras_Title" xml:space="preserve">
+    <value>Екстри</value>
+  </data>
   <data name="Specification_FirstRegistration" xml:space="preserve">
     <value>Първа регистрация</value>
   </data>
@@ -413,6 +428,9 @@
   </data>
   <data name="Specification_Seats" xml:space="preserve">
     <value>Седалки</value>
+  </data>
+  <data name="Specification_Title" xml:space="preserve">
+    <value>Технически спецификации</value>
   </data>
   <data name="Specification_Transmission" xml:space="preserve">
     <value>Скорости</value>
