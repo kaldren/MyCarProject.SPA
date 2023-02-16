@@ -31,7 +31,7 @@
         public bool HasHighBeamAssist { get; set; }
         public bool HasAdaptiveCorneringLights { get; set; }
         public bool HasAdaptiveLighting { get; set; }
-        public bool HasFogLamp { get; set; }
+        public bool HasFogLamps { get; set; }
         public bool HasAlarm { get; set; }
         public bool HasEngineImobilizer { get; set; }
 
