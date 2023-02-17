@@ -1,0 +1,89 @@
+﻿<div class="Components__HomeSearch">
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder="Категория" Data=@_vehicleTypeList TextProperty="VehicleType" ValueProperty="VehicleId" Change=@(args => OnChange(args)) />
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder="Марка" Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" Change=@(args => OnChange(args)) />
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder="Модел" Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" Change=@(args => OnChange(args)) />
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder="Година" Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+</div>
+
+@code {
+    private IEnumerable<Vehicle> _vehicleTypeList;
+    private IEnumerable<Brand> _brandList;
+    private IEnumerable<Model> _modelList;
+    private IEnumerable<Year> _yearList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _vehicleTypeList = new List<Vehicle>
+        {
+            new Vehicle {VehicleId = 1, VehicleType = "Автомобили"},
+            new Vehicle {VehicleId = 3, VehicleType = "Бусове"},
+            new Vehicle {VehicleId = 2, VehicleType = "Камиони"},
+            new Vehicle {VehicleId = 4, VehicleType = "Мотори"},
+            new Vehicle {VehicleId = 5, VehicleType = "Каравани"},
+            new Vehicle {VehicleId = 6, VehicleType = "Яхти и лодки"},
+            new Vehicle {VehicleId = 7, VehicleType = "Строителни"},
+            new Vehicle {VehicleId = 8, VehicleType = "Селскостопански"},
+        };
+
+        _brandList = new List<Brand>
+        {
+            new Brand {BrandId = 1, BrandName = "Audi"},
+            new Brand {BrandId = 2, BrandName = "BMW"},
+            new Brand {BrandId = 3, BrandName = "Mercedes"},
+            new Brand {BrandId = 4, BrandName = "VW"},
+        };
+
+        _modelList = new List<Model>
+        {
+            new Model {ModelId = 1, ModelName = "A6"},
+            new Model {ModelId = 2, ModelName = "A8"},
+            new Model {ModelId = 3, ModelName = "A4"},
+            new Model {ModelId = 4, ModelName = "Q8"},
+        };
+
+        _yearList = new List<Year>
+        {
+            new Year {YearId = 1, YearName = "2023"},
+            new Year {YearId = 2, YearName = "2022"},
+            new Year {YearId = 3, YearName = "2021"},
+            new Year {YearId = 4, YearName = "2020"},
+        };
+    }
+
+    void OnChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+    }
+
+    class Vehicle
+    {
+        public int VehicleId { get; set; }
+
+        public string VehicleType { get; set; }
+    }
+
+    class Brand
+    {
+        public int BrandId { get; set; }
+
+        public string BrandName { get; set; }
+    }
+
+    class Model
+    {
+        public int ModelId { get; set; }
+
+        public string ModelName { get; set; }
+    }
+
+    class Year
+    {
+        public int YearId { get; set; }
+
+        public string YearName { get; set; }
+    }
+}

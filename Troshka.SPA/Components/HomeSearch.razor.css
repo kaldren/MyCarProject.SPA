@@ -1,0 +1,9 @@
+﻿.Components__HomeSearch {
+    display: flex;
+    margin-top: 50%;
+    margin-bottom: 200px;
+}
+
+.Components__HomeSearch ::deep .rz-dropdown {
+    margin: 0 0.5rem;
+}

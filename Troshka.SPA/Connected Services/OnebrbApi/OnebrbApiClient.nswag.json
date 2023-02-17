@@ -1,0 +1,660 @@
+﻿{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Troshka.API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Vehicles/{vehicleId}": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "operationId": "Vehicles",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "style": "simple",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Vehicles/{vehicleId}/images": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "operationId": "images",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "style": "simple",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleImageResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleImageResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleImageResponseModel"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Vehicles/{vehicleId}/owner": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "operationId": "owner",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "style": "simple",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleOwnerResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleOwnerResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleOwnerResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProblemDetails": {
+        "type": "object",
+        "additionalProperties": {},
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "VehicleEquipment": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "hasABS": {
+            "type": "boolean"
+          },
+          "hasESP": {
+            "type": "boolean"
+          },
+          "hasASR": {
+            "type": "boolean"
+          },
+          "hasHillStartAssist": {
+            "type": "boolean"
+          },
+          "hasFatigueWarningSystem": {
+            "type": "boolean"
+          },
+          "hasLaneChangeAssist": {
+            "type": "boolean"
+          },
+          "hasBlindSpotAssist": {
+            "type": "boolean"
+          },
+          "hasNightVisionAssist": {
+            "type": "boolean"
+          },
+          "hasEmergencyBrakeAssist": {
+            "type": "boolean"
+          },
+          "hasEmergencyCallSystem": {
+            "type": "boolean"
+          },
+          "hasTrafficSignRecognition": {
+            "type": "boolean"
+          },
+          "hasCruiseControl": {
+            "type": "boolean"
+          },
+          "hasAdaptiveCruiseControl": {
+            "type": "boolean"
+          },
+          "hasSpeedLimitControlSystem": {
+            "type": "boolean"
+          },
+          "hasDistanceWarningSystem": {
+            "type": "boolean"
+          },
+          "hasDriverAirbag": {
+            "type": "boolean"
+          },
+          "hasFrontAirbags": {
+            "type": "boolean"
+          },
+          "hasFrontAndSideAirbags": {
+            "type": "boolean"
+          },
+          "hasFrontAndSideAndMoreAirbags": {
+            "type": "boolean"
+          },
+          "hasIsofix": {
+            "type": "boolean"
+          },
+          "hasBiXenonHeadlights": {
+            "type": "boolean"
+          },
+          "hasLaserHeadlights": {
+            "type": "boolean"
+          },
+          "hasLedHeadlights": {
+            "type": "boolean"
+          },
+          "hasXenonHeadlights": {
+            "type": "boolean"
+          },
+          "hasHeadlightWasherSystem": {
+            "type": "boolean"
+          },
+          "hasGlareFreeHighBeamHeadlights": {
+            "type": "boolean"
+          },
+          "hasHighBeamAssist": {
+            "type": "boolean"
+          },
+          "hasAdaptiveCorneringLights": {
+            "type": "boolean"
+          },
+          "hasAdaptiveLighting": {
+            "type": "boolean"
+          },
+          "hasFogLamp": {
+            "type": "boolean"
+          },
+          "hasAlarm": {
+            "type": "boolean"
+          },
+          "hasEngineImobilizer": {
+            "type": "boolean"
+          },
+          "hasAirConditioner": {
+            "type": "boolean"
+          },
+          "hasClimateControl": {
+            "type": "boolean"
+          },
+          "hasHeatedWindshield": {
+            "type": "boolean"
+          },
+          "hasHeatedSteeringWheel": {
+            "type": "boolean"
+          },
+          "hasSelfSteeringSystems": {
+            "type": "boolean"
+          },
+          "hasFrontParkAssistant": {
+            "type": "boolean"
+          },
+          "hasRearParkAssistant": {
+            "type": "boolean"
+          },
+          "hasCameraAssistant": {
+            "type": "boolean"
+          },
+          "has360DegreeCameraAssistant": {
+            "type": "boolean"
+          },
+          "hasFrontHeatedSeats": {
+            "type": "boolean"
+          },
+          "hasBackHeatedSeats": {
+            "type": "boolean"
+          },
+          "hasFrontAdjustableSeats": {
+            "type": "boolean"
+          },
+          "hasBackAdjustableSeats": {
+            "type": "boolean"
+          },
+          "hasSportSeats": {
+            "type": "boolean"
+          },
+          "hasArmRest": {
+            "type": "boolean"
+          },
+          "hasMassageSeats": {
+            "type": "boolean"
+          },
+          "hasSeatVentilation": {
+            "type": "boolean"
+          },
+          "hasElectricWindows": {
+            "type": "boolean"
+          },
+          "hasElectricSideMirror": {
+            "type": "boolean"
+          },
+          "hasElectricTailgate": {
+            "type": "boolean"
+          },
+          "hasCentralLocking": {
+            "type": "boolean"
+          },
+          "hasKeylessCentralLocking": {
+            "type": "boolean"
+          },
+          "hasLightSensor": {
+            "type": "boolean"
+          },
+          "hasRainSensor": {
+            "type": "boolean"
+          },
+          "hasPowerAssistedSteering": {
+            "type": "boolean"
+          },
+          "hasAmbientLighting": {
+            "type": "boolean"
+          },
+          "hasLeatherSteeringWheel": {
+            "type": "boolean"
+          },
+          "hasRadio": {
+            "type": "boolean"
+          },
+          "hasCDPlayer": {
+            "type": "boolean"
+          },
+          "hasTV": {
+            "type": "boolean"
+          },
+          "hasNavigationSystem": {
+            "type": "boolean"
+          },
+          "hasSoundSystem": {
+            "type": "boolean"
+          },
+          "hasTouchScreen": {
+            "type": "boolean"
+          },
+          "hasVoiceControl": {
+            "type": "boolean"
+          },
+          "hasMultifunctionSteeringWheel": {
+            "type": "boolean"
+          },
+          "hasHandsfreeKit": {
+            "type": "boolean"
+          },
+          "hasUSBPort": {
+            "type": "boolean"
+          },
+          "hasBluetooth": {
+            "type": "boolean"
+          },
+          "hasAppleCarPlay": {
+            "type": "boolean"
+          },
+          "hasAndroidAuto": {
+            "type": "boolean"
+          },
+          "hasOnboardComputer": {
+            "type": "boolean"
+          },
+          "hasHeadupDisplay": {
+            "type": "boolean"
+          },
+          "hasDigitalCockpit": {
+            "type": "boolean"
+          },
+          "hasSummerTires": {
+            "type": "boolean"
+          },
+          "hasWinterTires": {
+            "type": "boolean"
+          },
+          "hasAllSeasonTires": {
+            "type": "boolean"
+          },
+          "hasEmergencyTire": {
+            "type": "boolean"
+          },
+          "hasEmergencyTireKit": {
+            "type": "boolean"
+          },
+          "hasPanoramicRoof": {
+            "type": "boolean"
+          }
+        }
+      },
+      "VehicleImageResponseModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "VehicleOwnerResponseModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDisplayNameVisible": {
+            "type": "boolean"
+          }
+        }
+      },
+      "VehicleResponseModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "technicalSpecification": {
+            "$ref": "#/components/schemas/VehicleSpecification"
+          },
+          "equipment": {
+            "$ref": "#/components/schemas/VehicleEquipment"
+          }
+        }
+      },
+      "VehicleSpecification": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "horsePowers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "mileage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "engine": {
+            "type": "string",
+            "nullable": true
+          },
+          "euro": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "transmission": {
+            "type": "string",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "nullable": true
+          },
+          "seats": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "doors": {
+            "type": "string",
+            "nullable": true
+          },
+          "brand": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstRegistration": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "isRegistered": {
+            "type": "boolean"
+          },
+          "interiorMaterial": {
+            "type": "string",
+            "nullable": true
+          },
+          "interiorColor": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      }
+    }
+  }
+}
