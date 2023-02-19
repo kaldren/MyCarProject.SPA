@@ -1,6 +1,6 @@
-﻿namespace Troshka.SPA.Models
+﻿namespace Troshka.SPA.Models.Car
 {
-    public class VehicleSpecificationModel
+    public class CarSpecificationModel
     {
         public int HorsePowers { get; set; }
         public string Category { get; set; }

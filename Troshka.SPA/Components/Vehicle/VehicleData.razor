@@ -4,6 +4,7 @@
 @using Troshka.SPA.Models;
 @using OnebrbApi;
 @using System.Reflection;
+@using Troshka.SPA.Models.Car;
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IOnebrbApiClientPublic OnebrbApiClient
@@ -18,48 +19,48 @@
         <p>@LocalizerShared["Loading"]</p>
     }
 
-    @if (_vehicleModel != default)
+    @if (_carOfferModel != default)
     {
         <h2>@LocalizerVehicle["Vehicle_Description"]</h2>
-        <p>@_vehicleModel.TechnicalSpecification.Description</p>
+        <p>@_carOfferModel.Description</p>
         <h2>@LocalizerVehicle["Specification_Title"]</h2>
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <td>@LocalizerVehicle["Specification_Year"]</td>
-                    <td>@_vehicleModel.TechnicalSpecification.Year</td>
+                    <td>@_carOfferModel.Year</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_Engine"]</td>
-                    <td>@_vehicleModel.TechnicalSpecification.Engine</td>
+                    <td>@_carOfferModel.EngineName</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_HorsePowers"]</td>
-                    <td>@_vehicleModel.TechnicalSpecification.HorsePowers</td>
+                    <td>@_carOfferModel.HorsePowers</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_Euro"]</td>
-                    <td>Евро @_vehicleModel.TechnicalSpecification.Euro</td>
+                    <td>Евро @_carOfferModel.EuroName</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_Transmission"]</td>
-                    <td>@_vehicleModel.TechnicalSpecification.Transmission</td>
+                    <td>@_carOfferModel.TransmissionName</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_Color"]</td>
-                    <td>@_vehicleModel.TechnicalSpecification.Color</td>
+                    <td>@_carOfferModel.ColorName</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_Mileage"]</td>
-                    <td>@_vehicleModel.TechnicalSpecification.Mileage</td>
+                    <td>@_carOfferModel.Mileage</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_IsRegistered"]</td>
-                    <td>@(_vehicleModel.TechnicalSpecification.IsRegistered == true ? @LocalizerVehicle["Specification_IsRegistered_Yes"] : @LocalizerVehicle["Specification_IsRegistered_No"])</td>
+                    <td>@(_carOfferModel.IsRegistered == true ? @LocalizerVehicle["Specification_IsRegistered_Yes"] : @LocalizerVehicle["Specification_IsRegistered_No"])</td>
                 </tr>
                 <tr>
                     <td>@LocalizerVehicle["Specification_Price"]</td>
-                    <td>@_vehicleModel.TechnicalSpecification.Price лв</td>
+                    <td>@_carOfferModel.Price лв</td>
                 </tr>
             </tbody>
         </table>
@@ -74,131 +75,131 @@
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                        @if (_vehicleModel.Equipment.HasABS)
+                        @if (_carOfferModel.HasABS)
                         {
                             <span>@LocalizerVehicle["Equipment_ABS"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasESP)
+                        @if (_carOfferModel.HasESP)
                         {
                             <span>@LocalizerVehicle["Equipment_ESP"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasASR)
+                        @if (_carOfferModel.HasASR)
                         {
                             <span>@LocalizerVehicle["Equipment_ASR"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasHillStartAssist)
+                        @if (_carOfferModel.HasHillStartAssist)
                         {
                             <span>@LocalizerVehicle["Equipment_HillStartAssist"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFatigueWarningSystem)
+                        @if (_carOfferModel.HasFatigueWarningSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_FatigueWarningSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasLaneChangeAssist)
+                        @if (_carOfferModel.HasLaneChangeAssist)
                         {
                             <span>@LocalizerVehicle["Equipment_LaneChangeAssist"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasBlindSpotAssist)
+                        @if (_carOfferModel.HasBlindSpotAssist)
                         {
                             <span>@LocalizerVehicle["Equipment_BlindSpotAssist"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasNightVisionAssist)
+                        @if (_carOfferModel.HasNightVisionAssist)
                         {
                             <span>@LocalizerVehicle["Equipment_NightVisionAssist"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasEmergencyBrakeAssist)
+                        @if (_carOfferModel.HasEmergencyBrakeAssist)
                         {
                             <span>@LocalizerVehicle["Equipment_EmergencyBrakeAssist"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasEmergencyCallSystem)
+                        @if (_carOfferModel.HasEmergencyCallSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_EmergencyCallSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasTrafficSignRecognition)
+                        @if (_carOfferModel.HasTrafficSignRecognition)
                         {
                             <span>@LocalizerVehicle["Equipment_TrafficSignRecognition"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasCruiseControl)
+                        @if (_carOfferModel.HasCruiseControl)
                         {
                             <span>@LocalizerVehicle["Equipment_CruiseControl"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAdaptiveCruiseControl)
+                        @if (_carOfferModel.HasAdaptiveCruiseControl)
                         {
                             <span>@LocalizerVehicle["Equipment_AdaptiveCruiseControl"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasSpeedLimitControlSystem)
+                        @if (_carOfferModel.HasSpeedLimitControlSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_SpeedLimitControlSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasDistanceWarningSystem)
+                        @if (_carOfferModel.HasDistanceWarningSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_DistanceWarningSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasDriverAirbag)
+                        @if (_carOfferModel.HasDriverAirbag)
                         {
                             <span>@LocalizerVehicle["Equipment_DriverAirbag"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFrontAirbags)
+                        @if (_carOfferModel.HasFrontAirbags)
                         {
                             <span>@LocalizerVehicle["Equipment_FrontAirbags"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFrontAndSideAirbags)
+                        @if (_carOfferModel.HasFrontAndSideAirbags)
                         {
                             <span>@LocalizerVehicle["Equipment_FrontAndSideAirbags"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFrontAndSideAndMoreAirbags)
+                        @if (_carOfferModel.HasFrontAndSideAndMoreAirbags)
                         {
                             <span>@LocalizerVehicle["Equipment_FrontAndSideAndMoreAirbags"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasIsofix)
+                        @if (_carOfferModel.HasIsofix)
                         {
                             <span>@LocalizerVehicle["Equipment_Isofix"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasBiXenonHeadlights)
+                        @if (_carOfferModel.HasBiXenonHeadlights)
                         {
                             <span>@LocalizerVehicle["Equipment_BiXenonHeadlights"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasLaserHeadlights)
+                        @if (_carOfferModel.HasLaserHeadlights)
                         {
                             <span>@LocalizerVehicle["Equipment_LaserHeadlights"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasLedHeadlights)
+                        @if (_carOfferModel.HasLedHeadlights)
                         {
                             <span>@LocalizerVehicle["Equipment_LedHeadlights"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasXenonHeadlights)
+                        @if (_carOfferModel.HasXenonHeadlights)
                         {
                             <span>@LocalizerVehicle["Equipment_XenonHeadlights"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasHeadlightWasherSystem)
+                        @if (_carOfferModel.HasHeadlightWasherSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_HeadlightWasherSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasGlareFreeHighBeamHeadlights)
+                        @if (_carOfferModel.HasGlareFreeHighBeamHeadlights)
                         {
                             <span>@LocalizerVehicle["Equipment_GlareFreeHighBeamHeadlights"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasHighBeamAssist)
+                        @if (_carOfferModel.HasHighBeamAssist)
                         {
                             <span>@LocalizerVehicle["Equipment_HighBeamAssist"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAdaptiveCorneringLights)
+                        @if (_carOfferModel.HasAdaptiveCorneringLights)
                         {
                             <span>@LocalizerVehicle["Equipment_AdaptiveCorneringLights"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAdaptiveLighting)
+                        @if (_carOfferModel.HasAdaptiveLighting)
                         {
                             <span>@LocalizerVehicle["Equipment_AdaptiveLighting"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFogLamps)
+                        @if (_carOfferModel.HasFogLamps)
                         {
                             <span>@LocalizerVehicle["Equipment_FogLamps"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAlarm)
+                        @if (_carOfferModel.HasAlarm)
                         {
                             <span>@LocalizerVehicle["Equipment_Alarm"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasEngineImobilizer)
+                        @if (_carOfferModel.HasEngineImobilizer)
                         {
                             <span>@LocalizerVehicle["Equipment_EngineImobilizer"]</span>
                         }
@@ -213,111 +214,111 @@
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                        @if (_vehicleModel.Equipment.HasAirConditioner)
+                        @if (_carOfferModel.HasAirConditioner)
                         {
                             <span>@LocalizerVehicle["Equipment_AirConditioner"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasClimateControl)
+                        @if (_carOfferModel.HasClimateControl)
                         {
                             <span>@LocalizerVehicle["Equipment_ClimateControl"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasHeatedWindshield)
+                        @if (_carOfferModel.HasHeatedWindshield)
                         {
                             <span>@LocalizerVehicle["Equipment_HeatedWindshield"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasHeatedSteeringWheel)
+                        @if (_carOfferModel.HasHeatedSteeringWheel)
                         {
                             <span>@LocalizerVehicle["Equipment_HeatedSteeringWheel"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasSelfSteeringSystems)
+                        @if (_carOfferModel.HasSelfSteeringSystems)
                         {
                             <span>@LocalizerVehicle["Equipment_SelfSteeringSystems"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFrontParkAssistant)
+                        @if (_carOfferModel.HasFrontParkAssistant)
                         {
                             <span>@LocalizerVehicle["Equipment_FrontParkAssistant"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasRearParkAssistant)
+                        @if (_carOfferModel.HasRearParkAssistant)
                         {
                             <span>@LocalizerVehicle["Equipment_RearParkAssistant"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasCameraAssistant)
+                        @if (_carOfferModel.HasCameraAssistant)
                         {
                             <span>@LocalizerVehicle["Equipment_CameraAssistant"]</span>
                         }
-                        @if (_vehicleModel.Equipment.Has360DegreeCameraAssistant)
+                        @if (_carOfferModel.Has360DegreeCameraAssistant)
                         {
                             <span>@LocalizerVehicle["Equipment_360DegreeCameraAssistant"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFrontHeatedSeats)
+                        @if (_carOfferModel.HasFrontHeatedSeats)
                         {
                             <span>@LocalizerVehicle["Equipment_FrontHeatedSeats"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasBackHeatedSeats)
+                        @if (_carOfferModel.HasBackHeatedSeats)
                         {
                             <span>@LocalizerVehicle["Equipment_BackHeatedSeats"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasFrontAdjustableSeats)
+                        @if (_carOfferModel.HasFrontAdjustableSeats)
                         {
                             <span>@LocalizerVehicle["Equipment_FrontAdjustableSeats"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasBackAdjustableSeats)
+                        @if (_carOfferModel.HasBackAdjustableSeats)
                         {
                             <span>@LocalizerVehicle["Equipment_BackAdjustableSeats"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasSportSeats)
+                        @if (_carOfferModel.HasSportSeats)
                         {
                             <span>@LocalizerVehicle["Equipment_SportSeats"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasArmRest)
+                        @if (_carOfferModel.HasArmRest)
                         {
                             <span>@LocalizerVehicle["Equipment_ArmRest"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasMassageSeats)
+                        @if (_carOfferModel.HasMassageSeats)
                         {
                             <span>@LocalizerVehicle["Equipment_MassageSeats"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasSeatVentilation)
+                        @if (_carOfferModel.HasSeatVentilation)
                         {
                             <span>@LocalizerVehicle["Equipment_SeatVentilation"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasElectricWindows)
+                        @if (_carOfferModel.HasElectricWindows)
                         {
                             <span>@LocalizerVehicle["Equipment_ElectricWindows"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasElectricSideMirror)
+                        @if (_carOfferModel.HasElectricSideMirror)
                         {
                             <span>@LocalizerVehicle["Equipment_ElectricSideMirror"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasElectricTailgate)
+                        @if (_carOfferModel.HasElectricTailgate)
                         {
                             <span>@LocalizerVehicle["Equipment_ElectricTailgate"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasCentralLocking)
+                        @if (_carOfferModel.HasCentralLocking)
                         {
                             <span>@LocalizerVehicle["Equipment_CentralLocking"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasKeylessCentralLocking)
+                        @if (_carOfferModel.HasKeylessCentralLocking)
                         {
                             <span>@LocalizerVehicle["Equipment_KeylessCentralLocking"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasLightSensor)
+                        @if (_carOfferModel.HasLightSensor)
                         {
                             <span>@LocalizerVehicle["Equipment_LightSensor"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasRainSensor)
+                        @if (_carOfferModel.HasRainSensor)
                         {
                             <span>@LocalizerVehicle["Equipment_RainSensor"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasPowerAssistedSteering)
+                        @if (_carOfferModel.HasPowerAssistedSteering)
                         {
                             <span>@LocalizerVehicle["Equipment_PowerAssistedSteering"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAmbientLighting)
+                        @if (_carOfferModel.HasAmbientLighting)
                         {
                             <span>@LocalizerVehicle["Equipment_AmbientLighting"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasLeatherSteeringWheel)
+                        @if (_carOfferModel.HasLeatherSteeringWheel)
                         {
                             <span>@LocalizerVehicle["Equipment_LeatherSteeringWheel"]</span>
                         }
@@ -332,111 +333,111 @@
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                        @if (_vehicleModel.Equipment.HasRadio)
+                        @if (_carOfferModel.HasRadio)
                         {
                             <span>@LocalizerVehicle["Equipment_Radio"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasCDPlayer)
+                        @if (_carOfferModel.HasCDPlayer)
                         {
                             <span>@LocalizerVehicle["Equipment_CDPlayer"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasTV)
+                        @if (_carOfferModel.HasTV)
                         {
                             <span>@LocalizerVehicle["Equipment_TV"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasNavigationSystem)
+                        @if (_carOfferModel.HasNavigationSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_NavigationSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasSoundSystem)
+                        @if (_carOfferModel.HasSoundSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_SoundSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasTouchScreen)
+                        @if (_carOfferModel.HasTouchScreen)
                         {
                             <span>@LocalizerVehicle["Equipment_TouchScreen"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasVoiceControl)
+                        @if (_carOfferModel.HasVoiceControl)
                         {
                             <span>@LocalizerVehicle["Equipment_VoiceControl"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasMultifunctionSteeringWheel)
+                        @if (_carOfferModel.HasMultifunctionSteeringWheel)
                         {
                             <span>@LocalizerVehicle["Equipment_MultifunctionSteeringWheel"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasHandsfreeKit)
+                        @if (_carOfferModel.HasHandsfreeKit)
                         {
                             <span>@LocalizerVehicle["Equipment_HandsfreeKit"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasUSBPort)
+                        @if (_carOfferModel.HasUSBPort)
                         {
                             <span>@LocalizerVehicle["Equipment_USBPort"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasBluetooth)
+                        @if (_carOfferModel.HasBluetooth)
                         {
                             <span>@LocalizerVehicle["Equipment_Bluetooth"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAppleCarPlay)
+                        @if (_carOfferModel.HasAppleCarPlay)
                         {
                             <span>@LocalizerVehicle["Equipment_AppleCarPlay"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAndroidAuto)
+                        @if (_carOfferModel.HasAndroidAuto)
                         {
                             <span>@LocalizerVehicle["Equipment_AndroidAuto"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasOnboardComputer)
+                        @if (_carOfferModel.HasOnboardComputer)
                         {
                             <span>@LocalizerVehicle["Equipment_OnboardComputer"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasHeadupDisplay)
+                        @if (_carOfferModel.HasHeadupDisplay)
                         {
                             <span>@LocalizerVehicle["Equipment_HeadupDisplay"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasDigitalCockpit)
+                        @if (_carOfferModel.HasDigitalCockpit)
                         {
                             <span>@LocalizerVehicle["Equipment_DigitalCockpit"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasSeatVentilation)
+                        @if (_carOfferModel.HasSeatVentilation)
                         {
                             <span>@LocalizerVehicle["Equipment_SeatVentilation"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasElectricWindows)
+                        @if (_carOfferModel.HasElectricWindows)
                         {
                             <span>@LocalizerVehicle["Equipment_ElectricWindows"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasElectricSideMirror)
+                        @if (_carOfferModel.HasElectricSideMirror)
                         {
                             <span>@LocalizerVehicle["Equipment_ElectricSideMirror"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasElectricTailgate)
+                        @if (_carOfferModel.HasElectricTailgate)
                         {
                             <span>@LocalizerVehicle["Equipment_ElectricTailgate"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasCentralLocking)
+                        @if (_carOfferModel.HasCentralLocking)
                         {
                             <span>@LocalizerVehicle["Equipment_CentralLocking"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasKeylessCentralLocking)
+                        @if (_carOfferModel.HasKeylessCentralLocking)
                         {
                             <span>@LocalizerVehicle["Equipment_KeylessCentralLocking"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasLightSensor)
+                        @if (_carOfferModel.HasLightSensor)
                         {
                             <span>@LocalizerVehicle["Equipment_LightSensor"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasRainSensor)
+                        @if (_carOfferModel.HasRainSensor)
                         {
                             <span>@LocalizerVehicle["Equipment_RainSensor"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasPowerAssistedSteering)
+                        @if (_carOfferModel.HasPowerAssistedSteering)
                         {
                             <span>@LocalizerVehicle["Equipment_PowerAssistedSteering"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAmbientLighting)
+                        @if (_carOfferModel.HasAmbientLighting)
                         {
                             <span>@LocalizerVehicle["Equipment_AmbientLighting"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasLeatherSteeringWheel)
+                        @if (_carOfferModel.HasLeatherSteeringWheel)
                         {
                             <span>@LocalizerVehicle["Equipment_LeatherSteeringWheel"]</span>
                         }
@@ -451,31 +452,31 @@
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                        @if (_vehicleModel.Equipment.HasSummerTires)
+                        @if (_carOfferModel.HasSummerTires)
                         {
                             <span>@LocalizerVehicle["Equipment_SummerTires"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasWinterTires)
+                        @if (_carOfferModel.HasWinterTires)
                         {
                             <span>@LocalizerVehicle["Equipment_WinterTires"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasAllSeasonTires)
+                        @if (_carOfferModel.HasAllSeasonTires)
                         {
                             <span>@LocalizerVehicle["Equipment_AllSeasonTires"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasNavigationSystem)
+                        @if (_carOfferModel.HasNavigationSystem)
                         {
                             <span>@LocalizerVehicle["Equipment_NavigationSystem"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasEmergencyTire)
+                        @if (_carOfferModel.HasEmergencyTire)
                         {
                             <span>@LocalizerVehicle["Equipment_EmergencyTire"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasEmergencyTireKit)
+                        @if (_carOfferModel.HasEmergencyTireKit)
                         {
                             <span>@LocalizerVehicle["Equipment_EmergencyTireKit"]</span>
                         }
-                        @if (_vehicleModel.Equipment.HasPanoramicRoof)
+                        @if (_carOfferModel.HasPanoramicRoof)
                         {
                             <span>@LocalizerVehicle["Equipment_PanoramicRoof"]</span>
                         }
@@ -488,9 +489,9 @@
 
 @code {
     [Parameter]
-    public long VehicleId { get; set; }
+    public string Id { get; set; }
 
-    private VehicleModel _vehicleModel;
+    private CarOfferModel _carOfferModel;
     private bool _isLoading;
 
     protected override async Task OnInitializedAsync()
@@ -498,8 +499,8 @@
         try
         {
             _isLoading = true;
-            var api = await OnebrbApiClient.ApiVehiclesAsync(VehicleId);
-            _vehicleModel = Mapper.Map<VehicleModel>(api.Result);
+            var api = await OnebrbApiClient.ApiOffersCarsAsync(Id);
+            _carOfferModel = Mapper.Map<CarOfferModel>(api.Result);
         }
         finally
         {

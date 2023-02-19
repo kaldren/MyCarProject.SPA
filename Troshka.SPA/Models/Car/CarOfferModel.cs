@@ -1,7 +1,29 @@
-﻿namespace Troshka.SPA.Models
+﻿namespace Troshka.SPA.Models.Car
 {
-    public class VehicleEquipmentModel
+    public class CarOfferModel
     {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public string OwnerDisplayName { get; set; }
+        public string OwnerPhone { get; set; }
+        public bool OwnerIsDisplayNamePublic { get; set; }
+        public string Year { get; set; }
+        public string HorsePowers { get; set; }
+        public string Mileage { get; set; }
+        public bool IsRegistered { get; set; }
+        public DateTimeOffset FirstRegistration { get; set; }
+        public string EngineName { get; set; }
+        public string EuroName { get; set; }
+        public string TransmissionName { get; set; }
+        public string ColorName { get; set; }
+        public int SeatsValue { get; set; }
+        public string DoorsName { get; set; }
+        public string InteriorMaterialName { get; set; }
+        public string InteriorColorName { get; set; }
+        public string BrandName { get; set; }
+        public string ModelName { get; set; }
+
         public bool HasABS { get; set; }
         public bool HasESP { get; set; }
         public bool HasASR { get; set; }
@@ -89,6 +111,5 @@
         public bool HasEmergencyTire { get; set; }
         public bool HasEmergencyTireKit { get; set; }
         public bool HasPanoramicRoof { get; set; }
-
     }
 }

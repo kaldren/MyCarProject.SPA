@@ -1,6 +1,7 @@
 ﻿@using AutoMapper;
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models;
+@using Troshka.SPA.Models.Car;
 
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
@@ -13,17 +14,17 @@
         <p>@LocalizerShared["Loading"]</p>
     }
 
-    @if (_vehicleImageModel != default)
+    @if (_carImageModel != default)
     {
-        <Carousel ImageUrls="_vehicleImageModel.Select(p => p.ImageUrl).ToList()" />
+        <Carousel ImageUrls="_carImageModel.Select(p => p.ImageUrl).ToList()" />
     }
 </div>
 
 @code {
     [Parameter]
-    public long VehicleId { get; set; }
+    public string Id { get; set; }
 
-    private List<VehicleImageModel> _vehicleImageModel;
+    private List<CarOfferImagesModel> _carImageModel;
     private bool _isLoading;
 
     protected override async Task OnInitializedAsync()
@@ -31,8 +32,8 @@
         try
         {
             _isLoading = true;
-            var api = await OnebrbApiClient.ApiVehiclesImagesAsync(VehicleId);
-            _vehicleImageModel = Mapper.Map<List<VehicleImageModel>>(api.Result);
+            var api = await OnebrbApiClient.ApiOffersCarsImagesAsync(Id);
+            _carImageModel = Mapper.Map<List<CarOfferImagesModel>>(api.Result);
         }
         finally
         {

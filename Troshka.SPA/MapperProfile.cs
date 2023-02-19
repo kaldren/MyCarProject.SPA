@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Troshka.SPA.Models;
 using OnebrbApi;
+using Troshka.SPA.Models;
+using Troshka.SPA.Models.Car;
 
 namespace Troshka.SPA
 {
@@ -9,11 +10,13 @@ namespace Troshka.SPA
         public MapperProfile()
         {
             #region Vehicle
-            CreateMap<VehicleResponseModel, VehicleModel>();
-            CreateMap<VehicleSpecification, VehicleSpecificationModel>();
-            CreateMap<VehicleEquipment, VehicleEquipmentModel>();
-            CreateMap<VehicleImageResponseModel, VehicleImageModel>();
-            CreateMap<VehicleOwnerResponseModel, VehicleOwnerModel>();
+            CreateMap<CarOfferResponseModel, CarOfferModel>();
+            CreateMap<CarOfferImagesResponseModel, CarOfferImagesModel>();
+            CreateMap<VehicleOwnerResponseModel, OwnerModel>();
+
+            //CreateMap<VehicleSpecification, CarSpecificationModel>();
+            //CreateMap<VehicleEquipment, CarEquipmentModel>();
+            //CreateMap<VehicleImageResponseModel, VehicleImageModel>();
             #endregion
         }
     }
