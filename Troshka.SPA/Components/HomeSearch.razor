@@ -14,16 +14,18 @@
     else
     {
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder="Категория" Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_categories.First().Name Change=@(args => OnChange(args)) />
+                    Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_categories.First().Name Change=@(args => OnChange(args)) />
 
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder="Марка" Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" Change=@(args => OnChange(args)) />
+                    Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" Change=@(args => OnChange(args)) />
 
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder="Модел" Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" Change=@(args => OnChange(args)) />
+                    Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" Change=@(args => OnChange(args)) />
 
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder="Година" Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+                    Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+
+        <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
     }
 </div>
 
@@ -76,6 +78,11 @@
     void OnChange(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+    }
+
+    void OnSearchButtonClick()
+    {
+        
     }
 
     class Vehicle

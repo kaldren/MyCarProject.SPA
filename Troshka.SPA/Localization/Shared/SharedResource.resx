@@ -123,6 +123,12 @@
   <data name="AuthenticatingPleaseWait" xml:space="preserve">
     <value>Authentication in progress, please wait...</value>
   </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
@@ -135,6 +141,9 @@
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
   <data name="NothingAtThisAddress" xml:space="preserve">
     <value>Sorry, there's nothing at this address.</value>
   </data>
@@ -146,5 +155,8 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
   </data>
 </root>
