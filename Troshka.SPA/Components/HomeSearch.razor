@@ -1,33 +1,52 @@
-﻿<div class="Components__HomeSearch">
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder="Категория" Data=@_vehicleTypeList TextProperty="VehicleType" ValueProperty="VehicleId" Change=@(args => OnChange(args)) />
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+﻿@using AutoMapper;
+@using Troshka.SPA.Interfaces;
+@using Troshka.SPA.Models;
+
+@inject IOnebrbApiClientPublic OnebrbApiClient
+@inject IMapper Mapper
+@inject IStringLocalizer<Localization.SharedResource> LocalizerShared
+
+<div class="Components__HomeSearch">
+    @if (_isLoading)
+    {
+        <p>@LocalizerShared["Loading"]</p>
+    }
+    else
+    {
+        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder="Категория" Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_categories.First().Name Change=@(args => OnChange(args)) />
+
+        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                     Placeholder="Марка" Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" Change=@(args => OnChange(args)) />
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+
+        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                     Placeholder="Модел" Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" Change=@(args => OnChange(args)) />
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+
+        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                     Placeholder="Година" Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+    }
 </div>
 
 @code {
-    private IEnumerable<Vehicle> _vehicleTypeList;
+    private ICollection<CategoryModel> _categories;
     private IEnumerable<Brand> _brandList;
     private IEnumerable<Model> _modelList;
     private IEnumerable<Year> _yearList;
 
+    private bool _isLoading;
+
     protected override async Task OnInitializedAsync()
     {
-        _vehicleTypeList = new List<Vehicle>
+        try
         {
-            new Vehicle {VehicleId = 1, VehicleType = "Автомобили"},
-            new Vehicle {VehicleId = 3, VehicleType = "Бусове"},
-            new Vehicle {VehicleId = 2, VehicleType = "Камиони"},
-            new Vehicle {VehicleId = 4, VehicleType = "Мотори"},
-            new Vehicle {VehicleId = 5, VehicleType = "Каравани"},
-            new Vehicle {VehicleId = 6, VehicleType = "Яхти и лодки"},
-            new Vehicle {VehicleId = 7, VehicleType = "Строителни"},
-            new Vehicle {VehicleId = 8, VehicleType = "Селскостопански"},
-        };
+            _isLoading = true;
+            var api = await OnebrbApiClient.ApiVehiclesCategoriesAsync();
+            _categories = Mapper.Map<List<CategoryModel>>(api.Result);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
 
         _brandList = new List<Brand>
         {

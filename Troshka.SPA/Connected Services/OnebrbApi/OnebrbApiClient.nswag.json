@@ -605,106 +605,142 @@
         }
       }
     },
-    "/api/vehicles/{vehicleId}": {
+    "/api/vehicles/categories": {
       "get": {
         "tags": [
           "Vehicles"
         ],
-        "operationId": "vehicles",
-        "parameters": [
-          {
-            "name": "vehicleId",
-            "in": "path",
-            "style": "simple",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
+        "operationId": "categories",
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "application/json;odata.metadata=minimal;odata.streaming=true": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=minimal;odata.streaming=false": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=minimal": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=full;odata.streaming=true": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=full;odata.streaming=false": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=full": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=none;odata.streaming=true": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=none;odata.streaming=false": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.metadata=none": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.streaming=true": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json;odata.streaming=false": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "application/octet-stream": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleResponseModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseModel"
+                  }
                 }
               }
             }
@@ -1828,6 +1864,16 @@
           }
         }
       },
+      "CategoryResponseModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "ProblemDetails": {
         "type": "object",
         "additionalProperties": {},
@@ -1855,255 +1901,6 @@
           }
         }
       },
-      "VehicleEquipment": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "hasABS": {
-            "type": "boolean"
-          },
-          "hasESP": {
-            "type": "boolean"
-          },
-          "hasASR": {
-            "type": "boolean"
-          },
-          "hasHillStartAssist": {
-            "type": "boolean"
-          },
-          "hasFatigueWarningSystem": {
-            "type": "boolean"
-          },
-          "hasLaneChangeAssist": {
-            "type": "boolean"
-          },
-          "hasBlindSpotAssist": {
-            "type": "boolean"
-          },
-          "hasNightVisionAssist": {
-            "type": "boolean"
-          },
-          "hasEmergencyBrakeAssist": {
-            "type": "boolean"
-          },
-          "hasEmergencyCallSystem": {
-            "type": "boolean"
-          },
-          "hasTrafficSignRecognition": {
-            "type": "boolean"
-          },
-          "hasCruiseControl": {
-            "type": "boolean"
-          },
-          "hasAdaptiveCruiseControl": {
-            "type": "boolean"
-          },
-          "hasSpeedLimitControlSystem": {
-            "type": "boolean"
-          },
-          "hasDistanceWarningSystem": {
-            "type": "boolean"
-          },
-          "hasDriverAirbag": {
-            "type": "boolean"
-          },
-          "hasFrontAirbags": {
-            "type": "boolean"
-          },
-          "hasFrontAndSideAirbags": {
-            "type": "boolean"
-          },
-          "hasFrontAndSideAndMoreAirbags": {
-            "type": "boolean"
-          },
-          "hasIsofix": {
-            "type": "boolean"
-          },
-          "hasBiXenonHeadlights": {
-            "type": "boolean"
-          },
-          "hasLaserHeadlights": {
-            "type": "boolean"
-          },
-          "hasLedHeadlights": {
-            "type": "boolean"
-          },
-          "hasXenonHeadlights": {
-            "type": "boolean"
-          },
-          "hasHeadlightWasherSystem": {
-            "type": "boolean"
-          },
-          "hasGlareFreeHighBeamHeadlights": {
-            "type": "boolean"
-          },
-          "hasHighBeamAssist": {
-            "type": "boolean"
-          },
-          "hasAdaptiveCorneringLights": {
-            "type": "boolean"
-          },
-          "hasAdaptiveLighting": {
-            "type": "boolean"
-          },
-          "hasFogLamps": {
-            "type": "boolean"
-          },
-          "hasAlarm": {
-            "type": "boolean"
-          },
-          "hasEngineImobilizer": {
-            "type": "boolean"
-          },
-          "hasAirConditioner": {
-            "type": "boolean"
-          },
-          "hasClimateControl": {
-            "type": "boolean"
-          },
-          "hasHeatedWindshield": {
-            "type": "boolean"
-          },
-          "hasHeatedSteeringWheel": {
-            "type": "boolean"
-          },
-          "hasSelfSteeringSystems": {
-            "type": "boolean"
-          },
-          "hasFrontParkAssistant": {
-            "type": "boolean"
-          },
-          "hasRearParkAssistant": {
-            "type": "boolean"
-          },
-          "hasCameraAssistant": {
-            "type": "boolean"
-          },
-          "has360DegreeCameraAssistant": {
-            "type": "boolean"
-          },
-          "hasFrontHeatedSeats": {
-            "type": "boolean"
-          },
-          "hasBackHeatedSeats": {
-            "type": "boolean"
-          },
-          "hasFrontAdjustableSeats": {
-            "type": "boolean"
-          },
-          "hasBackAdjustableSeats": {
-            "type": "boolean"
-          },
-          "hasSportSeats": {
-            "type": "boolean"
-          },
-          "hasArmRest": {
-            "type": "boolean"
-          },
-          "hasMassageSeats": {
-            "type": "boolean"
-          },
-          "hasSeatVentilation": {
-            "type": "boolean"
-          },
-          "hasElectricWindows": {
-            "type": "boolean"
-          },
-          "hasElectricSideMirror": {
-            "type": "boolean"
-          },
-          "hasElectricTailgate": {
-            "type": "boolean"
-          },
-          "hasCentralLocking": {
-            "type": "boolean"
-          },
-          "hasKeylessCentralLocking": {
-            "type": "boolean"
-          },
-          "hasLightSensor": {
-            "type": "boolean"
-          },
-          "hasRainSensor": {
-            "type": "boolean"
-          },
-          "hasPowerAssistedSteering": {
-            "type": "boolean"
-          },
-          "hasAmbientLighting": {
-            "type": "boolean"
-          },
-          "hasLeatherSteeringWheel": {
-            "type": "boolean"
-          },
-          "hasRadio": {
-            "type": "boolean"
-          },
-          "hasCDPlayer": {
-            "type": "boolean"
-          },
-          "hasTV": {
-            "type": "boolean"
-          },
-          "hasNavigationSystem": {
-            "type": "boolean"
-          },
-          "hasSoundSystem": {
-            "type": "boolean"
-          },
-          "hasTouchScreen": {
-            "type": "boolean"
-          },
-          "hasVoiceControl": {
-            "type": "boolean"
-          },
-          "hasMultifunctionSteeringWheel": {
-            "type": "boolean"
-          },
-          "hasHandsfreeKit": {
-            "type": "boolean"
-          },
-          "hasUSBPort": {
-            "type": "boolean"
-          },
-          "hasBluetooth": {
-            "type": "boolean"
-          },
-          "hasAppleCarPlay": {
-            "type": "boolean"
-          },
-          "hasAndroidAuto": {
-            "type": "boolean"
-          },
-          "hasOnboardComputer": {
-            "type": "boolean"
-          },
-          "hasHeadupDisplay": {
-            "type": "boolean"
-          },
-          "hasDigitalCockpit": {
-            "type": "boolean"
-          },
-          "hasSummerTires": {
-            "type": "boolean"
-          },
-          "hasWinterTires": {
-            "type": "boolean"
-          },
-          "hasAllSeasonTires": {
-            "type": "boolean"
-          },
-          "hasEmergencyTire": {
-            "type": "boolean"
-          },
-          "hasEmergencyTireKit": {
-            "type": "boolean"
-          },
-          "hasPanoramicRoof": {
-            "type": "boolean"
-          }
-        }
-      },
       "VehicleImageResponseModel": {
         "type": "object",
         "additionalProperties": false,
@@ -2128,95 +1925,6 @@
           },
           "isDisplayNameVisible": {
             "type": "boolean"
-          }
-        }
-      },
-      "VehicleResponseModel": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "technicalSpecification": {
-            "$ref": "#/components/schemas/VehicleSpecification"
-          },
-          "equipment": {
-            "$ref": "#/components/schemas/VehicleEquipment"
-          }
-        }
-      },
-      "VehicleSpecification": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "horsePowers": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "category": {
-            "type": "string",
-            "nullable": true
-          },
-          "mileage": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "engine": {
-            "type": "string",
-            "nullable": true
-          },
-          "euro": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "transmission": {
-            "type": "string",
-            "nullable": true
-          },
-          "color": {
-            "type": "string",
-            "nullable": true
-          },
-          "seats": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "doors": {
-            "type": "string",
-            "nullable": true
-          },
-          "brand": {
-            "type": "string",
-            "nullable": true
-          },
-          "model": {
-            "type": "string",
-            "nullable": true
-          },
-          "year": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "firstRegistration": {
-            "type": "string",
-            "nullable": true
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "isRegistered": {
-            "type": "boolean"
-          },
-          "interiorMaterial": {
-            "type": "string",
-            "nullable": true
-          },
-          "interiorColor": {
-            "type": "string",
-            "nullable": true
           }
         }
       }

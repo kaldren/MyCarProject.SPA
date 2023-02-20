@@ -14,7 +14,7 @@ namespace Troshka.SPA
             CreateMap<CarOfferImagesResponseModel, CarOfferImagesModel>();
             CreateMap<VehicleOwnerResponseModel, OwnerModel>();
 
-            //CreateMap<VehicleSpecification, CarSpecificationModel>();
+            CreateMap<CategoryResponseModel, CategoryModel>();
             //CreateMap<VehicleEquipment, CarEquipmentModel>();
             //CreateMap<VehicleImageResponseModel, VehicleImageModel>();
             #endregion
