@@ -30,7 +30,10 @@
     }
 </div>
 
-<SearchResultInfiniteScroll />
+@if (_showSearchResults == true)
+{
+    <SearchResultInfiniteScroll />
+}
 
 @code {
     private ICollection<CategoryModel> _categories;
@@ -39,6 +42,7 @@
     private IEnumerable<Year> _yearList;
 
     private bool _isLoading;
+    private bool _showSearchResults;
 
     protected override async Task OnInitializedAsync()
     {
@@ -85,6 +89,7 @@
 
     void OnSearchButtonClick()
     {
+        _showSearchResults = true;
     }
 
     class Vehicle
