@@ -6,24 +6,27 @@
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
 
-@if (response == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
-        <ul>
-            @foreach (var forecast in response)
-            {
-                <li class="list-group-item">@forecast.BrandName @forecast.ModelName @forecast.Description</li>
-            }
+<div class="Components__SearchResultInfiniteScroll">
+    @if (response.Count == 0)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
+            <ul>
+                @foreach (var forecast in response)
+                {
+                    <li class="list-group-item">@forecast.BrandName @forecast.ModelName @forecast.Description</li>
+                }
 
-            @*The target element that we observe. Once this is reached the callback will be triggered.*@
-            <li class="list-group-item" id="observerTarget"></li>
-        </ul>
-    </Sve.Blazor.InfiniteScroll.Components.InfiniteScroll>
-}
+                @*The target element that we observe. Once this is reached the callback will be triggered.*@
+                <li class="list-group-item" id="observerTarget"></li>
+            </ul>
+        </Sve.Blazor.InfiniteScroll.Components.InfiniteScroll>
+    }
+</div>
+
 @code {
     [Parameter]
     public CarSearchRequestModel Data { get; set; }

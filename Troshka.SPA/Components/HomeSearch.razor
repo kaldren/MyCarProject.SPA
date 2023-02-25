@@ -28,9 +28,9 @@
 
         <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
     }
-
-    <SearchResultInfiniteScroll />
 </div>
+
+<SearchResultInfiniteScroll />
 
 @code {
     private ICollection<CategoryModel> _categories;
