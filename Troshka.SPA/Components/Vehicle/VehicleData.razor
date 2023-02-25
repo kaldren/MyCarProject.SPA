@@ -499,7 +499,7 @@
         try
         {
             _isLoading = true;
-            var api = await OnebrbApiClient.ApiOffersCarsAsync(Id);
+            var api = await OnebrbApiClient.ApiOffersCarsGetAsync(Id);
             _carOfferModel = Mapper.Map<CarOfferModel>(api.Result);
         }
         finally

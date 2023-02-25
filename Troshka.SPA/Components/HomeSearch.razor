@@ -1,6 +1,7 @@
 ﻿@using AutoMapper;
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models;
+@using Sve.Blazor.InfiniteScroll.Components
 
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
@@ -27,6 +28,8 @@
 
         <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
     }
+
+    <SearchResultInfiniteScroll />
 </div>
 
 @code {
@@ -82,7 +85,6 @@
 
     void OnSearchButtonClick()
     {
-        
     }
 
     class Vehicle

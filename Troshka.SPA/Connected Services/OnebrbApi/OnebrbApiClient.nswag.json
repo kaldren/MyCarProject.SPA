@@ -5,6 +5,319 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/offers/cars": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "operationId": "carsAll",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarOfferEntity"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/offers/cars/{offerId}": {
       "get": {
         "tags": [
@@ -1523,6 +1836,584 @@
   },
   "components": {
     "schemas": {
+      "CarBrandEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CarColorEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CarDoorsEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CarEngineEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CarEquipmentEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "hasABS": {
+            "type": "boolean"
+          },
+          "hasESP": {
+            "type": "boolean"
+          },
+          "hasASR": {
+            "type": "boolean"
+          },
+          "hasHillStartAssist": {
+            "type": "boolean"
+          },
+          "hasFatigueWarningSystem": {
+            "type": "boolean"
+          },
+          "hasLaneChangeAssist": {
+            "type": "boolean"
+          },
+          "hasBlindSpotAssist": {
+            "type": "boolean"
+          },
+          "hasNightVisionAssist": {
+            "type": "boolean"
+          },
+          "hasEmergencyBrakeAssist": {
+            "type": "boolean"
+          },
+          "hasEmergencyCallSystem": {
+            "type": "boolean"
+          },
+          "hasTrafficSignRecognition": {
+            "type": "boolean"
+          },
+          "hasCruiseControl": {
+            "type": "boolean"
+          },
+          "hasAdaptiveCruiseControl": {
+            "type": "boolean"
+          },
+          "hasSpeedLimitControlSystem": {
+            "type": "boolean"
+          },
+          "hasDistanceWarningSystem": {
+            "type": "boolean"
+          },
+          "hasDriverAirbag": {
+            "type": "boolean"
+          },
+          "hasFrontAirbags": {
+            "type": "boolean"
+          },
+          "hasFrontAndSideAirbags": {
+            "type": "boolean"
+          },
+          "hasFrontAndSideAndMoreAirbags": {
+            "type": "boolean"
+          },
+          "hasIsofix": {
+            "type": "boolean"
+          },
+          "hasBiXenonHeadlights": {
+            "type": "boolean"
+          },
+          "hasLaserHeadlights": {
+            "type": "boolean"
+          },
+          "hasLedHeadlights": {
+            "type": "boolean"
+          },
+          "hasXenonHeadlights": {
+            "type": "boolean"
+          },
+          "hasHeadlightWasherSystem": {
+            "type": "boolean"
+          },
+          "hasGlareFreeHighBeamHeadlights": {
+            "type": "boolean"
+          },
+          "hasHighBeamAssist": {
+            "type": "boolean"
+          },
+          "hasAdaptiveCorneringLights": {
+            "type": "boolean"
+          },
+          "hasAdaptiveLighting": {
+            "type": "boolean"
+          },
+          "hasFogLamps": {
+            "type": "boolean"
+          },
+          "hasAlarm": {
+            "type": "boolean"
+          },
+          "hasEngineImobilizer": {
+            "type": "boolean"
+          },
+          "hasAirConditioner": {
+            "type": "boolean"
+          },
+          "hasClimateControl": {
+            "type": "boolean"
+          },
+          "hasHeatedWindshield": {
+            "type": "boolean"
+          },
+          "hasHeatedSteeringWheel": {
+            "type": "boolean"
+          },
+          "hasSelfSteeringSystems": {
+            "type": "boolean"
+          },
+          "hasFrontParkAssistant": {
+            "type": "boolean"
+          },
+          "hasRearParkAssistant": {
+            "type": "boolean"
+          },
+          "hasCameraAssistant": {
+            "type": "boolean"
+          },
+          "has360DegreeCameraAssistant": {
+            "type": "boolean"
+          },
+          "hasFrontHeatedSeats": {
+            "type": "boolean"
+          },
+          "hasBackHeatedSeats": {
+            "type": "boolean"
+          },
+          "hasFrontAdjustableSeats": {
+            "type": "boolean"
+          },
+          "hasBackAdjustableSeats": {
+            "type": "boolean"
+          },
+          "hasSportSeats": {
+            "type": "boolean"
+          },
+          "hasArmRest": {
+            "type": "boolean"
+          },
+          "hasMassageSeats": {
+            "type": "boolean"
+          },
+          "hasSeatVentilation": {
+            "type": "boolean"
+          },
+          "hasElectricWindows": {
+            "type": "boolean"
+          },
+          "hasElectricSideMirror": {
+            "type": "boolean"
+          },
+          "hasElectricTailgate": {
+            "type": "boolean"
+          },
+          "hasCentralLocking": {
+            "type": "boolean"
+          },
+          "hasKeylessCentralLocking": {
+            "type": "boolean"
+          },
+          "hasLightSensor": {
+            "type": "boolean"
+          },
+          "hasRainSensor": {
+            "type": "boolean"
+          },
+          "hasPowerAssistedSteering": {
+            "type": "boolean"
+          },
+          "hasAmbientLighting": {
+            "type": "boolean"
+          },
+          "hasLeatherSteeringWheel": {
+            "type": "boolean"
+          },
+          "hasRadio": {
+            "type": "boolean"
+          },
+          "hasCDPlayer": {
+            "type": "boolean"
+          },
+          "hasTV": {
+            "type": "boolean"
+          },
+          "hasNavigationSystem": {
+            "type": "boolean"
+          },
+          "hasSoundSystem": {
+            "type": "boolean"
+          },
+          "hasTouchScreen": {
+            "type": "boolean"
+          },
+          "hasVoiceControl": {
+            "type": "boolean"
+          },
+          "hasMultifunctionSteeringWheel": {
+            "type": "boolean"
+          },
+          "hasHandsfreeKit": {
+            "type": "boolean"
+          },
+          "hasUSBPort": {
+            "type": "boolean"
+          },
+          "hasBluetooth": {
+            "type": "boolean"
+          },
+          "hasAppleCarPlay": {
+            "type": "boolean"
+          },
+          "hasAndroidAuto": {
+            "type": "boolean"
+          },
+          "hasOnboardComputer": {
+            "type": "boolean"
+          },
+          "hasHeadupDisplay": {
+            "type": "boolean"
+          },
+          "hasDigitalCockpit": {
+            "type": "boolean"
+          },
+          "hasSummerTires": {
+            "type": "boolean"
+          },
+          "hasWinterTires": {
+            "type": "boolean"
+          },
+          "hasAllSeasonTires": {
+            "type": "boolean"
+          },
+          "hasEmergencyTire": {
+            "type": "boolean"
+          },
+          "hasEmergencyTireKit": {
+            "type": "boolean"
+          },
+          "hasPanoramicRoof": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CarEuroStandardEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CarInteriorMaterialEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CarModelEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "carBrandId": {
+            "type": "string",
+            "nullable": true
+          },
+          "carBrand": {
+            "$ref": "#/components/schemas/CarBrandEntity"
+          }
+        }
+      },
+      "CarOfferEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/OwnerEntity"
+          },
+          "specification": {
+            "$ref": "#/components/schemas/CarSpecificationEntity"
+          },
+          "equipment": {
+            "$ref": "#/components/schemas/CarEquipmentEntity"
+          }
+        }
+      },
       "CarOfferImagesResponseModel": {
         "type": "object",
         "additionalProperties": false,
@@ -1864,6 +2755,164 @@
           }
         }
       },
+      "CarSeatsEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CarSpecificationEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "horsePowers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mileage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isRegistered": {
+            "type": "boolean"
+          },
+          "firstRegistration": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "engine": {
+            "$ref": "#/components/schemas/CarEngineEntity"
+          },
+          "euro": {
+            "$ref": "#/components/schemas/CarEuroStandardEntity"
+          },
+          "transmission": {
+            "$ref": "#/components/schemas/CarTransmissionEntity"
+          },
+          "color": {
+            "$ref": "#/components/schemas/CarColorEntity"
+          },
+          "seats": {
+            "$ref": "#/components/schemas/CarSeatsEntity"
+          },
+          "doors": {
+            "$ref": "#/components/schemas/CarDoorsEntity"
+          },
+          "interiorMaterial": {
+            "$ref": "#/components/schemas/CarInteriorMaterialEntity"
+          },
+          "interiorColor": {
+            "$ref": "#/components/schemas/CarColorEntity"
+          },
+          "brandId": {
+            "type": "string",
+            "nullable": true
+          },
+          "brand": {
+            "$ref": "#/components/schemas/CarBrandEntity"
+          },
+          "modelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "$ref": "#/components/schemas/CarModelEntity"
+          }
+        }
+      },
+      "CarTransmissionEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "CategoryResponseModel": {
         "type": "object",
         "additionalProperties": false,
@@ -1871,6 +2920,48 @@
           "name": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "OwnerEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDisplayNamePublic": {
+            "type": "boolean"
           }
         }
       },
