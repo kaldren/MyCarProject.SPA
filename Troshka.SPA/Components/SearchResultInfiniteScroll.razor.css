@@ -1,5 +1,7 @@
 ﻿.Components__SearchResultInfiniteScroll {
     display: flex;
+    flex-wrap: wrap;
+    margin: 2rem auto;
 }
 
 .Components__SearchResultInfiniteScroll ::deep ul {
@@ -12,7 +14,6 @@
 
 .Components__SearchResultInfiniteScroll ::deep ul li {
     display: block;
-    width: 100%;
     text-align: center;
 }
 

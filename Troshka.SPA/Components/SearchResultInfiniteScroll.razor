@@ -1,6 +1,7 @@
 ﻿@using AutoMapper;
 @using System.Net;
 @using System.Text.Json;
+@using Troshka.SPA.Components.Vehicle
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models.Car;
 
@@ -23,27 +24,8 @@
                     string uri = $"offers/{offer.Id}";
 
                     <li>
-                        <a href="@uri" target="_blank">
-                            <RadzenCard>
-                                <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center">
-                                    <RadzenImage Path="/img/carmock.jpg" />
-                                    <RadzenStack>
-                                        <RadzenText>@(offer.Title)</RadzenText>
-                                            <RadzenText>Veliko Tarnovo</RadzenText>
-                                        </RadzenStack>
-                                        <RadzenStack>
-                                            <RadzenText>@offer.Description</RadzenText>
-                                        </RadzenStack>
-                                    </RadzenStack>
-                                    <hr style="border: none; background-color: rgba(0,0,0,.2); height: 1px; margin: 1rem 0;" />
-                                    <RadzenRow>
-                                        <RadzenColumn>
-                                            <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text=@($"{String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", offer.Price)}") />
-                                        </RadzenColumn>
-                                    </RadzenRow>
-                                </RadzenCard>
-                            </a>
-                        </li>
+                            <VehicleBox Model=@offer  />       
+                    </li>
                 }
 
                 <li class="list-group-item" id="observerTarget"></li>

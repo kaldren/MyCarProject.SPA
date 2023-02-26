@@ -1,0 +1,14 @@
+﻿.Components__VehicleBox {
+    display: flex;
+    flex-wrap: wrap;
+}
+.Components__VehicleBox > div {
+    display: block;
+    margin: 1rem;
+    width: 600px;
+    text-align: center;
+}
+.Components__VehicleBox--car-photo {
+    display: block;
+    margin: 0.5rem auto;
+}

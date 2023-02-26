@@ -38,9 +38,7 @@ a, .btn-link {
 }
 
 .content__inner {
-    padding: 1.5rem;
-    max-width: 960px;
-    margin: 0 auto;
+    min-height:700px;
 }
 
 .valid.modified:not([type=checkbox]) {

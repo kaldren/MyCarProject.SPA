@@ -1,7 +1,9 @@
 ﻿.Components__HomeSearch {
+    padding-top: 30rem;
     display: flex;
-    margin-top: 50%;
     margin-bottom: 200px;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 .Components__HomeSearch ::deep .rz-dropdown {
