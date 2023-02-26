@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
   <data name="Equipment_360DegreeCameraAssistant" xml:space="preserve">
     <value>360 Degree Camera Assistant</value>
   </data>
@@ -360,6 +363,21 @@
   <data name="Equipment_XenonHeadlights" xml:space="preserve">
     <value>Xenon Headlights</value>
   </data>
+  <data name="HorsepowerShort" xml:space="preserve">
+    <value>hp</value>
+  </data>
+  <data name="KilometersShort" xml:space="preserve">
+    <value>km</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="SeeOfferButton" xml:space="preserve">
+    <value>See offer</value>
+  </data>
+  <data name="Semi-automatic" xml:space="preserve">
+    <value>Semi-automatic</value>
+  </data>
   <data name="Specification_Brand" xml:space="preserve">
     <value>Brand</value>
   </data>
@@ -437,6 +455,9 @@
   </data>
   <data name="Specification_Year" xml:space="preserve">
     <value>Year</value>
+  </data>
+  <data name="TransmissionPlural" xml:space="preserve">
+    <value>transmission</value>
   </data>
   <data name="Vehicle_Description" xml:space="preserve">
     <value>Description</value>

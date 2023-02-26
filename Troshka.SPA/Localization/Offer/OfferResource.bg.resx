@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Automatic" xml:space="preserve">
+    <value>Автоматични</value>
+  </data>
   <data name="Equipment_360DegreeCameraAssistant" xml:space="preserve">
     <value>360 градусов асистент за камера</value>
   </data>
@@ -360,6 +363,21 @@
   <data name="Equipment_XenonHeadlights" xml:space="preserve">
     <value>Ксенонови фарове</value>
   </data>
+  <data name="HorsepowerShort" xml:space="preserve">
+    <value>кс</value>
+  </data>
+  <data name="KilometersShort" xml:space="preserve">
+    <value>км</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Ръчни</value>
+  </data>
+  <data name="SeeOfferButton" xml:space="preserve">
+    <value>Виж обявата</value>
+  </data>
+  <data name="Semi-automatic" xml:space="preserve">
+    <value>Полуавтоматични</value>
+  </data>
   <data name="Specification_Brand" xml:space="preserve">
     <value>Марка</value>
   </data>
@@ -437,6 +455,9 @@
   </data>
   <data name="Specification_Year" xml:space="preserve">
     <value>Година</value>
+  </data>
+  <data name="TransmissionPlural" xml:space="preserve">
+    <value>скорости</value>
   </data>
   <data name="Vehicle_Description" xml:space="preserve">
     <value>Описание</value>
