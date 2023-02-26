@@ -1,12 +1,14 @@
-﻿.Pages__Vehicle {
-    background: #fff;
+﻿.Pages__Offer {
     display: flex;
+    padding: 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
-.Pages__Vehicle main {
+.Pages__Offer main {
     flex: 2;
 }
 
-.Pages__Vehicle aside {
+.Pages__Offer aside {
     background: var(--main-bg-color)
 }
