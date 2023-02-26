@@ -1,6 +1,31 @@
 ﻿namespace Troshka.SPA.Models.Car;
 
-public class CarOfferModel
+public abstract class BaseEntity
+{
+    /// <summary>
+    /// Gets or sets the entity id property
+    /// </summary>
+    public string Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entity IsDeleted property
+    /// </summary>
+    public bool IsDeleted { get; set; }
+
+    public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.UtcNow;
+
+    /// <summary>
+    /// Gets or sets the entity last update property
+    /// </summary>
+    public DateTimeOffset? DateUpdated { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entity deletion date
+    /// </summary>
+    public DateTimeOffset? DateDeleted { get; set; }
+}
+
+public class CarOfferModel : BaseEntity
 {
     public string Title { get; set; }
     public string Description { get; set; }
