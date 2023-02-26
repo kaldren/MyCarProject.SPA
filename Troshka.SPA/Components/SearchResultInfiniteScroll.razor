@@ -32,7 +32,7 @@
     [Parameter]
     public CarSearchRequestModel Data { get; set; }
 
-    private IEnumerable<CarOfferModel2> cars;
+    private IEnumerable<CarOfferModel> cars;
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,7 +48,7 @@
         response.EnsureSuccessStatusCode();
 
 
-        cars = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel2>>();
+        cars = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
 
         //var fetchedCars = await OnebrbApiClient.ApiOffersCarsGetAsync();
     }
