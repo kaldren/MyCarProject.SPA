@@ -1,13 +1,14 @@
 ﻿@using AutoMapper;
 @using System.Net;
+@using System.Text.Json;
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models.Car;
 
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
-
+@inject IHttpClientFactory HttpClientFactory;
 <div class="Components__SearchResultInfiniteScroll">
-    @if (response.Count == 0)
+    @if (cars == null)
     {
         <p><em>Loading...</em></p>
     }
@@ -15,9 +16,9 @@
     {
         <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
             <ul>
-                @foreach (var forecast in response)
+                @foreach (var forecast in cars)
                 {
-                    <li class="list-group-item">@forecast.BrandName @forecast.ModelName @forecast.Description</li>
+                    <li class="list-group-item">@forecast.Title @forecast.Price @forecast.Description</li>
                 }
 
                 @*The target element that we observe. Once this is reached the callback will be triggered.*@
@@ -31,7 +32,7 @@
     [Parameter]
     public CarSearchRequestModel Data { get; set; }
 
-    private List<CarOfferModel> response = new List<CarOfferModel>();
+    private IEnumerable<CarOfferModel2> cars;
 
     protected override async Task OnInitializedAsync()
     {
@@ -40,7 +41,15 @@
 
     private async Task FetchForecasts()
     {
-        var fetchedCars = await OnebrbApiClient.ApiOffersCarsGetAsync();
-        response.AddRange(Mapper.Map<IEnumerable<CarOfferModel>>(fetchedCars.Result)); // Make sure to use AddRange() to append the new items
+        var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
+        //cars = await client.GetFromJsonAsync<IEnumerable<CarOfferModel>>($"/api/offers/cars?$filter=Specification/BrandId eq '{Data.BrandId}' and Specification/ModelId eq '{Data.ModelId}'");
+        var response = await client.GetAsync($"/api/offers/cars?$filter=Specification/BrandId eq '{Data.BrandId}' and Specification/ModelId eq '{Data.ModelId}'");
+
+        response.EnsureSuccessStatusCode();
+
+
+        cars = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel2>>();
+
+        //var fetchedCars = await OnebrbApiClient.ApiOffersCarsGetAsync();
     }
 }

@@ -2,6 +2,7 @@
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models;
 @using Sve.Blazor.InfiniteScroll.Components
+@using Troshka.SPA.Models.Car;
 
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
@@ -15,13 +16,13 @@
     else
     {
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_categories.First().Name Change=@(args => OnChange(args)) />
+                    Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_carSearch.Category Change=@(args => OnChange(args)) />
 
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" Change=@(args => OnChange(args)) />
+                    Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" @bind-Value=@_carSearch.BrandId />
 
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" Change=@(args => OnChange(args)) />
+                    Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" @bind-Value=@_carSearch.ModelId />
 
         <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                     Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
@@ -32,7 +33,7 @@
 
 @if (_showSearchResults == true)
 {
-    <SearchResultInfiniteScroll />
+    <SearchResultInfiniteScroll Data=@_carSearch />
 }
 
 @code {
@@ -40,6 +41,7 @@
     private IEnumerable<Brand> _brandList;
     private IEnumerable<Model> _modelList;
     private IEnumerable<Year> _yearList;
+    private CarSearchRequestModel _carSearch = new();
 
     private bool _isLoading;
     private bool _showSearchResults;
@@ -59,18 +61,18 @@
 
         _brandList = new List<Brand>
         {
-            new Brand {BrandId = 1, BrandName = "Audi"},
-            new Brand {BrandId = 2, BrandName = "BMW"},
-            new Brand {BrandId = 3, BrandName = "Mercedes"},
-            new Brand {BrandId = 4, BrandName = "VW"},
+            new Brand {BrandId = "48xSUCHrRIfABkLmGHxD", BrandName = "Audi"},
+            new Brand {BrandId = "dasdsada", BrandName = "BMW"},
+            new Brand {BrandId = "dasdsada", BrandName = "Mercedes"},
+            new Brand {BrandId = "dasdsada", BrandName = "VW"},
         };
 
         _modelList = new List<Model>
         {
-            new Model {ModelId = 1, ModelName = "A6"},
-            new Model {ModelId = 2, ModelName = "A8"},
-            new Model {ModelId = 3, ModelName = "A4"},
-            new Model {ModelId = 4, ModelName = "Q8"},
+            new Model {ModelId = "CHMcpA79gbWpMI1fQVQ8", ModelName = "A6"},
+            new Model {ModelId = "dasdsaa", ModelName = "A8"},
+            new Model {ModelId = "dasdsaa", ModelName = "A4"},
+            new Model {ModelId = "dasdsaa", ModelName = "Q8"},
         };
 
         _yearList = new List<Year>
@@ -101,14 +103,14 @@
 
     class Brand
     {
-        public int BrandId { get; set; }
+        public string BrandId { get; set; }
 
         public string BrandName { get; set; }
     }
 
     class Model
     {
-        public int ModelId { get; set; }
+        public string ModelId { get; set; }
 
         public string ModelName { get; set; }
     }

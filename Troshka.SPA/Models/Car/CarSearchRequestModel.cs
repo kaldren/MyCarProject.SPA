@@ -2,10 +2,10 @@
 {
     public class CarSearchRequestModel
     {
-        public CategoryModel Category { get; set; }
+        public string Category { get; set; }
 
-        public string Brand { get; set; }
-        public string Model { get; set; }
-        public int Year { get; set; }
+        public string BrandId { get; set; }
+        public string ModelId { get; set; }
+        public string Year { get; set; }
     }
 }
