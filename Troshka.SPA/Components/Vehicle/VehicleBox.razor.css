@@ -12,3 +12,9 @@
     display: block;
     margin: 0.5rem auto;
 }
+
+.Components__VehicleBox ::deep .owner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

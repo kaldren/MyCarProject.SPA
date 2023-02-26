@@ -35,7 +35,7 @@ public class CarOfferModel : BaseEntity
     public virtual CarEquipmentEntityModel Equipment { get; set; }
 }
 
-public class OwnerEntityModel
+public class OwnerEntityModel : BaseEntity
 {
     public string DisplayName { get; set; }
     public string Phone { get; set; }
