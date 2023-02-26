@@ -1,3 +1,29 @@
 ﻿.Components__SearchResultInfiniteScroll {
+    display: flex;
+}
 
+.Components__SearchResultInfiniteScroll ::deep ul {
+    width: 100%;
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Components__SearchResultInfiniteScroll ::deep ul li {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.Components__SearchResultInfiniteScroll ::deep .rz-card {
+    margin: 0.5rem;
+    display: block;
+    width: 100%;
+}
+
+.Components__SearchResultInfiniteScroll ::deep img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
 }

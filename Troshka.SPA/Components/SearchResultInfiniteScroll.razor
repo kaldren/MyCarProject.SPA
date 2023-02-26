@@ -8,7 +8,7 @@
 @inject IMapper Mapper
 @inject IHttpClientFactory HttpClientFactory;
 <div class="Components__SearchResultInfiniteScroll">
-    @if (cars == null)
+    @if (_carOffers.Count == 0)
     {
         <p><em>Loading...</em></p>
     }
@@ -16,12 +16,30 @@
     {
         <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
             <ul>
-                @foreach (var forecast in cars)
+                @foreach (var offer in _carOffers)
                 {
-                    <li class="list-group-item">@forecast.Title @forecast.Price @forecast.Description</li>
+                    <li>
+                        <RadzenCard>
+                            <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center">
+                                <RadzenImage Path="/img/carmock.jpg" />
+                                <RadzenStack>
+                                    <RadzenText>@(offer.Title)</RadzenText>
+                                    <RadzenText>Veliko Tarnovo</RadzenText>
+                                </RadzenStack>
+                                <RadzenStack>
+                                    <RadzenText>@offer.Description</RadzenText>
+                                </RadzenStack>
+                            </RadzenStack>
+                            <hr style="border: none; background-color: rgba(0,0,0,.2); height: 1px; margin: 1rem 0;" />
+                            <RadzenRow>
+                                <RadzenColumn>
+                                    <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text=@($"{String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", offer.Price)}") />
+                                </RadzenColumn>
+                            </RadzenRow>
+                        </RadzenCard>
+                    </li>
                 }
 
-                @*The target element that we observe. Once this is reached the callback will be triggered.*@
                 <li class="list-group-item" id="observerTarget"></li>
             </ul>
         </Sve.Blazor.InfiniteScroll.Components.InfiniteScroll>
@@ -32,24 +50,25 @@
     [Parameter]
     public CarSearchRequestModel Data { get; set; }
 
-    private IEnumerable<CarOfferModel> cars;
+    private List<CarOfferModel> _carOffers = new();
+    private int _totalFetched = 0;
+    private const int MaxOffersPerFetch = 5;
 
     protected override async Task OnInitializedAsync()
     {
-        await FetchForecasts(); // Initial data
+        await FetchForecasts();
     }
 
     private async Task FetchForecasts()
     {
         var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
-        //cars = await client.GetFromJsonAsync<IEnumerable<CarOfferModel>>($"/api/offers/cars?$filter=Specification/BrandId eq '{Data.BrandId}' and Specification/ModelId eq '{Data.ModelId}'");
-        var response = await client.GetAsync($"/api/offers/cars?$filter=Specification/BrandId eq '{Data.BrandId}' and Specification/ModelId eq '{Data.ModelId}'");
+        var response = await client.GetAsync($"/api/offers/cars?$filter=Specification/BrandId eq '{Data.BrandId}' and Specification/ModelId eq '{Data.ModelId}' &$top={MaxOffersPerFetch}&$skip={_totalFetched}");
 
         response.EnsureSuccessStatusCode();
 
+        var apiResponse = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
+        _carOffers.AddRange(apiResponse);
 
-        cars = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
-
-        //var fetchedCars = await OnebrbApiClient.ApiOffersCarsGetAsync();
+        _totalFetched += apiResponse.Count();
     }
 }
