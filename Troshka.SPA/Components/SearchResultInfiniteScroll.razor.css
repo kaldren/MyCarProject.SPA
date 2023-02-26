@@ -6,7 +6,8 @@
 
 .Components__SearchResultInfiniteScroll ::deep ul {
     width: 100%;
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
     list-style-type: none;
     margin: 0;
     padding: 0;
