@@ -1,6 +1,6 @@
 ﻿namespace Troshka.SPA.Localization
 {
-    public class VehicleResource
+    public class OfferResource
     {
     }
 }

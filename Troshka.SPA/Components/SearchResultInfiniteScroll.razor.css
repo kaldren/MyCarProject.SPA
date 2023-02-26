@@ -13,10 +13,10 @@
     padding: 0;
 }
 
-.Components__SearchResultInfiniteScroll ::deep ul li {
-    display: block;
-    text-align: center;
-}
+    .Components__SearchResultInfiniteScroll ::deep ul li {
+        display: block;
+        text-align: center;
+    }
 
 .Components__SearchResultInfiniteScroll ::deep .rz-card {
     margin: 0.5rem;
