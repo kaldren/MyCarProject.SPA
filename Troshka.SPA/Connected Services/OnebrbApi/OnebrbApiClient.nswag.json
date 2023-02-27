@@ -3006,6 +3006,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
           "displayName": {
             "type": "string",
             "nullable": true
