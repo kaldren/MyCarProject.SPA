@@ -35,7 +35,7 @@
             <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
         </div>
         <div class="search-filters">
-            <RadzenButton Text="Dialog on Side" Style="width: 100%" ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
+            <RadzenButton Text=@LocalizerOffer["Filters"] Style="width: 100%" ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
         </div>
     }
 </div>
@@ -200,7 +200,7 @@
 
     async Task ShowFiltersDialog()
     {
-        await DialogService.OpenAsync("Filters", ds =>
+        await DialogService.OpenAsync(@LocalizerOffer["Filters"], ds =>
 
         @<SearchCheckboxFilters SearchFilters=SearchFilters />, 
         new DialogOptions() { CloseDialogOnOverlayClick = true, CssClass="Dialog__SearchCheckBoxFilters" });

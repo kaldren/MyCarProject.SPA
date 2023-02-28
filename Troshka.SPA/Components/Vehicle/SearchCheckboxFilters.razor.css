@@ -9,3 +9,5 @@
     margin: 0.5rem;
 }
 
+.Components__SearchCheckboxFilters .checkbox-filters ::deep .checkbox-filter .rz-chkbox {margin: 0.3rem;}
+

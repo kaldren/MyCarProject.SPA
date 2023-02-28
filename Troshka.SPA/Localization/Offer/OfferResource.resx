@@ -363,6 +363,9 @@
   <data name="Equipment_XenonHeadlights" xml:space="preserve">
     <value>Xenon Headlights</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
   <data name="HorsepowerShort" xml:space="preserve">
     <value>hp</value>
   </data>

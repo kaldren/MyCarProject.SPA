@@ -363,6 +363,9 @@
   <data name="Equipment_XenonHeadlights" xml:space="preserve">
     <value>Ксенонови фарове</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Филтри</value>
+  </data>
   <data name="HorsepowerShort" xml:space="preserve">
     <value>кс</value>
   </data>
