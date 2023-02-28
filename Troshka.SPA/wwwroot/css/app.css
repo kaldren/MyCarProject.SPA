@@ -134,12 +134,16 @@ i.bi {
 /*#endregion Main*/
 
 /*#region Misc*/
-.rz-dialog-wrapper .rz-dialog {
+/*.rz-dialog-wrapper .rz-dialog {
     width: auto !important;
     max-width: 800px !important;
 }
+*/
+.Dialog__SearchCheckBoxFilters {
+    width: 1400px !important;
+    max-width: 100% !important;
+}
 /*#endregion Misc*/
-
 /*#region Footer*/
 footer {
     color: white;

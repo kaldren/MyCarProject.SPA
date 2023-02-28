@@ -1,12 +1,16 @@
-﻿@using AutoMapper;
-@using Troshka.SPA.Interfaces;
-@using Troshka.SPA.Models;
+﻿@using AutoMapper
+@using Troshka.SPA.Components.Vehicle;
+@using Troshka.SPA.Interfaces
+@using Troshka.SPA.Models
 @using Sve.Blazor.InfiniteScroll.Components
-@using Troshka.SPA.Models.Car;
+@using Troshka.SPA.Models.Car
 
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
 @inject IStringLocalizer<Localization.SharedResource> LocalizerShared
+@inject IStringLocalizer<Localization.OfferResource> LocalizerOffer
+@inject DialogService DialogService
+@implements IDisposable
 
 <div class="Components__HomeSearch">
     @if (_isLoading)
@@ -15,19 +19,24 @@
     }
     else
     {
-        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_carSearch.Category Change=@(args => OnChange(args)) />
+        <div class="main-search">
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                        Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_carSearch.Category Change=@(args => OnChange(args)) />
 
-        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" @bind-Value=@_carSearch.BrandId />
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                        Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" @bind-Value=@_carSearch.BrandId />
 
-        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" @bind-Value=@_carSearch.ModelId />
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                        Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" @bind-Value=@_carSearch.ModelId />
 
-        <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                        Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
 
-        <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
+            <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
+        </div>
+        <div class="search-filters">
+            <RadzenButton Text="Dialog on Side" Style="width: 100%" ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
+        </div>
     }
 </div>
 
@@ -45,6 +54,101 @@
 
     private bool _isLoading;
     private bool _showSearchResults;
+    private Filters SearchFilters = new();
+
+    #region Filters
+    public class Filters
+    {
+        public bool FilterIsRegistered;
+        public bool FilterHasABS { get; set; }
+        public bool FilterHasESP { get; set; }
+        public bool FilterHasASR { get; set; }
+        public bool FilterHasHillStartAssist { get; set; }
+        public bool FilterHasFatigueWarningSystem { get; set; }
+        public bool FilterHasLaneChangeAssist { get; set; }
+        public bool FilterHasBlindSpotAssist { get; set; }
+        public bool FilterHasNightVisionAssist { get; set; }
+        public bool FilterHasEmergencyBrakeAssist { get; set; }
+        public bool FilterHasEmergencyCallSystem { get; set; }
+        public bool FilterHasTrafficSignRecognition { get; set; }
+        public bool FilterHasCruiseControl { get; set; }
+        public bool FilterHasAdaptiveCruiseControl { get; set; }
+        public bool FilterHasSpeedLimitControlSystem { get; set; }
+        public bool FilterHasDistanceWarningSystem { get; set; }
+        public bool FilterHasDriverAirbag { get; set; }
+        public bool FilterHasFrontAirbags { get; set; }
+        public bool FilterHasFrontAndSideAirbags { get; set; }
+        public bool FilterHasFrontAndSideAndMoreAirbags { get; set; }
+        public bool FilterHasIsofix { get; set; }
+        public bool FilterHasBiXenonHeadlights { get; set; }
+        public bool FilterHasLaserHeadlights { get; set; }
+        public bool FilterHasLedHeadlights { get; set; }
+        public bool FilterHasXenonHeadlights { get; set; }
+        public bool FilterHasHeadlightWasherSystem { get; set; }
+        public bool FilterHasGlareFreeHighBeamHeadlights { get; set; }
+        public bool FilterHasHighBeamAssist { get; set; }
+        public bool FilterHasAdaptiveCorneringLights { get; set; }
+        public bool FilterHasAdaptiveLighting { get; set; }
+        public bool FilterHasFogLamps { get; set; }
+        public bool FilterHasAlarm { get; set; }
+        public bool FilterHasEngineImobilizer { get; set; }
+
+        // Comfort
+        public bool FilterHasAirConditioner { get; set; }
+        public bool FilterHasClimateControl { get; set; }
+        public bool FilterHasHeatedWindshield { get; set; }
+        public bool FilterHasHeatedSteeringWheel { get; set; }
+        public bool FilterHasSelfSteeringSystems { get; set; }
+        public bool FilterHasFrontParkAssistant { get; set; }
+        public bool FilterHasRearParkAssistant { get; set; }
+        public bool FilterHasCameraAssistant { get; set; }
+        public bool FilterHas360DegreeCameraAssistant { get; set; }
+        public bool FilterHasFrontHeatedSeats { get; set; }
+        public bool FilterHasBackHeatedSeats { get; set; }
+        public bool FilterHasFrontAdjustableSeats { get; set; }
+        public bool FilterHasBackAdjustableSeats { get; set; }
+        public bool FilterHasSportSeats { get; set; }
+        public bool FilterHasArmRest { get; set; }
+        public bool FilterHasMassageSeats { get; set; }
+        public bool FilterHasSeatVentilation { get; set; }
+        public bool FilterHasElectricWindows { get; set; }
+        public bool FilterHasElectricSideMirror { get; set; }
+        public bool FilterHasElectricTailgate { get; set; }
+        public bool FilterHasCentralLocking { get; set; }
+        public bool FilterHasKeylessCentralLocking { get; set; }
+        public bool FilterHasLightSensor { get; set; }
+        public bool FilterHasRainSensor { get; set; }
+        public bool FilterHasPowerAssistedSteering { get; set; }
+        public bool FilterHasAmbientLighting { get; set; }
+        public bool FilterHasLeatherSteeringWheel { get; set; }
+
+        // Devices
+        public bool FilterHasRadio { get; set; }
+        public bool FilterHasCDPlayer { get; set; }
+        public bool FilterHasTV { get; set; }
+        public bool FilterHasNavigationSystem { get; set; }
+        public bool FilterHasSoundSystem { get; set; }
+        public bool FilterHasTouchScreen { get; set; }
+        public bool FilterHasVoiceControl { get; set; }
+        public bool FilterHasMultifunctionSteeringWheel { get; set; }
+        public bool FilterHasHandsfreeKit { get; set; }
+        public bool FilterHasUSBPort { get; set; }
+        public bool FilterHasBluetooth { get; set; }
+        public bool FilterHasAppleCarPlay { get; set; }
+        public bool FilterHasAndroidAuto { get; set; }
+        public bool FilterHasOnboardComputer { get; set; }
+        public bool FilterHasHeadupDisplay { get; set; }
+        public bool FilterHasDigitalCockpit { get; set; }
+
+        // Other
+        public bool FilterHasSummerTires { get; set; }
+        public bool FilterHasWinterTires { get; set; }
+        public bool FilterHasAllSeasonTires { get; set; }
+        public bool FilterHasEmergencyTire { get; set; }
+        public bool FilterHasEmergencyTireKit { get; set; }
+        public bool FilterHasPanoramicRoof { get; set; }
+    }
+    #endregion Filters
 
     protected override async Task OnInitializedAsync()
     {
@@ -94,6 +198,14 @@
         _showSearchResults = true;
     }
 
+    async Task ShowFiltersDialog()
+    {
+        await DialogService.OpenAsync("Filters", ds =>
+
+        @<SearchCheckboxFilters SearchFilters=SearchFilters />, 
+        new DialogOptions() { CloseDialogOnOverlayClick = true, CssClass="Dialog__SearchCheckBoxFilters" });
+    }
+
     class Vehicle
     {
         public int VehicleId { get; set; }
@@ -120,5 +232,19 @@
         public int YearId { get; set; }
 
         public string YearName { get; set; }
+    }
+
+    public void Dispose()
+    {
+        DialogService.OnOpen -= Open;
+        DialogService.OnClose -= Close;
+    }
+
+    void Open(string title, Type type, Dictionary<string, object> parameters, DialogOptions options)
+    {
+    }
+
+    void Close(dynamic result)
+    {
     }
 }

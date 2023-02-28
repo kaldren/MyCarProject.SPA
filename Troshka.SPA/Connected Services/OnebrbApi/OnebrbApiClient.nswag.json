@@ -1906,6 +1906,41 @@
           }
         }
       },
+      "CarCoupeEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "CarDoorsEntity": {
         "type": "object",
         "additionalProperties": false,
@@ -2285,6 +2320,41 @@
           }
         }
       },
+      "CarFuelTypeEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "trackId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateDeleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "CarInteriorMaterialEntity": {
         "type": "object",
         "additionalProperties": false,
@@ -2411,6 +2481,12 @@
           },
           "equipment": {
             "$ref": "#/components/schemas/CarEquipmentEntity"
+          },
+          "coupe": {
+            "$ref": "#/components/schemas/CarCoupeEntity"
+          },
+          "fuelType": {
+            "$ref": "#/components/schemas/CarFuelTypeEntity"
           }
         }
       },
@@ -2875,6 +2951,12 @@
           },
           "model": {
             "$ref": "#/components/schemas/CarModelEntity"
+          },
+          "coupe": {
+            "$ref": "#/components/schemas/CarCoupeEntity"
+          },
+          "fuelType": {
+            "$ref": "#/components/schemas/CarFuelTypeEntity"
           }
         }
       },

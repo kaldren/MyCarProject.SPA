@@ -1,0 +1,11 @@
+﻿
+.Components__SearchCheckboxFilters .checkbox-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.Components__SearchCheckboxFilters .checkbox-filters .checkbox-filter {
+    margin: 0.5rem;
+}
+
