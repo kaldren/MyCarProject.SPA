@@ -11,3 +11,7 @@
 .Components__HomeSearch ::deep .rz-dropdown {
     margin: 0 0.5rem;
 }
+
+.Components__HomeSearch .search-filters {
+    margin: 1rem auto;
+}
