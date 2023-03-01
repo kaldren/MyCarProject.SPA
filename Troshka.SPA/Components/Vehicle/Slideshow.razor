@@ -32,7 +32,7 @@
         try
         {
             _isLoading = true;
-            var api = await OnebrbApiClient.ApiOffersCarsImagesAsync(Id);
+            var api = await OnebrbApiClient.ApiCarsOffersImagesAsync(Id);
             _carImageModel = Mapper.Map<List<CarOfferImagesModel>>(api.Result);
         }
         finally

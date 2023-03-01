@@ -29,7 +29,7 @@
 
             <div class="main__search--main">
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.BrandId Change=@(args => OnVehicleBrandChange())  />
+                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.BrandId Change=@(args => OnVehicleBrandChange()) />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                             Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.ModelId />
@@ -198,7 +198,7 @@
         {
             if (_offerSearch.Category == "Cars")
             {
-                var response = await OnebrbApiClient.ApiOffersCarsBrandsAsync();
+                var response = await OnebrbApiClient.ApiCarsBrandsAsync();
                 _brandList = Mapper.Map<ICollection<VehicleBrandModel>>(response.Result);
             }
             else
@@ -214,13 +214,13 @@
         {
             if (_offerSearch.Category == "Cars")
             {
-                var response = await OnebrbApiClient.ApiOffersCarsBrandsModelsAsync(_offerSearch.BrandId);
+                var response = await OnebrbApiClient.ApiCarsBrandsModelsAsync(_offerSearch.BrandId);
                 _modelList = Mapper.Map<ICollection<VehicleModelModel>>(response.Result);
             }
-            else
-            {
-                _modelList = null;
-            }
+        }
+        else
+        {
+            _modelList = null;
         }
     }
 
