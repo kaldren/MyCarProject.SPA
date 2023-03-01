@@ -1,4 +1,6 @@
-﻿@using AutoMapper
+﻿@using Troshka.SPA.Models;
+@using Troshka.SPA.Models.Car;
+@using AutoMapper
 @using Troshka.SPA.Components.Vehicle;
 @using Troshka.SPA.Interfaces
 @using Troshka.SPA.Models
@@ -21,16 +23,16 @@
     {
         <div class="main__search">
             <div class="main__search--categories">
-                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_carSearch.Category Change=@(args => OnChange(args)) />
+                <RadzenDropDown TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_offerSearch.Category Change=@(args => OnVehicleCategoryChange()) />
             </div>
 
             <div class="main__search--main">
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" @bind-Value=@_carSearch.BrandId />
+                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.BrandId Change=@(args => OnVehicleBrandChange())  />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" @bind-Value=@_carSearch.ModelId />
+                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.ModelId />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                             Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
@@ -49,6 +51,7 @@
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                             Placeholder=@LocalizerOffer["PopulatedPlace"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
             </div>
+
         </div>
         <div class="search-filters">
             <RadzenButton Text=@LocalizerOffer["Filters"] ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
@@ -62,15 +65,15 @@
 
 @if (_showSearchResults == true)
 {
-    <SearchResultInfiniteScroll Data=@_carSearch />
+    <SearchResultInfiniteScroll Data=@_offerSearch />
 }
 
 @code {
-    private ICollection<CategoryModel> _categories;
-    private IEnumerable<Brand> _brandList;
-    private IEnumerable<Model> _modelList;
+    private ICollection<VehicleCategoryModel> _categories;
+    private IEnumerable<VehicleBrandModel> _brandList;
+    private IEnumerable<VehicleModelModel> _modelList;
     private IEnumerable<Year> _yearList;
-    private CarSearchRequestModel _carSearch = new();
+    private VehicleSearchRequestModel _offerSearch = new();
 
     private bool _isLoading;
     private bool _showSearchResults;
@@ -176,41 +179,49 @@
         {
             _isLoading = true;
             var api = await OnebrbApiClient.ApiVehiclesCategoriesAsync();
-            _categories = Mapper.Map<List<CategoryModel>>(api.Result);
+            _categories = Mapper.Map<List<VehicleCategoryModel>>(api.Result);
         }
         finally
         {
             _isLoading = false;
         }
-
-        _brandList = new List<Brand>
-        {
-            new Brand {BrandId = "48xSUCHrRIfABkLmGHxD", BrandName = "Audi"},
-            new Brand {BrandId = "dasdsada", BrandName = "BMW"},
-            new Brand {BrandId = "dasdsada", BrandName = "Mercedes"},
-            new Brand {BrandId = "dasdsada", BrandName = "VW"},
-        };
-
-        _modelList = new List<Model>
-        {
-            new Model {ModelId = "CHMcpA79gbWpMI1fQVQ8", ModelName = "A6"},
-            new Model {ModelId = "dasdsaa", ModelName = "A8"},
-            new Model {ModelId = "dasdsaa", ModelName = "A4"},
-            new Model {ModelId = "dasdsaa", ModelName = "Q8"},
-        };
-
-        _yearList = new List<Year>
-        {
-            new Year {YearId = 1, YearName = "2023"},
-            new Year {YearId = 2, YearName = "2022"},
-            new Year {YearId = 3, YearName = "2021"},
-            new Year {YearId = 4, YearName = "2020"},
-        };
     }
 
     void OnChange(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+    }
+
+    async Task OnVehicleCategoryChange()
+    {
+        if (!string.IsNullOrWhiteSpace(_offerSearch.Category))
+        {
+            if (_offerSearch.Category == "Cars")
+            {
+                var response = await OnebrbApiClient.ApiOffersCarsBrandsAsync();
+                _brandList = Mapper.Map<ICollection<VehicleBrandModel>>(response.Result);
+            }
+            else
+            {
+                _brandList = null;
+            }
+        }
+    }
+
+    async Task OnVehicleBrandChange()
+    {
+        if (!string.IsNullOrWhiteSpace(_offerSearch.BrandId))
+        {
+            if (_offerSearch.Category == "Cars")
+            {
+                var response = await OnebrbApiClient.ApiOffersCarsBrandsModelsAsync(_offerSearch.BrandId);
+                _modelList = Mapper.Map<ICollection<VehicleModelModel>>(response.Result);
+            }
+            else
+            {
+                _modelList = null;
+            }
+        }
     }
 
     void OnSearchButtonClick()
@@ -231,13 +242,6 @@
         public int VehicleId { get; set; }
 
         public string VehicleType { get; set; }
-    }
-
-    class Brand
-    {
-        public string BrandId { get; set; }
-
-        public string BrandName { get; set; }
     }
 
     class Model

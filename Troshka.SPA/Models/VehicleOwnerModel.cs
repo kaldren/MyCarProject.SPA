@@ -1,6 +1,6 @@
 ﻿namespace Troshka.SPA.Models
 {
-    public class OwnerModel
+    public class VehicleOwnerModel
     {
         public string Id { get; set; }
 

@@ -37,7 +37,7 @@
     [Parameter]
     public string Id { get; set; }
 
-    private OwnerModel _vehicleOwnerModel;
+    private VehicleOwnerModel _vehicleOwnerModel;
     private bool _isLoading;
 
     protected override async Task OnInitializedAsync()
@@ -46,7 +46,7 @@
         {
             _isLoading = true;
             var api = await OnebrbApiClient.ApiVehiclesOwnerAsync(123);
-            _vehicleOwnerModel = Mapper.Map<OwnerModel>(api.Result);
+            _vehicleOwnerModel = Mapper.Map<VehicleOwnerModel>(api.Result);
         }
         finally
         {

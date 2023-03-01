@@ -10,12 +10,14 @@ namespace Troshka.SPA
         public MapperProfile()
         {
             #region Vehicle
+            CreateMap<CarBrandResponseModel, VehicleBrandModel>();
+            CreateMap<CarModelResponseModel, VehicleModelModel>();
             CreateMap<CarOfferResponseModel, CarOfferModel>();
             CreateMap<CarOfferEntity, CarOfferModel>();
             CreateMap<CarOfferImagesResponseModel, CarOfferImagesModel>();
-            CreateMap<VehicleOwnerResponseModel, OwnerModel>();
+            CreateMap<VehicleOwnerResponseModel, VehicleOwnerModel>();
 
-            CreateMap<CategoryResponseModel, CategoryModel>();
+            CreateMap<CategoryResponseModel, VehicleCategoryModel>();
             //CreateMap<VehicleEquipment, CarEquipmentModel>();
             //CreateMap<VehicleImageResponseModel, VehicleImageModel>();
             #endregion

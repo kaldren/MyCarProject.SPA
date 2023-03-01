@@ -1,6 +1,6 @@
 ﻿namespace Troshka.SPA.Models.Car
 {
-    public class CarSearchRequestModel
+    public class VehicleSearchRequestModel
     {
         public string Category { get; set; }
 
