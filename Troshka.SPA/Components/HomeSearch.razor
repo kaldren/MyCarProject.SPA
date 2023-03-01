@@ -19,23 +19,43 @@
     }
     else
     {
-        <div class="main-search">
-            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                        Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_carSearch.Category Change=@(args => OnChange(args)) />
+        <div class="main__search">
+            <div class="main__search--categories">
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_carSearch.Category Change=@(args => OnChange(args)) />
+            </div>
 
-            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                        Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" @bind-Value=@_carSearch.BrandId />
+            <div class="main__search--main">
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="BrandName" ValueProperty="BrandId" @bind-Value=@_carSearch.BrandId />
 
-            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                        Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" @bind-Value=@_carSearch.ModelId />
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="ModelName" ValueProperty="ModelId" @bind-Value=@_carSearch.ModelId />
 
-            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                        Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
 
-            <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["Specification_Transmission"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+            </div>
+
+            <div class="main__search--region">
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["Region"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["PopulatedPlace"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+            </div>
         </div>
         <div class="search-filters">
-            <RadzenButton Text=@LocalizerOffer["Filters"] Style="width: 100%" ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
+            <RadzenButton Text=@LocalizerOffer["Filters"] ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
+        </div>
+
+        <div class="search-button">
+            <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
         </div>
     }
 </div>

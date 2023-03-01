@@ -375,6 +375,12 @@
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
   </data>
+  <data name="PopulatedPlace" xml:space="preserve">
+    <value>city/village</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
+  </data>
   <data name="SeeOfferButton" xml:space="preserve">
     <value>See offer</value>
   </data>

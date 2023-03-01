@@ -375,6 +375,12 @@
   <data name="Manual" xml:space="preserve">
     <value>Ръчни</value>
   </data>
+  <data name="PopulatedPlace" xml:space="preserve">
+    <value>Населено място</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Регион</value>
+  </data>
   <data name="SeeOfferButton" xml:space="preserve">
     <value>Виж обявата</value>
   </data>
