@@ -1,6 +1,7 @@
 ﻿@using AutoMapper;
 @using System.Net;
 @using System.Text.Json;
+@using System.Text;
 @using Troshka.SPA.Components.Vehicle
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models.Car;
@@ -42,7 +43,7 @@
 
     private List<CarOfferModel> _carOffers = new();
     private int _totalFetched = 0;
-    private const int MaxOffersPerFetch = 5;
+    private const int MaxOffersPerFetch = 10;
 
     protected override async Task OnInitializedAsync()
     {
@@ -52,13 +53,46 @@
     private async Task FetchForecasts()
     {
         var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
-        var response = await client.GetAsync($"/api/offers/cars?$filter=Specification/BrandId eq '{Data.BrandId}' and Specification/ModelId eq '{Data.ModelId}' &$top={MaxOffersPerFetch}&$skip={_totalFetched}");
+        bool _hasFilters = false;
 
-        response.EnsureSuccessStatusCode();
+        if (Data.Category == "Cars")
+        {
+            StringBuilder uriBuilder = new("/api/cars/offers");
 
-        var apiResponse = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
-        _carOffers.AddRange(apiResponse);
+            if (Data.BrandId != null || Data.ModelId != null)
+            {
+                uriBuilder.Append("?$filter=");
 
-        _totalFetched += apiResponse.Count();
+                if (Data.BrandId != null)
+                {
+                    string and = _hasFilters ? "and" : string.Empty;
+
+                    uriBuilder.Append($" {and} Specification / BrandId eq '{Data.BrandId}'");
+
+                    _hasFilters = true;
+                }
+
+                if (Data.ModelId != null)
+                {
+                    string and = _hasFilters ? "and" : string.Empty;
+
+                    uriBuilder.Append($" {and} Specification / ModelId eq '{Data.ModelId}'");
+
+                    _hasFilters = true;
+                }
+
+                var response = await client.GetAsync($"{uriBuilder.ToString()}&$top={MaxOffersPerFetch}&$skip={_totalFetched}");
+
+
+                response.EnsureSuccessStatusCode();
+
+                var apiResponse = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
+
+                _carOffers.AddRange(apiResponse);
+
+                _totalFetched += apiResponse.Count();
+            }
+            
+        }
     }
 }
