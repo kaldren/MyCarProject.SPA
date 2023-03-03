@@ -375,7 +375,7 @@
   <data name="Manual" xml:space="preserve">
     <value>Ръчни</value>
   </data>
-  <data name="PopulatedPlace" xml:space="preserve">
+  <data name="Location" xml:space="preserve">
     <value>Населено място</value>
   </data>
   <data name="Region" xml:space="preserve">

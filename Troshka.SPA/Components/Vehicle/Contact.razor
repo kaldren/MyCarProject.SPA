@@ -45,7 +45,7 @@
         try
         {
             _isLoading = true;
-            var api = await OnebrbApiClient.ApiVehiclesOwnerAsync(123);
+            var api = await OnebrbApiClient.ApiCommonOwnerAsync("123");
             _vehicleOwnerModel = Mapper.Map<VehicleOwnerModel>(api.Result);
         }
         finally

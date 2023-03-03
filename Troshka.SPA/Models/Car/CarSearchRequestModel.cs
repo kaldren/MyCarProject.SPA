@@ -7,5 +7,7 @@
         public string BrandId { get; set; }
         public string ModelId { get; set; }
         public string Year { get; set; }
+        public string RegionId { get; set; }
+        public string LocationId { get; set; }
     }
 }
