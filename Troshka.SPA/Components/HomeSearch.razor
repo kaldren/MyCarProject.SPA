@@ -75,10 +75,10 @@
     private IEnumerable<VehicleModelModel> _modelList;
     private IEnumerable<CommonRegionModel> _regionList;
     private IEnumerable<CommonLocationModel> _locationList;
-    private IEnumerable<Year> _yearList;
     private IEnumerable<VehicleEngineModel> _enginesList;
     private IEnumerable<VehicleTransmissionModel> _transmissionList;
     private VehicleSearchRequestModel _offerSearch = new();
+    private IEnumerable<Year> _yearList;
     private Filters SearchFilters = new();
 
     private bool _isLoading;
@@ -245,8 +245,15 @@
 
     async Task OnRegionChange()
     {
-        var response = await OnebrbApiClient.ApiCommonRegionsLocationsAsync(_offerSearch.RegionId);
-        _locationList = Mapper.Map<ICollection<CommonLocationModel>>(response.Result);
+        if (_offerSearch.RegionId != null)
+        {
+            var response = await OnebrbApiClient.ApiCommonRegionsLocationsAsync(_offerSearch.RegionId);
+            _locationList = Mapper.Map<ICollection<CommonLocationModel>>(response.Result);
+        }
+        else
+        {
+            _locationList = null;
+        }
     }
 
     void OnSearchButtonClick()
@@ -261,6 +268,7 @@
         @<SearchCheckboxFilters SearchFilters=SearchFilters />, 
         new DialogOptions() { CloseDialogOnOverlayClick = true, CssClass="Dialog__SearchCheckBoxFilters" });
     }
+
 
     class Year
     {
