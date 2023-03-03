@@ -53,32 +53,33 @@
     private async Task FetchForecasts()
     {
         var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
-        bool _hasFilters = false;
+        bool _hasFilters = Data.BrandId != null || Data.ModelId != null;
+        bool _hasAppendedFilter = false;
 
         if (Data.Category == "Cars")
         {
             StringBuilder uriBuilder = new("/api/cars/offers");
 
-            if (Data.BrandId != null || Data.ModelId != null)
+            if (_hasFilters)
             {
                 uriBuilder.Append("?$filter=");
 
                 if (Data.BrandId != null)
                 {
-                    string and = _hasFilters ? "and" : string.Empty;
+                    string and = _hasAppendedFilter ? "and" : string.Empty;
 
                     uriBuilder.Append($" {and} Specification / BrandId eq '{Data.BrandId}'");
 
-                    _hasFilters = true;
+                    _hasAppendedFilter = true;
                 }
 
                 if (Data.ModelId != null)
                 {
-                    string and = _hasFilters ? "and" : string.Empty;
+                    string and = _hasAppendedFilter ? "and" : string.Empty;
 
                     uriBuilder.Append($" {and} Specification / ModelId eq '{Data.ModelId}'");
 
-                    _hasFilters = true;
+                    _hasAppendedFilter = true;
                 }
 
                 var response = await client.GetAsync($"{uriBuilder.ToString()}&$top={MaxOffersPerFetch}&$skip={_totalFetched}");
@@ -92,7 +93,6 @@
 
                 _totalFetched += apiResponse.Count();
             }
-            
         }
     }
 }
