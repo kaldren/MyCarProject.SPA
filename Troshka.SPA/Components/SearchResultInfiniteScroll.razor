@@ -11,43 +11,45 @@
 @inject IHttpClientFactory HttpClientFactory
 @inject NavigationManager NavManager
 
-<div class="Components__SearchResultInfiniteScroll">
-    @if (_carOffers.Count == 0)
+@if (Data != null)
+{
+    if (_carOffers != null)
     {
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
+        <div class="Components__SearchResultInfiniteScroll">
+                <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
+                    <ul>
+                        @foreach (var offer in _carOffers)
+                        {
+                            string uri = $"offers/{offer.Id}";
+
+                            <li>
+                                <VehicleBox Model=@offer />
+                            </li>
+                        }
+
+                        <li class="list-group-item" id="observerTarget"></li>
+                    </ul>
+                </Sve.Blazor.InfiniteScroll.Components.InfiniteScroll>
         </div>
     }
-    else
-    {
-        <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
-            <ul>
-                @foreach (var offer in _carOffers)
-                {
-                    string uri = $"offers/{offer.Id}";
-
-                    <li>
-                            <VehicleBox Model=@offer  />       
-                    </li>
-                }
-
-                <li class="list-group-item" id="observerTarget"></li>
-            </ul>
-        </Sve.Blazor.InfiniteScroll.Components.InfiniteScroll>
-    }
-</div>
+}
 
 @code {
     [Parameter]
     public VehicleSearchRequestModel Data { get; set; }
 
     private List<CarOfferModel> _carOffers = new();
+
     private int _totalFetched = 0;
     private const int MaxOffersPerFetch = 10;
+    private bool _showNoResults;
+
+    public void ClearSearch() => _carOffers.Clear();
 
     protected override async Task OnInitializedAsync()
     {
-        await FetchForecasts();
+        if (Data != null)
+            await FetchForecasts();
     }
 
     private async Task FetchForecasts()
@@ -66,9 +68,9 @@
 
                 if (Data.BrandId != null)
                 {
-                    string and = _hasAppendedFilter ? "and" : string.Empty;
+                    string and = _hasAppendedFilter ? " and " : string.Empty;
 
-                    uriBuilder.Append($" {and} Specification / BrandId eq '{Data.BrandId}'");
+                    uriBuilder.Append($"{and}Specification / BrandId eq '{Data.BrandId}'");
 
                     _hasAppendedFilter = true;
                 }
@@ -82,16 +84,36 @@
                     _hasAppendedFilter = true;
                 }
 
-                var response = await client.GetAsync($"{uriBuilder.ToString()}&$top={MaxOffersPerFetch}&$skip={_totalFetched}");
+                if (Data.RegionId != null)
+                {
+                    string and = _hasAppendedFilter ? " and " : string.Empty;
 
+                    uriBuilder.Append($"{and}Region / Id eq '{Data.RegionId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                if (Data.LocationId != null)
+                {
+                    string and = _hasAppendedFilter ? " and " : string.Empty;
+
+                    uriBuilder.Append($"{and}Location / Id eq '{Data.LocationId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                var response = await client.GetAsync($"{uriBuilder.ToString()}&$top={MaxOffersPerFetch}&$skip={_totalFetched}");
 
                 response.EnsureSuccessStatusCode();
 
                 var apiResponse = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
 
-                _carOffers.AddRange(apiResponse);
+                if (apiResponse.Any())
+                {
+                    _carOffers.AddRange(apiResponse);
 
-                _totalFetched += apiResponse.Count();
+                    _totalFetched += apiResponse.Count();
+                }
             }
         }
     }

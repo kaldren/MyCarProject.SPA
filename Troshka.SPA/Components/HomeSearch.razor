@@ -25,15 +25,15 @@
         <div class="main__search">
             <div class="main__search--categories">
                 <RadzenDropDown TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_offerSearch.Category Change=@(args => OnVehicleCategoryChange()) />
+                            Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_offer.Category Change=@(args => OnVehicleCategoryChange()) />
             </div>
 
             <div class="main__search--main">
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.BrandId Change=@(args => OnVehicleBrandChange()) />
+                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.BrandId Change=@(args => OnVehicleBrandChange()) />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.ModelId />
+                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.ModelId />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                             Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_enginesList TextProperty="Name" ValueProperty="Id" Change=@(args => OnChange(args)) />
@@ -47,10 +47,10 @@
 
             <div class="main__search--region">
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerOffer["Region"] Data=@_regionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.RegionId Change=@(args => OnRegionChange()) />
+                            Placeholder=@LocalizerOffer["Region"] Data=@_regionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.RegionId Change=@(args => OnRegionChange()) />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerOffer["Location"] Data=@_locationList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.LocationId Change=@(args => OnChange(args)) />
+                            Placeholder=@LocalizerOffer["Location"] Data=@_locationList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.LocationId Change=@(args => OnChange(args)) />
             </div>
 
         </div>
@@ -64,9 +64,9 @@
     }
 </div>
 
-@if (_showSearchResults == true)
+@if (_showSearchResults)
 {
-    <SearchResultInfiniteScroll Data=@_offerSearch />
+    <SearchResultInfiniteScroll Data=@_offerData />
 }
 
 @code {
@@ -77,12 +77,14 @@
     private IEnumerable<CommonLocationModel> _locationList;
     private IEnumerable<VehicleEngineModel> _enginesList;
     private IEnumerable<VehicleTransmissionModel> _transmissionList;
-    private VehicleSearchRequestModel _offerSearch = new();
+    private VehicleSearchRequestModel _offer = new();
+    private VehicleSearchRequestModel _offerData;
     private IEnumerable<Year> _yearList;
     private Filters SearchFilters = new();
 
     private bool _isLoading;
     private bool _showSearchResults;
+    private bool _rerenderSearch;
 
     #region Filters
     public class Filters
@@ -185,7 +187,7 @@
             _isLoading = true;
             var api = await OnebrbApiClient.ApiCommonCategoriesAsync();
             _categories = Mapper.Map<List<VehicleCategoryModel>>(api.Result);
-            _offerSearch.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
+            _offer.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
             await OnVehicleCategoryChange();
 
             var regionsApi = await OnebrbApiClient.ApiCommonRegionsAsync();
@@ -204,9 +206,9 @@
 
     async Task OnVehicleCategoryChange()
     {
-        if (!string.IsNullOrWhiteSpace(_offerSearch.Category))
+        if (!string.IsNullOrWhiteSpace(_offer.Category))
         {
-            if (_offerSearch.Category == "Cars")
+            if (_offer.Category == "Cars")
             {
                 var response = await OnebrbApiClient.ApiCarsBrandsAsync();
                 _brandList = Mapper.Map<ICollection<VehicleBrandModel>>(response.Result);
@@ -229,11 +231,11 @@
 
     async Task OnVehicleBrandChange()
     {
-        if (!string.IsNullOrWhiteSpace(_offerSearch.BrandId))
+        if (!string.IsNullOrWhiteSpace(_offer.BrandId))
         {
-            if (_offerSearch.Category == "Cars")
+            if (_offer.Category == "Cars")
             {
-                var response = await OnebrbApiClient.ApiCarsBrandsModelsAsync(_offerSearch.BrandId);
+                var response = await OnebrbApiClient.ApiCarsBrandsModelsAsync(_offer.BrandId);
                 _modelList = Mapper.Map<ICollection<VehicleModelModel>>(response.Result);
             }
         }
@@ -245,9 +247,9 @@
 
     async Task OnRegionChange()
     {
-        if (_offerSearch.RegionId != null)
+        if (_offer.RegionId != null)
         {
-            var response = await OnebrbApiClient.ApiCommonRegionsLocationsAsync(_offerSearch.RegionId);
+            var response = await OnebrbApiClient.ApiCommonRegionsLocationsAsync(_offer.RegionId);
             _locationList = Mapper.Map<ICollection<CommonLocationModel>>(response.Result);
         }
         else
