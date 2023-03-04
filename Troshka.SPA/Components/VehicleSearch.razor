@@ -1,13 +1,18 @@
-﻿@using Troshka.SPA.Models;
+﻿@using AutoMapper;
+@using System.Net;
+@using System.Text.Json;
+@using System.Text;
+@using Newtonsoft.Json;
+@using Troshka.SPA.Components.Vehicle
+@using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models.Car;
-@using AutoMapper
-@using Troshka.SPA.Components.Vehicle;
-@using Troshka.SPA.Interfaces
-@using Troshka.SPA.Models
-@using Sve.Blazor.InfiniteScroll.Components
-@using Troshka.SPA.Models.Car
+@using Troshka.SPA.Models;
 @using Troshka.SPA.Models.Common;
 
+@inject IOnebrbApiClientPublic OnebrbApiClient
+@inject IMapper Mapper
+@inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager NavManager
 @inject IOnebrbApiClientPublic OnebrbApiClient
 @inject IMapper Mapper
 @inject IStringLocalizer<Localization.SharedResource> LocalizerShared
@@ -15,7 +20,7 @@
 @inject DialogService DialogService
 @implements IDisposable
 
-<div class="Components__HomeSearch">
+<div class="Components__VehicleSearch">
     @if (_isLoading)
     {
         <p>@LocalizerShared["Loading"]</p>
@@ -25,15 +30,15 @@
         <div class="main__search">
             <div class="main__search--categories">
                 <RadzenDropDown TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_offer.Category Change=@(args => OnVehicleCategoryChange()) />
+                            Placeholder=@LocalizerShared["Category"] Data=@_categories TextProperty="Name" ValueProperty="Name" @bind-Value=@_offerSearch.Category Change=@(args => OnVehicleCategoryChange()) />
             </div>
 
             <div class="main__search--main">
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.BrandId Change=@(args => OnVehicleBrandChange()) />
+                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.BrandId Change=@(args => OnVehicleBrandChange()) />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.ModelId />
+                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.ModelId />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                             Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_enginesList TextProperty="Name" ValueProperty="Id" Change=@(args => OnChange(args)) />
@@ -47,10 +52,10 @@
 
             <div class="main__search--region">
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerOffer["Region"] Data=@_regionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.RegionId Change=@(args => OnRegionChange()) />
+                            Placeholder=@LocalizerOffer["Region"] Data=@_regionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.RegionId Change=@(args => OnRegionChange()) />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerOffer["Location"] Data=@_locationList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offer.LocationId Change=@(args => OnChange(args)) />
+                            Placeholder=@LocalizerOffer["Location"] Data=@_locationList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.LocationId Change=@(args => OnChange(args)) />
             </div>
 
         </div>
@@ -59,15 +64,31 @@
         </div>
 
         <div class="search-button">
-            <RadzenButton Click=@(args => OnSearchButtonClick()) Icon="search" ButtonStyle="ButtonStyle.Primary" />
+            <RadzenButton Click=@(args => OnSearchButtonClick()) Disabled=@_searchBtnDisabled Icon="search" ButtonStyle="ButtonStyle.Primary" />
         </div>
     }
 </div>
 
-@if (_showSearchResults)
+@if (_carOffers.Count > 0)
 {
-    <SearchResultInfiniteScroll Data=@_offerData />
+    <div class="Components__SearchResultInfiniteScroll">
+        <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
+            <ul>
+                @foreach (var offer in _carOffers)
+                {
+                    string uri = $"offers/{offer.Id}";
+
+                    <li>
+                        <VehicleBox Model=@offer />
+                    </li>
+                }
+
+                <li class="list-group-item" id="observerTarget"></li>
+            </ul>
+        </Sve.Blazor.InfiniteScroll.Components.InfiniteScroll>
+    </div>
 }
+
 
 @code {
     private ICollection<VehicleCategoryModel> _categories;
@@ -77,14 +98,19 @@
     private IEnumerable<CommonLocationModel> _locationList;
     private IEnumerable<VehicleEngineModel> _enginesList;
     private IEnumerable<VehicleTransmissionModel> _transmissionList;
-    private VehicleSearchRequestModel _offer = new();
-    private VehicleSearchRequestModel _offerData;
+    private VehicleSearchRequestModel _offerSearch = new();
+    private VehicleSearchRequestModel _prevOfferSearch;
     private IEnumerable<Year> _yearList;
     private Filters SearchFilters = new();
 
     private bool _isLoading;
-    private bool _showSearchResults;
-    private bool _rerenderSearch;
+    private List<CarOfferModel> _carOffers = new();
+
+    private int _totalFetched = 0;
+    private const int MaxOffersPerFetch = 10;
+    private bool _showNoResults;
+    private bool _searchBtnClicked;
+    private bool _searchBtnDisabled;
 
     #region Filters
     public class Filters
@@ -187,7 +213,7 @@
             _isLoading = true;
             var api = await OnebrbApiClient.ApiCommonCategoriesAsync();
             _categories = Mapper.Map<List<VehicleCategoryModel>>(api.Result);
-            _offer.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
+            _offerSearch.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
             await OnVehicleCategoryChange();
 
             var regionsApi = await OnebrbApiClient.ApiCommonRegionsAsync();
@@ -199,6 +225,88 @@
         }
     }
 
+    private async Task FetchForecasts()
+    {
+        // New search
+        if (_searchBtnClicked)
+        {
+            _carOffers.Clear();
+            _totalFetched = 0;
+        }
+
+        var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
+        bool _hasFilters = _offerSearch.BrandId != null || _offerSearch.ModelId != null;
+        bool _hasAppendedFilter = false;
+
+        if (_offerSearch.Category == "Cars")
+        {
+            StringBuilder uriBuilder = new("/api/cars/offers");
+
+            if (_hasFilters)
+            {
+                uriBuilder.Append("?$filter=");
+
+                if (_offerSearch.BrandId != null)
+                {
+                    string and = _hasAppendedFilter ? " and " : string.Empty;
+
+                    uriBuilder.Append($"{and}Specification / BrandId eq '{_offerSearch.BrandId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                if (_offerSearch.ModelId != null)
+                {
+                    string and = _hasAppendedFilter ? "and" : string.Empty;
+
+                    uriBuilder.Append($" {and} Specification / ModelId eq '{_offerSearch.ModelId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                if (_offerSearch.RegionId != null)
+                {
+                    string and = _hasAppendedFilter ? " and " : string.Empty;
+
+                    uriBuilder.Append($"{and}Region / Id eq '{_offerSearch.RegionId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                if (_offerSearch.LocationId != null)
+                {
+                    string and = _hasAppendedFilter ? " and " : string.Empty;
+
+                    uriBuilder.Append($"{and}Location / Id eq '{_offerSearch.LocationId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                var response = await client.GetAsync($"{uriBuilder.ToString()}&$top={MaxOffersPerFetch}&$skip={_totalFetched}");
+
+                response.EnsureSuccessStatusCode();
+
+                var apiResponse = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
+
+                if (apiResponse.Any())
+                {
+                    _carOffers.AddRange(apiResponse);
+
+                    _totalFetched += apiResponse.Count();
+                    _showNoResults = false;
+                }
+                else
+                {
+                    if (_searchBtnClicked)
+                    {
+                        // No results - show that to the user
+                        _showNoResults = true;
+                    }
+                }
+            }
+        }
+    }
+
     void OnChange(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -206,9 +314,9 @@
 
     async Task OnVehicleCategoryChange()
     {
-        if (!string.IsNullOrWhiteSpace(_offer.Category))
+        if (!string.IsNullOrWhiteSpace(_offerSearch.Category))
         {
-            if (_offer.Category == "Cars")
+            if (_offerSearch.Category == "Cars")
             {
                 var response = await OnebrbApiClient.ApiCarsBrandsAsync();
                 _brandList = Mapper.Map<ICollection<VehicleBrandModel>>(response.Result);
@@ -231,11 +339,11 @@
 
     async Task OnVehicleBrandChange()
     {
-        if (!string.IsNullOrWhiteSpace(_offer.BrandId))
+        if (!string.IsNullOrWhiteSpace(_offerSearch.BrandId))
         {
-            if (_offer.Category == "Cars")
+            if (_offerSearch.Category == "Cars")
             {
-                var response = await OnebrbApiClient.ApiCarsBrandsModelsAsync(_offer.BrandId);
+                var response = await OnebrbApiClient.ApiCarsBrandsModelsAsync(_offerSearch.BrandId);
                 _modelList = Mapper.Map<ICollection<VehicleModelModel>>(response.Result);
             }
         }
@@ -247,9 +355,9 @@
 
     async Task OnRegionChange()
     {
-        if (_offer.RegionId != null)
+        if (_offerSearch.RegionId != null)
         {
-            var response = await OnebrbApiClient.ApiCommonRegionsLocationsAsync(_offer.RegionId);
+            var response = await OnebrbApiClient.ApiCommonRegionsLocationsAsync(_offerSearch.RegionId);
             _locationList = Mapper.Map<ICollection<CommonLocationModel>>(response.Result);
         }
         else
@@ -258,25 +366,39 @@
         }
     }
 
-    void OnSearchButtonClick()
+    async Task OnSearchButtonClick()
     {
-        _showSearchResults = true;
+        // If previous search uses the same data we shouldn't fetch the API
+        if (JsonConvert.SerializeObject(_prevOfferSearch) == JsonConvert.SerializeObject(_offerSearch))
+        {
+            return;
+        }
+        else
+        {
+            _prevOfferSearch = new VehicleSearchRequestModel
+                {
+                    Category = _offerSearch.Category,
+                    BrandId = _offerSearch.BrandId,
+                    ModelId = _offerSearch.ModelId,
+                    RegionId = _offerSearch.RegionId,
+                    LocationId = _offerSearch.LocationId,
+                    Year = _offerSearch.Year,
+                };
+        }
+
+        _searchBtnClicked = true;
+        _searchBtnDisabled = true;
+        await FetchForecasts();
+        _searchBtnClicked = false;
+        _searchBtnDisabled = false;
     }
 
     async Task ShowFiltersDialog()
     {
         await DialogService.OpenAsync(@LocalizerOffer["Filters"], ds =>
 
-        @<SearchCheckboxFilters SearchFilters=SearchFilters />, 
-        new DialogOptions() { CloseDialogOnOverlayClick = true, CssClass="Dialog__SearchCheckBoxFilters" });
-    }
-
-
-    class Year
-    {
-        public int YearId { get; set; }
-
-        public string YearName { get; set; }
+    @<SearchCheckboxFilters SearchFilters=SearchFilters />,
+        new DialogOptions() { CloseDialogOnOverlayClick = true, CssClass = "Dialog__SearchCheckBoxFilters" });
     }
 
     public void Dispose()
@@ -292,4 +414,12 @@
     void Close(dynamic result)
     {
     }
+
+    class Year
+    {
+        public int YearId { get; set; }
+
+        public string YearName { get; set; }
+    }
+
 }

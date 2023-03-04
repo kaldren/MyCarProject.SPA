@@ -1,0 +1,83 @@
+﻿.Components__VehicleSearch {
+    padding-top: 30rem;
+    margin-bottom: 200px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.Components__VehicleSearch .main__search {
+    display: flex;
+    flex-direction: column;
+}
+
+.Components__VehicleSearch .main__search .main__search--categories {
+    width: 300px;
+    max-width: 100%;
+    margin: 0.5rem 0;
+}
+
+.Components__VehicleSearch .main__search .main__search--main {
+    display: flex;
+    margin: 0.5rem 0;
+}
+
+.Components__VehicleSearch .main__search .main__search--region {
+    margin: 0.5rem 0;
+    display: flex;
+}
+
+.Components__VehicleSearch ::deep .rz-dropdown {
+    margin: 0 0.5rem;
+}
+
+.Components__VehicleSearch .search-filters {
+    margin: 0.5rem;
+}
+
+.Components__VehicleSearch .search-button {
+    display: flex;
+    justify-content: center;
+}
+
+.Components__VehicleSearch .search-button ::deep > button {
+    display: block;
+    width: 200px;
+    max-width: 100%;
+    margin: 0.5rem 0;
+}
+
+.Components__SearchResultInfiniteScroll {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem auto;
+}
+
+.Components__SearchResultInfiniteScroll ::deep ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Components__SearchResultInfiniteScroll ::deep ul li {
+    display: block;
+    text-align: center;
+}
+
+.Components__SearchResultInfiniteScroll ::deep .rz-card {
+    margin: 0.5rem;
+    display: block;
+    width: 100%;
+}
+
+.Components__SearchResultInfiniteScroll ::deep img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+
+.Components__SearchResultInfiniteScroll ::deep .specs p {
+    margin: 0 0.4rem;
+}

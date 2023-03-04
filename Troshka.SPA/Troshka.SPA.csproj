@@ -11,12 +11,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Components\HomeSearch.razor.css" />
 	  <None Remove="Components\Vehicle\VehicleBox.razor.css" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Components\HomeSearch.razor.css" />
 	  <Content Include="Components\Vehicle\VehicleBox.razor.css" />
 	</ItemGroup>
 
