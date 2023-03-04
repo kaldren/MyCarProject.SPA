@@ -240,10 +240,13 @@
         }
 
         var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
-        bool _hasFilters = _offerSearch.BrandId != null || _offerSearch.ModelId != null;
+        bool _hasFilters = _offerSearch.BrandId != null || _offerSearch.ModelId != null || _offerSearch.RegionId != null || _offerSearch.LocationId != null;
         bool _hasAppendedFilter = false;
 
-        if (_offerSearch.Category == "Cars")
+        if (string.IsNullOrWhiteSpace(_offerSearch.Category) && !_hasFilters)
+            return;
+
+        if (!string.IsNullOrWhiteSpace(_offerSearch.Category) && _offerSearch.Category == "Cars")
         {
             StringBuilder uriBuilder = new("/api/cars/offers");
 
@@ -286,27 +289,36 @@
 
                     _hasAppendedFilter = true;
                 }
+            }
 
-                var response = await client.GetAsync($"{uriBuilder.ToString()}&$top={MaxOffersPerFetch}&$skip={_totalFetched}");
+            if (!_hasFilters)
+            {
+                uriBuilder.Append($"?&top={MaxOffersPerFetch}&$skip={_totalFetched}");
+            }
+            else
+            {
+                uriBuilder.Append($"&$top={MaxOffersPerFetch}&$skip={_totalFetched}");
+            }
 
-                response.EnsureSuccessStatusCode();
+            var response = await client.GetAsync($"{uriBuilder.ToString()}");
 
-                var apiResponse = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
+            response.EnsureSuccessStatusCode();
 
-                if (apiResponse.Any())
+            var apiResponse = await response.Content.ReadFromJsonAsync<IEnumerable<CarOfferModel>>();
+
+            if (apiResponse.Any())
+            {
+                _carOffers.AddRange(apiResponse);
+
+                _totalFetched += apiResponse.Count();
+                _showNoResults = false;
+            }
+            else
+            {
+                if (_searchBtnClicked)
                 {
-                    _carOffers.AddRange(apiResponse);
-
-                    _totalFetched += apiResponse.Count();
-                    _showNoResults = false;
-                }
-                else
-                {
-                    if (_searchBtnClicked)
-                    {
-                        // No results - show that to the user
-                        _showNoResults = true;
-                    }
+                    // No results - show that to the user
+                    _showNoResults = true;
                 }
             }
         }
@@ -390,14 +402,14 @@
         else
         {
             _prevOfferSearch = new VehicleSearchRequestModel
-                {
-                    Category = _offerSearch.Category,
-                    BrandId = _offerSearch.BrandId,
-                    ModelId = _offerSearch.ModelId,
-                    RegionId = _offerSearch.RegionId,
-                    LocationId = _offerSearch.LocationId,
-                    Year = _offerSearch.Year,
-                };
+                    {
+                        Category = _offerSearch.Category,
+                        BrandId = _offerSearch.BrandId,
+                        ModelId = _offerSearch.ModelId,
+                        RegionId = _offerSearch.RegionId,
+                        LocationId = _offerSearch.LocationId,
+                        Year = _offerSearch.Year,
+                    };
         }
 
         _searchBtnClicked = true;
