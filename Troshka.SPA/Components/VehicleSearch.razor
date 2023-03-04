@@ -41,13 +41,13 @@
                             Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.ModelId />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_enginesList TextProperty="Name" ValueProperty="Id" Change=@(args => OnChange(args)) />
+                            Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_enginesList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.EngineId Change=@(args => OnChange(args)) />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerOffer["Specification_Transmission"] Data=@_transmissionList TextProperty="Name" ValueProperty="Id" Change=@(args => OnChange(args)) />
+                            Placeholder=@LocalizerOffer["Specification_Transmission"] Data=@_transmissionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_offerSearch.TransmissionId Change=@(args => OnChange(args)) />
 
                 <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" Change=@(args => OnChange(args)) />
+                            Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" @bind-Value=@_offerSearch.Year Change=@(args => OnChange(args)) />
             </div>
 
             <div class="main__search--region">
@@ -77,7 +77,7 @@
 @if (_carOffers.Count > 0)
 {
     <div class="Components__SearchResultInfiniteScroll">
-        <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchForecasts()">
+        <Sve.Blazor.InfiniteScroll.Components.InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchOffers()">
             <ul>
                 @foreach (var offer in _carOffers)
                 {
@@ -230,7 +230,7 @@
         }
     }
 
-    private async Task FetchForecasts()
+    private async Task FetchOffers()
     {
         // New search
         if (_searchBtnClicked)
@@ -240,7 +240,12 @@
         }
 
         var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
-        bool _hasFilters = _offerSearch.BrandId != null || _offerSearch.ModelId != null || _offerSearch.RegionId != null || _offerSearch.LocationId != null;
+        bool _hasFilters = 
+        _offerSearch.BrandId != null || _offerSearch.ModelId != null || 
+        _offerSearch.RegionId != null || _offerSearch.LocationId != null ||
+        _offerSearch.EngineId != null || _offerSearch.TransmissionId != null;
+
+
         bool _hasAppendedFilter = false;
 
         if (string.IsNullOrWhiteSpace(_offerSearch.Category) && !_hasFilters)
@@ -258,7 +263,7 @@
                 {
                     string and = _hasAppendedFilter ? " and " : string.Empty;
 
-                    uriBuilder.Append($"{and}Specification / BrandId eq '{_offerSearch.BrandId}'");
+                    uriBuilder.Append($"{and}Specification / {nameof(_offerSearch.BrandId)} eq '{_offerSearch.BrandId}'");
 
                     _hasAppendedFilter = true;
                 }
@@ -267,7 +272,25 @@
                 {
                     string and = _hasAppendedFilter ? "and" : string.Empty;
 
-                    uriBuilder.Append($" {and} Specification / ModelId eq '{_offerSearch.ModelId}'");
+                    uriBuilder.Append($" {and} Specification / {nameof(_offerSearch.ModelId)} eq '{_offerSearch.ModelId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                if (_offerSearch.EngineId != null)
+                {
+                    string and = _hasAppendedFilter ? "and" : string.Empty;
+
+                    uriBuilder.Append($" {and} Specification / {nameof(_offerSearch.EngineId)} eq '{_offerSearch.EngineId}'");
+
+                    _hasAppendedFilter = true;
+                }
+
+                if (_offerSearch.TransmissionId != null)
+                {
+                    string and = _hasAppendedFilter ? "and" : string.Empty;
+
+                    uriBuilder.Append($" {and} Specification / {nameof(_offerSearch.TransmissionId)} eq '{_offerSearch.TransmissionId}'");
 
                     _hasAppendedFilter = true;
                 }
@@ -406,6 +429,8 @@
                         Category = _offerSearch.Category,
                         BrandId = _offerSearch.BrandId,
                         ModelId = _offerSearch.ModelId,
+                        EngineId = _offerSearch.EngineId,
+                        TransmissionId = _offerSearch.TransmissionId,
                         RegionId = _offerSearch.RegionId,
                         LocationId = _offerSearch.LocationId,
                         Year = _offerSearch.Year,
@@ -414,7 +439,7 @@
 
         _searchBtnClicked = true;
         _searchBtnDisabled = true;
-        await FetchForecasts();
+        await FetchOffers();
         _searchBtnClicked = false;
         _searchBtnDisabled = false;
     }

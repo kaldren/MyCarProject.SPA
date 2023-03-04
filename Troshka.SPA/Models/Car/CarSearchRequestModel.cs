@@ -9,5 +9,7 @@
         public string Year { get; set; }
         public string RegionId { get; set; }
         public string LocationId { get; set; }
+        public string EngineId { get; set; }
+        public string TransmissionId { get; set; }
     }
 }
