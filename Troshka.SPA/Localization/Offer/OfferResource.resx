@@ -471,4 +471,7 @@
   <data name="Vehicle_Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="NoResultsFound" xml:space="preserve">
+    <value>No results found with these filters.</value>
+  </data>
 </root>

@@ -471,4 +471,7 @@
   <data name="Vehicle_Description" xml:space="preserve">
     <value>Описание</value>
   </data>
+  <data name="NoResultsFound" xml:space="preserve">
+    <value>Не са намерени резултати с тези филтри.</value>
+  </data>
 </root>

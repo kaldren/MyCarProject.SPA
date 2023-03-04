@@ -68,7 +68,12 @@
         </div>
     }
 </div>
-
+@if (_showNoResults)
+{
+    <div class="no-results-found">
+        @LocalizerOffer["NoResultsFound"]
+    </div>
+}
 @if (_carOffers.Count > 0)
 {
     <div class="Components__SearchResultInfiniteScroll">
@@ -304,6 +309,15 @@
                     }
                 }
             }
+        }
+
+        if (_searchBtnClicked && _carOffers.Count == 0)
+        {
+            _showNoResults = true;
+        }
+        else
+        {
+            _showNoResults = false;
         }
     }
 

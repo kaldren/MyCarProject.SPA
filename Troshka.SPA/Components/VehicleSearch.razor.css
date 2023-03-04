@@ -46,6 +46,11 @@
     margin: 0.5rem 0;
 }
 
+.no-results-found {
+    text-align: center;
+    color: #fff;
+}
+
 .Components__SearchResultInfiniteScroll {
     display: flex;
     flex-wrap: wrap;
