@@ -96,118 +96,119 @@
 
 
 @code {
-    private ICollection<VehicleCategoryModel> _categories;
     private IEnumerable<VehicleBrandModel> _brandList;
     private IEnumerable<VehicleModelModel> _modelList;
     private IEnumerable<CommonRegionModel> _regionList;
     private IEnumerable<CommonLocationModel> _locationList;
     private IEnumerable<VehicleEngineModel> _enginesList;
     private IEnumerable<VehicleTransmissionModel> _transmissionList;
+    private IEnumerable<Year> _yearList;
+    private ICollection<VehicleCategoryModel> _categories;
+    private Filters SearchFilters = new();
     private VehicleSearchRequestModel _offerSearch = new();
     private VehicleSearchRequestModel _prevOfferSearch;
-    private IEnumerable<Year> _yearList;
-    private Filters SearchFilters = new();
 
-    private bool _isLoading;
     private List<CarOfferModel> _carOffers = new();
 
-    private int _totalFetched = 0;
     private const int MaxOffersPerFetch = 10;
+    private int _totalFetched = 0;
+    private bool _isLoading;
     private bool _showNoResults;
     private bool _searchBtnClicked;
     private bool _searchBtnDisabled;
+    private bool _hasAppendedFilter = false;
 
     #region Filters
     public class Filters
     {
-        public bool FilterIsRegistered;
-        public bool FilterHasABS { get; set; }
-        public bool FilterHasESP { get; set; }
-        public bool FilterHasASR { get; set; }
-        public bool FilterHasHillStartAssist { get; set; }
-        public bool FilterHasFatigueWarningSystem { get; set; }
-        public bool FilterHasLaneChangeAssist { get; set; }
-        public bool FilterHasBlindSpotAssist { get; set; }
-        public bool FilterHasNightVisionAssist { get; set; }
-        public bool FilterHasEmergencyBrakeAssist { get; set; }
-        public bool FilterHasEmergencyCallSystem { get; set; }
-        public bool FilterHasTrafficSignRecognition { get; set; }
-        public bool FilterHasCruiseControl { get; set; }
-        public bool FilterHasAdaptiveCruiseControl { get; set; }
-        public bool FilterHasSpeedLimitControlSystem { get; set; }
-        public bool FilterHasDistanceWarningSystem { get; set; }
-        public bool FilterHasDriverAirbag { get; set; }
-        public bool FilterHasFrontAirbags { get; set; }
-        public bool FilterHasFrontAndSideAirbags { get; set; }
-        public bool FilterHasFrontAndSideAndMoreAirbags { get; set; }
-        public bool FilterHasIsofix { get; set; }
-        public bool FilterHasBiXenonHeadlights { get; set; }
-        public bool FilterHasLaserHeadlights { get; set; }
-        public bool FilterHasLedHeadlights { get; set; }
-        public bool FilterHasXenonHeadlights { get; set; }
-        public bool FilterHasHeadlightWasherSystem { get; set; }
-        public bool FilterHasGlareFreeHighBeamHeadlights { get; set; }
-        public bool FilterHasHighBeamAssist { get; set; }
-        public bool FilterHasAdaptiveCorneringLights { get; set; }
-        public bool FilterHasAdaptiveLighting { get; set; }
-        public bool FilterHasFogLamps { get; set; }
-        public bool FilterHasAlarm { get; set; }
-        public bool FilterHasEngineImobilizer { get; set; }
+        public bool IsRegistered { get; set; }
+        public bool HasABS { get; set; }
+        public bool HasESP { get; set; }
+        public bool HasASR { get; set; }
+        public bool HasHillStartAssist { get; set; }
+        public bool HasFatigueWarningSystem { get; set; }
+        public bool HasLaneChangeAssist { get; set; }
+        public bool HasBlindSpotAssist { get; set; }
+        public bool HasNightVisionAssist { get; set; }
+        public bool HasEmergencyBrakeAssist { get; set; }
+        public bool HasEmergencyCallSystem { get; set; }
+        public bool HasTrafficSignRecognition { get; set; }
+        public bool HasCruiseControl { get; set; }
+        public bool HasAdaptiveCruiseControl { get; set; }
+        public bool HasSpeedLimitControlSystem { get; set; }
+        public bool HasDistanceWarningSystem { get; set; }
+        public bool HasDriverAirbag { get; set; }
+        public bool HasFrontAirbags { get; set; }
+        public bool HasFrontAndSideAirbags { get; set; }
+        public bool HasFrontAndSideAndMoreAirbags { get; set; }
+        public bool HasIsofix { get; set; }
+        public bool HasBiXenonHeadlights { get; set; }
+        public bool HasLaserHeadlights { get; set; }
+        public bool HasLedHeadlights { get; set; }
+        public bool HasXenonHeadlights { get; set; }
+        public bool HasHeadlightWasherSystem { get; set; }
+        public bool HasGlareFreeHighBeamHeadlights { get; set; }
+        public bool HasHighBeamAssist { get; set; }
+        public bool HasAdaptiveCorneringLights { get; set; }
+        public bool HasAdaptiveLighting { get; set; }
+        public bool HasFogLamps { get; set; }
+        public bool HasAlarm { get; set; }
+        public bool HasEngineImobilizer { get; set; }
 
         // Comfort
-        public bool FilterHasAirConditioner { get; set; }
-        public bool FilterHasClimateControl { get; set; }
-        public bool FilterHasHeatedWindshield { get; set; }
-        public bool FilterHasHeatedSteeringWheel { get; set; }
-        public bool FilterHasSelfSteeringSystems { get; set; }
-        public bool FilterHasFrontParkAssistant { get; set; }
-        public bool FilterHasRearParkAssistant { get; set; }
-        public bool FilterHasCameraAssistant { get; set; }
-        public bool FilterHas360DegreeCameraAssistant { get; set; }
-        public bool FilterHasFrontHeatedSeats { get; set; }
-        public bool FilterHasBackHeatedSeats { get; set; }
-        public bool FilterHasFrontAdjustableSeats { get; set; }
-        public bool FilterHasBackAdjustableSeats { get; set; }
-        public bool FilterHasSportSeats { get; set; }
-        public bool FilterHasArmRest { get; set; }
-        public bool FilterHasMassageSeats { get; set; }
-        public bool FilterHasSeatVentilation { get; set; }
-        public bool FilterHasElectricWindows { get; set; }
-        public bool FilterHasElectricSideMirror { get; set; }
-        public bool FilterHasElectricTailgate { get; set; }
-        public bool FilterHasCentralLocking { get; set; }
-        public bool FilterHasKeylessCentralLocking { get; set; }
-        public bool FilterHasLightSensor { get; set; }
-        public bool FilterHasRainSensor { get; set; }
-        public bool FilterHasPowerAssistedSteering { get; set; }
-        public bool FilterHasAmbientLighting { get; set; }
-        public bool FilterHasLeatherSteeringWheel { get; set; }
+        public bool HasAirConditioner { get; set; }
+        public bool HasClimateControl { get; set; }
+        public bool HasHeatedWindshield { get; set; }
+        public bool HasHeatedSteeringWheel { get; set; }
+        public bool HasSelfSteeringSystems { get; set; }
+        public bool HasFrontParkAssistant { get; set; }
+        public bool HasRearParkAssistant { get; set; }
+        public bool HasCameraAssistant { get; set; }
+        public bool Has360DegreeCameraAssistant { get; set; }
+        public bool HasFrontHeatedSeats { get; set; }
+        public bool HasBackHeatedSeats { get; set; }
+        public bool HasFrontAdjustableSeats { get; set; }
+        public bool HasBackAdjustableSeats { get; set; }
+        public bool HasSportSeats { get; set; }
+        public bool HasArmRest { get; set; }
+        public bool HasMassageSeats { get; set; }
+        public bool HasSeatVentilation { get; set; }
+        public bool HasElectricWindows { get; set; }
+        public bool HasElectricSideMirror { get; set; }
+        public bool HasElectricTailgate { get; set; }
+        public bool HasCentralLocking { get; set; }
+        public bool HasKeylessCentralLocking { get; set; }
+        public bool HasLightSensor { get; set; }
+        public bool HasRainSensor { get; set; }
+        public bool HasPowerAssistedSteering { get; set; }
+        public bool HasAmbientLighting { get; set; }
+        public bool HasLeatherSteeringWheel { get; set; }
 
         // Devices
-        public bool FilterHasRadio { get; set; }
-        public bool FilterHasCDPlayer { get; set; }
-        public bool FilterHasTV { get; set; }
-        public bool FilterHasNavigationSystem { get; set; }
-        public bool FilterHasSoundSystem { get; set; }
-        public bool FilterHasTouchScreen { get; set; }
-        public bool FilterHasVoiceControl { get; set; }
-        public bool FilterHasMultifunctionSteeringWheel { get; set; }
-        public bool FilterHasHandsfreeKit { get; set; }
-        public bool FilterHasUSBPort { get; set; }
-        public bool FilterHasBluetooth { get; set; }
-        public bool FilterHasAppleCarPlay { get; set; }
-        public bool FilterHasAndroidAuto { get; set; }
-        public bool FilterHasOnboardComputer { get; set; }
-        public bool FilterHasHeadupDisplay { get; set; }
-        public bool FilterHasDigitalCockpit { get; set; }
+        public bool HasRadio { get; set; }
+        public bool HasCDPlayer { get; set; }
+        public bool HasTV { get; set; }
+        public bool HasNavigationSystem { get; set; }
+        public bool HasSoundSystem { get; set; }
+        public bool HasTouchScreen { get; set; }
+        public bool HasVoiceControl { get; set; }
+        public bool HasMultifunctionSteeringWheel { get; set; }
+        public bool HasHandsfreeKit { get; set; }
+        public bool HasUSBPort { get; set; }
+        public bool HasBluetooth { get; set; }
+        public bool HasAppleCarPlay { get; set; }
+        public bool HasAndroidAuto { get; set; }
+        public bool HasOnboardComputer { get; set; }
+        public bool HasHeadupDisplay { get; set; }
+        public bool HasDigitalCockpit { get; set; }
 
         // Other
-        public bool FilterHasSummerTires { get; set; }
-        public bool FilterHasWinterTires { get; set; }
-        public bool FilterHasAllSeasonTires { get; set; }
-        public bool FilterHasEmergencyTire { get; set; }
-        public bool FilterHasEmergencyTireKit { get; set; }
-        public bool FilterHasPanoramicRoof { get; set; }
+        public bool HasSummerTires { get; set; }
+        public bool HasWinterTires { get; set; }
+        public bool HasAllSeasonTires { get; set; }
+        public bool HasEmergencyTire { get; set; }
+        public bool HasEmergencyTireKit { get; set; }
+        public bool HasPanoramicRoof { get; set; }
     }
     #endregion Filters
 
@@ -237,16 +238,11 @@
         {
             _carOffers.Clear();
             _totalFetched = 0;
+            _hasAppendedFilter = false;
         }
 
         var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
-        bool _hasFilters = 
-        _offerSearch.BrandId != null || _offerSearch.ModelId != null || 
-        _offerSearch.RegionId != null || _offerSearch.LocationId != null ||
-        _offerSearch.EngineId != null || _offerSearch.TransmissionId != null;
-
-
-        bool _hasAppendedFilter = false;
+        bool _hasFilters = HasFilters(_offerSearch);
 
         if (string.IsNullOrWhiteSpace(_offerSearch.Category) && !_hasFilters)
             return;
@@ -312,6 +308,8 @@
 
                     _hasAppendedFilter = true;
                 }
+
+                IterateCheckboxFilters(uriBuilder);
             }
 
             if (!_hasFilters)
@@ -354,6 +352,754 @@
         {
             _showNoResults = false;
         }
+    }
+
+    private void IterateCheckboxFilters(StringBuilder uriBuilder)
+    {
+        if (SearchFilters.IsRegistered != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Specification / IsRegistered eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasABS != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasABS eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasESP != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasESP eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasASR != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasASR eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasHillStartAssist != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasHillStartAssist eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFatigueWarningSystem != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFatigueWarningSystem eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasLaneChangeAssist != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasLaneChangeAssist eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasBlindSpotAssist != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasBlindSpotAssist eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasNightVisionAssist != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasNightVisionAssist eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasEmergencyBrakeAssist != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasEmergencyBrakeAssist eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasEmergencyCallSystem != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasEmergencyCallSystem eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasTrafficSignRecognition != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasTrafficSignRecognition eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasCruiseControl != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasCruiseControl eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAdaptiveCruiseControl != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAdaptiveCruiseControl eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasSpeedLimitControlSystem != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasSpeedLimitControlSystem eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasDistanceWarningSystem != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasDistanceWarningSystem eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasDriverAirbag != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasDriverAirbag eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFrontAirbags != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFrontAirbags eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFrontAndSideAirbags != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFrontAndSideAirbags eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFrontAndSideAndMoreAirbags != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFrontAndSideAndMoreAirbags eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasIsofix != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasIsofix eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasBiXenonHeadlights != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasBiXenonHeadlights eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasLaserHeadlights != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasLaserHeadlights eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasLedHeadlights != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasLedHeadlights eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasXenonHeadlights != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasXenonHeadlights eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasHeadlightWasherSystem != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasHeadlightWasherSystem eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasGlareFreeHighBeamHeadlights != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasGlareFreeHighBeamHeadlights eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasHighBeamAssist != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasHighBeamAssist eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAdaptiveCorneringLights != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAdaptiveCorneringLights eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAdaptiveLighting != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAdaptiveLighting eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFogLamps != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFogLamps eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAlarm != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAlarm eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasEngineImobilizer != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasEngineImobilizer eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAirConditioner != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAirConditioner eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasClimateControl != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasClimateControl eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasHeatedWindshield != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasHeatedWindshield eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasHeatedSteeringWheel != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasHeatedSteeringWheel eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasSelfSteeringSystems != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasSelfSteeringSystems eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFrontParkAssistant != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFrontParkAssistant eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasRearParkAssistant != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasRearParkAssistant eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasCameraAssistant != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasCameraAssistant eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.Has360DegreeCameraAssistant != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / Has360DegreeCameraAssistant eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFrontHeatedSeats != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFrontHeatedSeats eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasBackHeatedSeats != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasBackHeatedSeats eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasFrontAdjustableSeats != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasFrontAdjustableSeats eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasBackAdjustableSeats != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasBackAdjustableSeats eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasSportSeats != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasSportSeats eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasArmRest != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasArmRest eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasMassageSeats != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasMassageSeats eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasSeatVentilation != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasSeatVentilation eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasElectricWindows != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasElectricWindows eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasElectricSideMirror != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasElectricSideMirror eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasElectricTailgate != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasElectricTailgate eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasCentralLocking != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasCentralLocking eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasKeylessCentralLocking != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasKeylessCentralLocking eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasLightSensor != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasLightSensor eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasRainSensor != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasRainSensor eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasPowerAssistedSteering != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasPowerAssistedSteering eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAmbientLighting != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAmbientLighting eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasLeatherSteeringWheel != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasLeatherSteeringWheel eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasRadio != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasRadio eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasCDPlayer != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasCDPlayer eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasTV != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasTV eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasNavigationSystem != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasNavigationSystem eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasSoundSystem != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasSoundSystem eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasTouchScreen != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasTouchScreen eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasVoiceControl != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasVoiceControl eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasMultifunctionSteeringWheel != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasMultifunctionSteeringWheel eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasHandsfreeKit != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasHandsfreeKit eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasUSBPort != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasUSBPort eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasBluetooth != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasBluetooth eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAppleCarPlay != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAppleCarPlay eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAndroidAuto != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAndroidAuto eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasOnboardComputer != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasOnboardComputer eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasHeadupDisplay != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasHeadupDisplay eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasDigitalCockpit != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasDigitalCockpit eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasSummerTires != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasSummerTires eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasWinterTires != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasWinterTires eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasAllSeasonTires != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasAllSeasonTires eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasEmergencyTire != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasEmergencyTire eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasEmergencyTireKit != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasEmergencyTireKit eq true");
+            _hasAppendedFilter = true;
+        }
+
+
+        if (SearchFilters.HasPanoramicRoof != false)
+        {
+            string and = _hasAppendedFilter ? " and " : string.Empty;
+            uriBuilder.Append($"{and}Equipment / HasPanoramicRoof eq true");
+            _hasAppendedFilter = true;
+        }
+    }
+
+    private bool HasFilters(VehicleSearchRequestModel model)
+    {
+        return
+        model.BrandId != null || model.ModelId != null ||
+        model.RegionId != null || model.LocationId != null ||
+        model.EngineId != null || model.TransmissionId != null ||
+        SearchFilters.IsRegistered != false ||
+        SearchFilters.HasABS != false ||
+        SearchFilters.HasESP != false ||
+        SearchFilters.HasASR != false ||
+        SearchFilters.HasHillStartAssist != false ||
+        SearchFilters.HasFatigueWarningSystem != false ||
+        SearchFilters.HasLaneChangeAssist != false ||
+        SearchFilters.HasBlindSpotAssist != false ||
+        SearchFilters.HasNightVisionAssist != false ||
+        SearchFilters.HasEmergencyBrakeAssist != false ||
+        SearchFilters.HasEmergencyCallSystem != false ||
+        SearchFilters.HasTrafficSignRecognition != false ||
+        SearchFilters.HasCruiseControl != false ||
+        SearchFilters.HasAdaptiveCruiseControl != false ||
+        SearchFilters.HasSpeedLimitControlSystem != false ||
+        SearchFilters.HasDistanceWarningSystem != false ||
+        SearchFilters.HasDriverAirbag != false ||
+        SearchFilters.HasFrontAirbags != false ||
+        SearchFilters.HasFrontAndSideAirbags != false ||
+        SearchFilters.HasFrontAndSideAndMoreAirbags != false ||
+        SearchFilters.HasIsofix != false ||
+        SearchFilters.HasBiXenonHeadlights != false ||
+        SearchFilters.HasLaserHeadlights != false ||
+        SearchFilters.HasLedHeadlights != false ||
+        SearchFilters.HasXenonHeadlights != false ||
+        SearchFilters.HasHeadlightWasherSystem != false ||
+        SearchFilters.HasGlareFreeHighBeamHeadlights != false ||
+        SearchFilters.HasHighBeamAssist != false ||
+        SearchFilters.HasAdaptiveCorneringLights != false ||
+        SearchFilters.HasAdaptiveLighting != false ||
+        SearchFilters.HasFogLamps != false ||
+        SearchFilters.HasAlarm != false ||
+        SearchFilters.HasEngineImobilizer != false ||
+        SearchFilters.HasAirConditioner != false ||
+        SearchFilters.HasClimateControl != false ||
+        SearchFilters.HasHeatedWindshield != false ||
+        SearchFilters.HasHeatedSteeringWheel != false ||
+        SearchFilters.HasSelfSteeringSystems != false ||
+        SearchFilters.HasFrontParkAssistant != false ||
+        SearchFilters.HasRearParkAssistant != false ||
+        SearchFilters.HasCameraAssistant != false ||
+        SearchFilters.Has360DegreeCameraAssistant != false ||
+        SearchFilters.HasFrontHeatedSeats != false ||
+        SearchFilters.HasBackHeatedSeats != false ||
+        SearchFilters.HasFrontAdjustableSeats != false ||
+        SearchFilters.HasBackAdjustableSeats != false ||
+        SearchFilters.HasSportSeats != false ||
+        SearchFilters.HasArmRest != false ||
+        SearchFilters.HasMassageSeats != false ||
+        SearchFilters.HasSeatVentilation != false ||
+        SearchFilters.HasElectricWindows != false ||
+        SearchFilters.HasElectricSideMirror != false ||
+        SearchFilters.HasElectricTailgate != false ||
+        SearchFilters.HasCentralLocking != false ||
+        SearchFilters.HasKeylessCentralLocking != false ||
+        SearchFilters.HasLightSensor != false ||
+        SearchFilters.HasRainSensor != false ||
+        SearchFilters.HasPowerAssistedSteering != false ||
+        SearchFilters.HasAmbientLighting != false ||
+        SearchFilters.HasLeatherSteeringWheel != false ||
+        SearchFilters.HasRadio != false ||
+        SearchFilters.HasCDPlayer != false ||
+        SearchFilters.HasTV != false ||
+        SearchFilters.HasNavigationSystem != false ||
+        SearchFilters.HasSoundSystem != false ||
+        SearchFilters.HasTouchScreen != false ||
+        SearchFilters.HasVoiceControl != false ||
+        SearchFilters.HasMultifunctionSteeringWheel != false ||
+        SearchFilters.HasHandsfreeKit != false ||
+        SearchFilters.HasUSBPort != false ||
+        SearchFilters.HasBluetooth != false ||
+        SearchFilters.HasAppleCarPlay != false ||
+        SearchFilters.HasAndroidAuto != false ||
+        SearchFilters.HasOnboardComputer != false ||
+        SearchFilters.HasHeadupDisplay != false ||
+        SearchFilters.HasDigitalCockpit != false ||
+        SearchFilters.HasSummerTires != false ||
+        SearchFilters.HasWinterTires != false ||
+        SearchFilters.HasAllSeasonTires != false ||
+        SearchFilters.HasEmergencyTire != false ||
+        SearchFilters.HasEmergencyTireKit != false ||
+        SearchFilters.HasPanoramicRoof != false;
     }
 
     void OnChange(object value)
@@ -417,26 +1163,6 @@
 
     async Task OnSearchButtonClick()
     {
-        // If previous search uses the same data we shouldn't fetch the API
-        if (JsonConvert.SerializeObject(_prevOfferSearch) == JsonConvert.SerializeObject(_offerSearch))
-        {
-            return;
-        }
-        else
-        {
-            _prevOfferSearch = new VehicleSearchRequestModel
-                    {
-                        Category = _offerSearch.Category,
-                        BrandId = _offerSearch.BrandId,
-                        ModelId = _offerSearch.ModelId,
-                        EngineId = _offerSearch.EngineId,
-                        TransmissionId = _offerSearch.TransmissionId,
-                        RegionId = _offerSearch.RegionId,
-                        LocationId = _offerSearch.LocationId,
-                        Year = _offerSearch.Year,
-                    };
-        }
-
         _searchBtnClicked = true;
         _searchBtnDisabled = true;
         await FetchOffers();
