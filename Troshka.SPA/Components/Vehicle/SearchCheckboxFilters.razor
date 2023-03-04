@@ -2,7 +2,10 @@
 @inject IStringLocalizer<Localization.OfferResource> LocalizerOffer
 
 <div class="Components__SearchCheckboxFilters">
+    <RadzenButton Text="Clear" Click=@OnClearFiltersBtnClick />
+    
     <div class="checkbox-filters">
+
             <div class="checkbox-filter">
                 <RadzenCheckBox TValue="bool" Value=@SearchFilters.IsRegistered Change=@(args => SearchFilters.IsRegistered = args) Name="@LocalizerOffer["Specification_IsRegistered"]" />
                 <RadzenLabel Text="@LocalizerOffer["Specification_IsRegistered"]" Component="@LocalizerOffer["Specification_IsRegistered"]" />
@@ -413,4 +416,90 @@
 @code {
     [Parameter]
     public Filters SearchFilters { get; set; }
+
+    void OnClearFiltersBtnClick()
+    {
+        SearchFilters.IsRegistered = false;
+        SearchFilters.HasABS = false;
+        SearchFilters.HasESP = false;
+        SearchFilters.HasASR = false;
+        SearchFilters.HasHillStartAssist = false;
+        SearchFilters.HasFatigueWarningSystem = false;
+        SearchFilters.HasLaneChangeAssist = false;
+        SearchFilters.HasBlindSpotAssist = false;
+        SearchFilters.HasNightVisionAssist = false;
+        SearchFilters.HasEmergencyBrakeAssist = false;
+        SearchFilters.HasEmergencyCallSystem = false;
+        SearchFilters.HasTrafficSignRecognition = false;
+        SearchFilters.HasCruiseControl = false;
+        SearchFilters.HasAdaptiveCruiseControl = false;
+        SearchFilters.HasSpeedLimitControlSystem = false;
+        SearchFilters.HasDistanceWarningSystem = false;
+        SearchFilters.HasDriverAirbag = false;
+        SearchFilters.HasFrontAirbags = false;
+        SearchFilters.HasFrontAndSideAirbags = false;
+        SearchFilters.HasFrontAndSideAndMoreAirbags = false;
+        SearchFilters.HasIsofix = false;
+        SearchFilters.HasBiXenonHeadlights = false;
+        SearchFilters.HasLaserHeadlights = false;
+        SearchFilters.HasLedHeadlights = false;
+        SearchFilters.HasXenonHeadlights = false;
+        SearchFilters.HasHeadlightWasherSystem = false;
+        SearchFilters.HasGlareFreeHighBeamHeadlights = false;
+        SearchFilters.HasHighBeamAssist = false;
+        SearchFilters.HasAdaptiveCorneringLights = false;
+        SearchFilters.HasAdaptiveLighting = false;
+        SearchFilters.HasFogLamps = false;
+        SearchFilters.HasAlarm = false;
+        SearchFilters.HasEngineImobilizer = false;
+        SearchFilters.HasAirConditioner = false;
+        SearchFilters.HasClimateControl = false;
+        SearchFilters.HasHeatedWindshield = false;
+        SearchFilters.HasHeatedSteeringWheel = false;
+        SearchFilters.HasSelfSteeringSystems = false;
+        SearchFilters.HasFrontParkAssistant = false;
+        SearchFilters.HasRearParkAssistant = false;
+        SearchFilters.HasCameraAssistant = false;
+        SearchFilters.Has360DegreeCameraAssistant = false;
+        SearchFilters.HasFrontHeatedSeats = false;
+        SearchFilters.HasBackHeatedSeats = false;
+        SearchFilters.HasFrontAdjustableSeats = false;
+        SearchFilters.HasBackAdjustableSeats = false;
+        SearchFilters.HasSportSeats = false;
+        SearchFilters.HasArmRest = false;
+        SearchFilters.HasMassageSeats = false;
+        SearchFilters.HasSeatVentilation = false;
+        SearchFilters.HasElectricWindows = false;
+        SearchFilters.HasElectricSideMirror = false;
+        SearchFilters.HasElectricTailgate = false;
+        SearchFilters.HasCentralLocking = false;
+        SearchFilters.HasKeylessCentralLocking = false;
+        SearchFilters.HasLightSensor = false;
+        SearchFilters.HasRainSensor = false;
+        SearchFilters.HasPowerAssistedSteering = false;
+        SearchFilters.HasAmbientLighting = false;
+        SearchFilters.HasLeatherSteeringWheel = false;
+        SearchFilters.HasRadio = false;
+        SearchFilters.HasCDPlayer = false;
+        SearchFilters.HasTV = false;
+        SearchFilters.HasNavigationSystem = false;
+        SearchFilters.HasSoundSystem = false;
+        SearchFilters.HasTouchScreen = false;
+        SearchFilters.HasVoiceControl = false;
+        SearchFilters.HasMultifunctionSteeringWheel = false;
+        SearchFilters.HasHandsfreeKit = false;
+        SearchFilters.HasUSBPort = false;
+        SearchFilters.HasBluetooth = false;
+        SearchFilters.HasAppleCarPlay = false;
+        SearchFilters.HasAndroidAuto = false;
+        SearchFilters.HasOnboardComputer = false;
+        SearchFilters.HasHeadupDisplay = false;
+        SearchFilters.HasDigitalCockpit = false;
+        SearchFilters.HasSummerTires = false;
+        SearchFilters.HasWinterTires = false;
+        SearchFilters.HasAllSeasonTires = false;
+        SearchFilters.HasEmergencyTire = false;
+        SearchFilters.HasEmergencyTireKit = false;
+        SearchFilters.HasPanoramicRoof = false;
+    }
 }
