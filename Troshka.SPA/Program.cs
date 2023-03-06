@@ -2,11 +2,11 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
-using Troshka.SPA;
-using Troshka.SPA.Interfaces;
 using OnebrbApi;
 using Radzen;
 using System.Globalization;
+using Troshka.SPA;
+using Troshka.SPA.Interfaces;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

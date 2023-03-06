@@ -376,7 +376,7 @@
     <value>Manual</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>city/village</value>
+    <value>Location</value>
   </data>
   <data name="Region" xml:space="preserve">
     <value>Region</value>

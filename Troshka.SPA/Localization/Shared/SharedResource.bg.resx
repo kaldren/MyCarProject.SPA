@@ -144,6 +144,9 @@
   <data name="Model" xml:space="preserve">
     <value>Модел</value>
   </data>
+  <data name="MyOffers" xml:space="preserve">
+    <value>Мои обяви</value>
+  </data>
   <data name="NothingAtThisAddress" xml:space="preserve">
     <value>Няма нищо на този адрес.</value>
   </data>

@@ -1121,6 +1121,8 @@
 
                 var transmission = await OnebrbApiClient.ApiCarsTransmissionsAsync();
                 _transmissionList = Mapper.Map<ICollection<VehicleTransmissionModel>>(transmission.Result);
+
+                _searchBtnDisabled = false;
             }
             else
             {
@@ -1128,6 +1130,7 @@
                 _modelList = null;
                 _enginesList = null;
                 _transmissionList = null;
+                _searchBtnDisabled = true;
             }
         }
     }

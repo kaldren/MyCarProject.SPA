@@ -18,22 +18,17 @@
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> @LocalizerShared["Home"]
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="counter">
-                        <span class="oi oi-magnifying-glass" aria-hidden="true"></span> @LocalizerShared["Search"]
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="fetchdata">
-                        <span class="oi oi-cog" aria-hidden="true"></span> @LocalizerShared["Settings"]
+                        <img src="/img/home.svg" width="32" height="32" alt=@LocalizerShared["Home"] />
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="https://onebrb.b2clogin.com/onebrb.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_ProfileEdit&client_id=f79d639f-8196-4deb-b33c-c741e919831c&nonce=defaultNonce&redirect_uri=https%3A%2F%2Flocalhost%3A7130&scope=openid&response_type=id_token&prompt=login">
-                        <span class="oi oi-cog" aria-hidden="true"></span> @LocalizerShared["Settings"]
+                        <img src="/img/user.svg" width="32" height="32" alt=@LocalizerShared["Settings"]"" />
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/my-offers">
+                        <img src="/img/vehicles.svg" width="32" height="32" alt=@LocalizerShared["MyOffers"] />
                     </NavLink>
                 </div>
             </Authorized>

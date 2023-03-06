@@ -503,7 +503,7 @@
         {
             _isLoading = true;
             var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
-            var response = await client.GetAsync($"/api/offers/cars?$filter=Id eq '{Id}'");
+            var response = await client.GetAsync($"/api/cars/offers?$filter=Id eq '{Id}'");
 
             response.EnsureSuccessStatusCode();
 

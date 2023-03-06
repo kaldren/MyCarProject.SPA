@@ -144,6 +144,9 @@
   <data name="Model" xml:space="preserve">
     <value>Model</value>
   </data>
+  <data name="MyOffers" xml:space="preserve">
+    <value>My Offers</value>
+  </data>
   <data name="NothingAtThisAddress" xml:space="preserve">
     <value>Sorry, there's nothing at this address.</value>
   </data>
