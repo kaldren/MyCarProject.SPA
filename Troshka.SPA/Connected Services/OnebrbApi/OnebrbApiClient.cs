@@ -13,85 +13,85 @@
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 #pragma warning disable 8603 // Disable "CS8603 Possible null reference return"
 
-namespace OnebrbApi
+namespace TroshkaApi
 {
     using Troshka.SPA.Interfaces;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.1.0))")]
-    public partial interface IOnebrbApiClient
+    public partial interface ITroshkaApiClient
     {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarOfferEntity>>> ApiCarsOffersGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarOfferEntity>>> ApiCarsOffersGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<CarOfferResponseModel>> ApiCarsOffersGetAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<CarOfferResponseModel>> ApiCarsOffersGetAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarOfferImagesResponseModel>>> ApiCarsOffersImagesAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarOfferImagesResponseModel>>> ApiCarsOffersImagesAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarBrandResponseModel>>> ApiCarsBrandsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarBrandResponseModel>>> ApiCarsBrandsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarModelResponseModel>>> ApiCarsBrandsModelsAsync(string brandId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarModelResponseModel>>> ApiCarsBrandsModelsAsync(string brandId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarEngineResponseModel>>> ApiCarsEnginesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarEngineResponseModel>>> ApiCarsEnginesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarTransmissionResponseModel>>> ApiCarsTransmissionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarTransmissionResponseModel>>> ApiCarsTransmissionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CategoryResponseModel>>> ApiCommonCategoriesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CategoryResponseModel>>> ApiCommonCategoriesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<VehicleImageResponseModel>>> ApiCommonImagesAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<VehicleImageResponseModel>>> ApiCommonImagesAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<VehicleOwnerResponseModel>> ApiCommonOwnerAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<VehicleOwnerResponseModel>> ApiCommonOwnerAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<RegionResponseModel>>> ApiCommonRegionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<RegionResponseModel>>> ApiCommonRegionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<LocationResponseModel>>> ApiCommonRegionsLocationsAsync(string regionId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<LocationResponseModel>>> ApiCommonRegionsLocationsAsync(string regionId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.1.0))")]
-    public partial class OnebrbApiClient : IOnebrbApiClientPublic
+    public partial class TroshkaApiClient : ITroshkaApiClientPublic
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-        public OnebrbApiClient(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public TroshkaApiClient(string baseUrl, System.Net.Http.HttpClient httpClient)
         {
             BaseUrl = baseUrl;
             _httpClient = httpClient;
@@ -122,7 +122,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarOfferEntity>>> ApiCarsOffersGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarOfferEntity>>> ApiCarsOffersGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/cars/offers");
@@ -164,7 +164,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<CarOfferEntity>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<CarOfferEntity>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -209,7 +209,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<CarOfferResponseModel>> ApiCarsOffersGetAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<CarOfferResponseModel>> ApiCarsOffersGetAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (offerId == null)
                 throw new System.ArgumentNullException("offerId");
@@ -255,7 +255,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<CarOfferResponseModel>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<CarOfferResponseModel>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -300,7 +300,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarOfferImagesResponseModel>>> ApiCarsOffersImagesAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarOfferImagesResponseModel>>> ApiCarsOffersImagesAsync(string offerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (offerId == null)
                 throw new System.ArgumentNullException("offerId");
@@ -346,7 +346,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<CarOfferImagesResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<CarOfferImagesResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -391,7 +391,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarBrandResponseModel>>> ApiCarsBrandsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarBrandResponseModel>>> ApiCarsBrandsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/cars/brands");
@@ -433,7 +433,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<CarBrandResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<CarBrandResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -478,7 +478,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarModelResponseModel>>> ApiCarsBrandsModelsAsync(string brandId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarModelResponseModel>>> ApiCarsBrandsModelsAsync(string brandId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (brandId == null)
                 throw new System.ArgumentNullException("brandId");
@@ -524,7 +524,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<CarModelResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<CarModelResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -569,7 +569,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarEngineResponseModel>>> ApiCarsEnginesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarEngineResponseModel>>> ApiCarsEnginesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/cars/engines");
@@ -611,7 +611,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<CarEngineResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<CarEngineResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -656,7 +656,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CarTransmissionResponseModel>>> ApiCarsTransmissionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CarTransmissionResponseModel>>> ApiCarsTransmissionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/cars/transmissions");
@@ -698,7 +698,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<CarTransmissionResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<CarTransmissionResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -743,7 +743,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<CategoryResponseModel>>> ApiCommonCategoriesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<CategoryResponseModel>>> ApiCommonCategoriesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/common/categories");
@@ -785,7 +785,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<CategoryResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<CategoryResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -830,7 +830,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<VehicleImageResponseModel>>> ApiCommonImagesAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<VehicleImageResponseModel>>> ApiCommonImagesAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (vehicleId == null)
                 throw new System.ArgumentNullException("vehicleId");
@@ -876,7 +876,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<VehicleImageResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<VehicleImageResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -921,7 +921,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<VehicleOwnerResponseModel>> ApiCommonOwnerAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<VehicleOwnerResponseModel>> ApiCommonOwnerAsync(string vehicleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (vehicleId == null)
                 throw new System.ArgumentNullException("vehicleId");
@@ -967,7 +967,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<VehicleOwnerResponseModel>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<VehicleOwnerResponseModel>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -1012,7 +1012,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<RegionResponseModel>>> ApiCommonRegionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<RegionResponseModel>>> ApiCommonRegionsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/common/regions");
@@ -1054,7 +1054,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<RegionResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<RegionResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -1099,7 +1099,7 @@ namespace OnebrbApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OnebrbApiResponse<System.Collections.Generic.ICollection<LocationResponseModel>>> ApiCommonRegionsLocationsAsync(string regionId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<TroshkaApiResponse<System.Collections.Generic.ICollection<LocationResponseModel>>> ApiCommonRegionsLocationsAsync(string regionId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (regionId == null)
                 throw new System.ArgumentNullException("regionId");
@@ -1145,7 +1145,7 @@ namespace OnebrbApi
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            return new OnebrbApiResponse<System.Collections.Generic.ICollection<LocationResponseModel>>(status_, headers_, objectResponse_.Object);
+                            return new TroshkaApiResponse<System.Collections.Generic.ICollection<LocationResponseModel>>(status_, headers_, objectResponse_.Object);
                         }
                         else
                         if (status_ == 401)
@@ -2456,13 +2456,13 @@ namespace OnebrbApi
 
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.1.0))")]
-    public partial class OnebrbApiResponse
+    public partial class TroshkaApiResponse
     {
         public int StatusCode { get; private set; }
 
         public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
 
-        public OnebrbApiResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers)
+        public TroshkaApiResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers)
         {
             StatusCode = statusCode;
             Headers = headers;
@@ -2470,11 +2470,11 @@ namespace OnebrbApi
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.1.0))")]
-    public partial class OnebrbApiResponse<TResult> : OnebrbApiResponse
+    public partial class TroshkaApiResponse<TResult> : TroshkaApiResponse
     {
         public TResult Result { get; private set; }
 
-        public OnebrbApiResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result)
+        public TroshkaApiResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result)
             : base(statusCode, headers)
         {
             Result = result;

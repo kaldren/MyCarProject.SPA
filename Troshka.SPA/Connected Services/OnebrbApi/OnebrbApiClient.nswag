@@ -4,13 +4,13 @@
   "documentGenerator": {
     "fromDocument": {
       "url": "https://localhost:7113/swagger/v1/swagger.json",
-      "output": "OnebrbApiClient.nswag.json",
+      "output": "TroshkaApiClient.nswag.json",
       "newLineBehavior": "Auto"
     }
   },
   "codeGenerators": {
     "openApiToCSharpClient": {
-      "clientBaseClass": "IOnebrbApiClientPublic",
+      "clientBaseClass": "ITroshkaApiClientPublic",
       "configurationClass": null,
       "generateClientClasses": true,
       "generateClientInterfaces": true,
@@ -40,7 +40,7 @@
       "useRequestAndResponseSerializationSettings": false,
       "serializeTypeInformation": false,
       "queryNullValue": "",
-      "className": "OnebrbApiClient",
+      "className": "TroshkaApiClient",
       "operationGenerationMode": "SingleClientFromPathSegments",
       "additionalNamespaceUsages": [],
       "additionalContractNamespaceUsages": [],
@@ -54,8 +54,8 @@
       "wrapResponses": true,
       "wrapResponseMethods": [],
       "generateResponseClasses": true,
-      "responseClass": "OnebrbApiResponse",
-      "namespace": "OnebrbApi",
+      "responseClass": "TroshkaApiResponse",
+      "namespace": "TroshkaApi",
       "requiredPropertiesMustBeDefined": true,
       "dateType": "System.DateTimeOffset",
       "jsonConverters": null,
@@ -92,7 +92,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "OnebrbApiClient.cs",
+      "output": "TroshkaApiClient.cs",
       "newLineBehavior": "Auto"
     }
   }

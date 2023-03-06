@@ -1,8 +1,8 @@
-﻿using OnebrbApi;
+﻿using TroshkaApi;
 
 namespace Troshka.SPA.Interfaces
 {
-    public interface IOnebrbApiClientPublic : IOnebrbApiClient
+    public interface ITroshkaApiClientPublic : ITroshkaApiClient
     {
     }
 }

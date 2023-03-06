@@ -9,11 +9,11 @@
 @using Troshka.SPA.Models;
 @using Troshka.SPA.Models.Common;
 
-@inject IOnebrbApiClientPublic OnebrbApiClient
+@inject ITroshkaApiClientPublic TroshkaApiClient
 @inject IMapper Mapper
 @inject IHttpClientFactory HttpClientFactory
 @inject NavigationManager NavManager
-@inject IOnebrbApiClientPublic OnebrbApiClient
+@inject ITroshkaApiClientPublic TroshkaApiClient
 @inject IMapper Mapper
 @inject IStringLocalizer<Localization.SharedResource> LocalizerShared
 @inject IStringLocalizer<Localization.OfferResource> LocalizerOffer
@@ -117,6 +117,7 @@
     private bool _searchBtnClicked;
     private bool _searchBtnDisabled;
     private bool _hasAppendedFilter = false;
+    private bool _shouldRender = true;
 
     #region Filters
     public class Filters
@@ -217,18 +218,23 @@
         try
         {
             _isLoading = true;
-            var api = await OnebrbApiClient.ApiCommonCategoriesAsync();
+            var api = await TroshkaApiClient.ApiCommonCategoriesAsync();
             _categories = Mapper.Map<List<VehicleCategoryModel>>(api.Result);
             _offerSearch.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
             await OnVehicleCategoryChange();
 
-            var regionsApi = await OnebrbApiClient.ApiCommonRegionsAsync();
+            var regionsApi = await TroshkaApiClient.ApiCommonRegionsAsync();
             _regionList = Mapper.Map<List<CommonRegionModel>>(regionsApi.Result);
         }
         finally
         {
             _isLoading = false;
         }
+    }
+
+    protected override bool ShouldRender()
+    {
+        return _shouldRender;
     }
 
     private async Task FetchOffers()
@@ -241,7 +247,7 @@
             _hasAppendedFilter = false;
         }
 
-        var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
+        var client = HttpClientFactory.CreateClient("TroshkaAPINoAuth");
         bool _hasFilters = HasFilters(_offerSearch);
 
         if (string.IsNullOrWhiteSpace(_offerSearch.Category) && !_hasFilters)
@@ -1103,6 +1109,7 @@
         SearchFilters.HasPanoramicRoof != false;
     }
 
+
     void OnChange(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -1114,13 +1121,13 @@
         {
             if (_offerSearch.Category == "Cars")
             {
-                var response = await OnebrbApiClient.ApiCarsBrandsAsync();
+                var response = await TroshkaApiClient.ApiCarsBrandsAsync();
                 _brandList = Mapper.Map<ICollection<VehicleBrandModel>>(response.Result);
 
-                var engine = await OnebrbApiClient.ApiCarsEnginesAsync();
+                var engine = await TroshkaApiClient.ApiCarsEnginesAsync();
                 _enginesList = Mapper.Map<ICollection<VehicleEngineModel>>(engine.Result);
 
-                var transmission = await OnebrbApiClient.ApiCarsTransmissionsAsync();
+                var transmission = await TroshkaApiClient.ApiCarsTransmissionsAsync();
                 _transmissionList = Mapper.Map<ICollection<VehicleTransmissionModel>>(transmission.Result);
 
                 _searchBtnDisabled = false;
@@ -1142,7 +1149,7 @@
         {
             if (_offerSearch.Category == "Cars")
             {
-                var response = await OnebrbApiClient.ApiCarsBrandsModelsAsync(_offerSearch.BrandId);
+                var response = await TroshkaApiClient.ApiCarsBrandsModelsAsync(_offerSearch.BrandId);
                 _modelList = Mapper.Map<ICollection<VehicleModelModel>>(response.Result);
             }
         }
@@ -1156,7 +1163,7 @@
     {
         if (_offerSearch.RegionId != null)
         {
-            var response = await OnebrbApiClient.ApiCommonRegionsLocationsAsync(_offerSearch.RegionId);
+            var response = await TroshkaApiClient.ApiCommonRegionsLocationsAsync(_offerSearch.RegionId);
             _locationList = Mapper.Map<ICollection<CommonLocationModel>>(response.Result);
         }
         else

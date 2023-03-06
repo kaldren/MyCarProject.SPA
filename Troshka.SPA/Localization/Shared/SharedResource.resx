@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AllRightsReserved" xml:space="preserve">
-    <value>Onebrb - All rights reserved</value>
+    <value>Troshka - All rights reserved</value>
   </data>
   <data name="AuthenticatingPleaseWait" xml:space="preserve">
     <value>Authentication in progress, please wait...</value>

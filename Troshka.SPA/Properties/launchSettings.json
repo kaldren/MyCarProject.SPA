@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Onebrb.SPA": {
+    "Troshka.SPA": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

@@ -2,7 +2,7 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
-using OnebrbApi;
+using TroshkaApi;
 using Radzen;
 using System.Globalization;
 using Troshka.SPA;
@@ -23,31 +23,31 @@ builder.Services.AddMsalAuthentication(options =>
 #region Http Clients
 builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
 
-builder.Services.AddHttpClient("OnebrbAPIAuth",
+builder.Services.AddHttpClient("TroshkaAPIAuth",
         (srv, client) =>
         {
             client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("Api:BaseUrl"));
         })
 .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
 
-builder.Services.AddScoped<IOnebrbApiClient, OnebrbApiClient>((x) =>
+builder.Services.AddScoped<ITroshkaApiClient, TroshkaApiClient>((x) =>
 {
-    var httpClient = x.GetRequiredService<IHttpClientFactory>().CreateClient("OnebrbAPIAuth");
-    var client = ActivatorUtilities.CreateInstance<OnebrbApiClient>(x, builder.Configuration.GetValue<string>("Api:BaseUrl"), httpClient);
+    var httpClient = x.GetRequiredService<IHttpClientFactory>().CreateClient("TroshkaAPIAuth");
+    var client = ActivatorUtilities.CreateInstance<TroshkaApiClient>(x, builder.Configuration.GetValue<string>("Api:BaseUrl"), httpClient);
 
     return client;
 });
 
-builder.Services.AddHttpClient("OnebrbAPINoAuth",
+builder.Services.AddHttpClient("TroshkaAPINoAuth",
         (srv, client) =>
         {
             client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("Api:BaseUrl"));
         });
 
-builder.Services.AddScoped<IOnebrbApiClientPublic, OnebrbApiClient>((x) =>
+builder.Services.AddScoped<ITroshkaApiClientPublic, TroshkaApiClient>((x) =>
 {
-    var httpClient = x.GetRequiredService<IHttpClientFactory>().CreateClient("OnebrbAPINoAuth");
-    var client = ActivatorUtilities.CreateInstance<OnebrbApiClient>(x, builder.Configuration.GetValue<string>("Api:BaseUrl"), httpClient);
+    var httpClient = x.GetRequiredService<IHttpClientFactory>().CreateClient("TroshkaAPINoAuth");
+    var client = ActivatorUtilities.CreateInstance<TroshkaApiClient>(x, builder.Configuration.GetValue<string>("Api:BaseUrl"), httpClient);
 
     return client;
 });

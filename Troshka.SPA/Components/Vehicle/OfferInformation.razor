@@ -2,12 +2,12 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models;
-@using OnebrbApi;
+@using TroshkaApi;
 @using System.Reflection;
 @using Troshka.SPA.Models.Car;
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IOnebrbApiClientPublic OnebrbApiClient
+@inject ITroshkaApiClientPublic TroshkaApiClient
 @inject IMapper Mapper
 @inject IStringLocalizer<Localization.OfferResource> LocalizerOffer
 @inject IStringLocalizer<Localization.SharedResource> LocalizerShared
@@ -502,7 +502,7 @@
         try
         {
             _isLoading = true;
-            var client = HttpClientFactory.CreateClient("OnebrbAPINoAuth");
+            var client = HttpClientFactory.CreateClient("TroshkaAPINoAuth");
             var response = await client.GetAsync($"/api/cars/offers?$filter=Id eq '{Id}'");
 
             response.EnsureSuccessStatusCode();

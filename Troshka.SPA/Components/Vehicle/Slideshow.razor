@@ -3,7 +3,7 @@
 @using Troshka.SPA.Models;
 @using Troshka.SPA.Models.Car;
 
-@inject IOnebrbApiClientPublic OnebrbApiClient
+@inject ITroshkaApiClientPublic TroshkaApiClient
 @inject IMapper Mapper
 @inject IStringLocalizer<Localization.SharedResource> LocalizerShared
 
@@ -32,7 +32,7 @@
         try
         {
             _isLoading = true;
-            var api = await OnebrbApiClient.ApiCarsOffersImagesAsync(Id);
+            var api = await TroshkaApiClient.ApiCarsOffersImagesAsync(Id);
             _carImageModel = Mapper.Map<List<CarOfferImagesModel>>(api.Result);
         }
         finally

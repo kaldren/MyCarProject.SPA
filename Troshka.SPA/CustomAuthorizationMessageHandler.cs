@@ -11,7 +11,7 @@ namespace Troshka.SPA
         {
             ConfigureHandler(
             authorizedUrls: new[] { configuration.GetValue<string>("Api:FullUrl") },
-            scopes: new[] { "Onebrb.Read" });
+            scopes: new[] { "Troshka.Read" });
         }
     }
 }
