@@ -249,6 +249,7 @@
 
         if (!string.IsNullOrWhiteSpace(_offerSearch.Category) && _offerSearch.Category == "Cars")
         {
+            _hasAppendedFilter = false;
             StringBuilder uriBuilder = new("/api/cars/offers");
 
             if (_hasFilters)
@@ -268,7 +269,7 @@
                 {
                     string and = _hasAppendedFilter ? "and" : string.Empty;
 
-                    uriBuilder.Append($" {and} Specification / {nameof(_offerSearch.ModelId)} eq '{_offerSearch.ModelId}'");
+                    uriBuilder.Append($"{and}Specification / {nameof(_offerSearch.ModelId)} eq '{_offerSearch.ModelId}'");
 
                     _hasAppendedFilter = true;
                 }
@@ -277,7 +278,7 @@
                 {
                     string and = _hasAppendedFilter ? "and" : string.Empty;
 
-                    uriBuilder.Append($" {and} Specification / {nameof(_offerSearch.EngineId)} eq '{_offerSearch.EngineId}'");
+                    uriBuilder.Append($"{and}Specification / {nameof(_offerSearch.EngineId)} eq '{_offerSearch.EngineId}'");
 
                     _hasAppendedFilter = true;
                 }
@@ -286,7 +287,7 @@
                 {
                     string and = _hasAppendedFilter ? "and" : string.Empty;
 
-                    uriBuilder.Append($" {and} Specification / {nameof(_offerSearch.TransmissionId)} eq '{_offerSearch.TransmissionId}'");
+                    uriBuilder.Append($"{and}Specification / {nameof(_offerSearch.TransmissionId)} eq '{_offerSearch.TransmissionId}'");
 
                     _hasAppendedFilter = true;
                 }
