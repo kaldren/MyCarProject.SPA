@@ -18,8 +18,8 @@
 @inject IStringLocalizer<Localization.SharedResource> LocalizerShared
 @inject IStringLocalizer<Localization.OfferResource> LocalizerOffer
 @inject DialogService DialogService
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @implements IDisposable
-
 <div class="Components__VehicleSearch">
     @if (_isLoading)
     {
@@ -218,13 +218,34 @@
         try
         {
             _isLoading = true;
-            var api = await TroshkaApiClient.ApiCommonCategoriesAsync();
-            _categories = Mapper.Map<List<VehicleCategoryModel>>(api.Result);
-            _offerSearch.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
-            await OnVehicleCategoryChange();
+            var hasLocalCategories = await LocalStorage.GetItemAsync<List<VehicleCategoryModel>>(LocalStorageConstants.Troshka_VehicleSearch_Categories);
+            var hasLocalRegions = await LocalStorage.GetItemAsync<List<CommonRegionModel>>(LocalStorageConstants.Troshka_VehicleSearch_Categories);
 
-            var regionsApi = await TroshkaApiClient.ApiCommonRegionsAsync();
-            _regionList = Mapper.Map<List<CommonRegionModel>>(regionsApi.Result);
+            if (hasLocalCategories == null)
+            {
+                var api = await TroshkaApiClient.ApiCommonCategoriesAsync();
+                _categories = Mapper.Map<List<VehicleCategoryModel>>(api.Result);
+                _offerSearch.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
+                await OnVehicleCategoryChange();
+                await LocalStorage.SetItemAsync(LocalStorageConstants.Troshka_VehicleSearch_Categories, _categories);
+            }
+            else
+            {
+                _categories = await LocalStorage.GetItemAsync<List<VehicleCategoryModel>>(LocalStorageConstants.Troshka_VehicleSearch_Categories);
+                _offerSearch.Category = _categories.SingleOrDefault(p => p.Name == "Cars").Name;
+            }
+
+            if (hasLocalRegions == null)
+            {
+                var regionsApi = await TroshkaApiClient.ApiCommonRegionsAsync();
+                _regionList = Mapper.Map<List<CommonRegionModel>>(regionsApi.Result);
+                await LocalStorage.SetItemAsync(LocalStorageConstants.Troshka_VehicleSearch_Regions, _regionList);
+            }
+            else
+            {
+                _regionList = await LocalStorage.GetItemAsync<List<CommonRegionModel>>(LocalStorageConstants.Troshka_VehicleSearch_Regions);
+            }
+
         }
         finally
         {
@@ -1022,91 +1043,91 @@
     private bool HasFilters(VehicleSearchRequestModel model)
     {
         return
-        model.BrandId != null || model.ModelId != null ||
-        model.RegionId != null || model.LocationId != null ||
-        model.EngineId != null || model.TransmissionId != null ||
-        SearchFilters.IsRegistered != false ||
-        SearchFilters.HasABS != false ||
-        SearchFilters.HasESP != false ||
-        SearchFilters.HasASR != false ||
-        SearchFilters.HasHillStartAssist != false ||
-        SearchFilters.HasFatigueWarningSystem != false ||
-        SearchFilters.HasLaneChangeAssist != false ||
-        SearchFilters.HasBlindSpotAssist != false ||
-        SearchFilters.HasNightVisionAssist != false ||
-        SearchFilters.HasEmergencyBrakeAssist != false ||
-        SearchFilters.HasEmergencyCallSystem != false ||
-        SearchFilters.HasTrafficSignRecognition != false ||
-        SearchFilters.HasCruiseControl != false ||
-        SearchFilters.HasAdaptiveCruiseControl != false ||
-        SearchFilters.HasSpeedLimitControlSystem != false ||
-        SearchFilters.HasDistanceWarningSystem != false ||
-        SearchFilters.HasDriverAirbag != false ||
-        SearchFilters.HasFrontAirbags != false ||
-        SearchFilters.HasFrontAndSideAirbags != false ||
-        SearchFilters.HasFrontAndSideAndMoreAirbags != false ||
-        SearchFilters.HasIsofix != false ||
-        SearchFilters.HasBiXenonHeadlights != false ||
-        SearchFilters.HasLaserHeadlights != false ||
-        SearchFilters.HasLedHeadlights != false ||
-        SearchFilters.HasXenonHeadlights != false ||
-        SearchFilters.HasHeadlightWasherSystem != false ||
-        SearchFilters.HasGlareFreeHighBeamHeadlights != false ||
-        SearchFilters.HasHighBeamAssist != false ||
-        SearchFilters.HasAdaptiveCorneringLights != false ||
-        SearchFilters.HasAdaptiveLighting != false ||
-        SearchFilters.HasFogLamps != false ||
-        SearchFilters.HasAlarm != false ||
-        SearchFilters.HasEngineImobilizer != false ||
-        SearchFilters.HasAirConditioner != false ||
-        SearchFilters.HasClimateControl != false ||
-        SearchFilters.HasHeatedWindshield != false ||
-        SearchFilters.HasHeatedSteeringWheel != false ||
-        SearchFilters.HasSelfSteeringSystems != false ||
-        SearchFilters.HasFrontParkAssistant != false ||
-        SearchFilters.HasRearParkAssistant != false ||
-        SearchFilters.HasCameraAssistant != false ||
-        SearchFilters.Has360DegreeCameraAssistant != false ||
-        SearchFilters.HasFrontHeatedSeats != false ||
-        SearchFilters.HasBackHeatedSeats != false ||
-        SearchFilters.HasFrontAdjustableSeats != false ||
-        SearchFilters.HasBackAdjustableSeats != false ||
-        SearchFilters.HasSportSeats != false ||
-        SearchFilters.HasArmRest != false ||
-        SearchFilters.HasMassageSeats != false ||
-        SearchFilters.HasSeatVentilation != false ||
-        SearchFilters.HasElectricWindows != false ||
-        SearchFilters.HasElectricSideMirror != false ||
-        SearchFilters.HasElectricTailgate != false ||
-        SearchFilters.HasCentralLocking != false ||
-        SearchFilters.HasKeylessCentralLocking != false ||
-        SearchFilters.HasLightSensor != false ||
-        SearchFilters.HasRainSensor != false ||
-        SearchFilters.HasPowerAssistedSteering != false ||
-        SearchFilters.HasAmbientLighting != false ||
-        SearchFilters.HasLeatherSteeringWheel != false ||
-        SearchFilters.HasRadio != false ||
-        SearchFilters.HasCDPlayer != false ||
-        SearchFilters.HasTV != false ||
-        SearchFilters.HasNavigationSystem != false ||
-        SearchFilters.HasSoundSystem != false ||
-        SearchFilters.HasTouchScreen != false ||
-        SearchFilters.HasVoiceControl != false ||
-        SearchFilters.HasMultifunctionSteeringWheel != false ||
-        SearchFilters.HasHandsfreeKit != false ||
-        SearchFilters.HasUSBPort != false ||
-        SearchFilters.HasBluetooth != false ||
-        SearchFilters.HasAppleCarPlay != false ||
-        SearchFilters.HasAndroidAuto != false ||
-        SearchFilters.HasOnboardComputer != false ||
-        SearchFilters.HasHeadupDisplay != false ||
-        SearchFilters.HasDigitalCockpit != false ||
-        SearchFilters.HasSummerTires != false ||
-        SearchFilters.HasWinterTires != false ||
-        SearchFilters.HasAllSeasonTires != false ||
-        SearchFilters.HasEmergencyTire != false ||
-        SearchFilters.HasEmergencyTireKit != false ||
-        SearchFilters.HasPanoramicRoof != false;
+    model.BrandId != null || model.ModelId != null ||
+    model.RegionId != null || model.LocationId != null ||
+    model.EngineId != null || model.TransmissionId != null ||
+    SearchFilters.IsRegistered != false ||
+    SearchFilters.HasABS != false ||
+    SearchFilters.HasESP != false ||
+    SearchFilters.HasASR != false ||
+    SearchFilters.HasHillStartAssist != false ||
+    SearchFilters.HasFatigueWarningSystem != false ||
+    SearchFilters.HasLaneChangeAssist != false ||
+    SearchFilters.HasBlindSpotAssist != false ||
+    SearchFilters.HasNightVisionAssist != false ||
+    SearchFilters.HasEmergencyBrakeAssist != false ||
+    SearchFilters.HasEmergencyCallSystem != false ||
+    SearchFilters.HasTrafficSignRecognition != false ||
+    SearchFilters.HasCruiseControl != false ||
+    SearchFilters.HasAdaptiveCruiseControl != false ||
+    SearchFilters.HasSpeedLimitControlSystem != false ||
+    SearchFilters.HasDistanceWarningSystem != false ||
+    SearchFilters.HasDriverAirbag != false ||
+    SearchFilters.HasFrontAirbags != false ||
+    SearchFilters.HasFrontAndSideAirbags != false ||
+    SearchFilters.HasFrontAndSideAndMoreAirbags != false ||
+    SearchFilters.HasIsofix != false ||
+    SearchFilters.HasBiXenonHeadlights != false ||
+    SearchFilters.HasLaserHeadlights != false ||
+    SearchFilters.HasLedHeadlights != false ||
+    SearchFilters.HasXenonHeadlights != false ||
+    SearchFilters.HasHeadlightWasherSystem != false ||
+    SearchFilters.HasGlareFreeHighBeamHeadlights != false ||
+    SearchFilters.HasHighBeamAssist != false ||
+    SearchFilters.HasAdaptiveCorneringLights != false ||
+    SearchFilters.HasAdaptiveLighting != false ||
+    SearchFilters.HasFogLamps != false ||
+    SearchFilters.HasAlarm != false ||
+    SearchFilters.HasEngineImobilizer != false ||
+    SearchFilters.HasAirConditioner != false ||
+    SearchFilters.HasClimateControl != false ||
+    SearchFilters.HasHeatedWindshield != false ||
+    SearchFilters.HasHeatedSteeringWheel != false ||
+    SearchFilters.HasSelfSteeringSystems != false ||
+    SearchFilters.HasFrontParkAssistant != false ||
+    SearchFilters.HasRearParkAssistant != false ||
+    SearchFilters.HasCameraAssistant != false ||
+    SearchFilters.Has360DegreeCameraAssistant != false ||
+    SearchFilters.HasFrontHeatedSeats != false ||
+    SearchFilters.HasBackHeatedSeats != false ||
+    SearchFilters.HasFrontAdjustableSeats != false ||
+    SearchFilters.HasBackAdjustableSeats != false ||
+    SearchFilters.HasSportSeats != false ||
+    SearchFilters.HasArmRest != false ||
+    SearchFilters.HasMassageSeats != false ||
+    SearchFilters.HasSeatVentilation != false ||
+    SearchFilters.HasElectricWindows != false ||
+    SearchFilters.HasElectricSideMirror != false ||
+    SearchFilters.HasElectricTailgate != false ||
+    SearchFilters.HasCentralLocking != false ||
+    SearchFilters.HasKeylessCentralLocking != false ||
+    SearchFilters.HasLightSensor != false ||
+    SearchFilters.HasRainSensor != false ||
+    SearchFilters.HasPowerAssistedSteering != false ||
+    SearchFilters.HasAmbientLighting != false ||
+    SearchFilters.HasLeatherSteeringWheel != false ||
+    SearchFilters.HasRadio != false ||
+    SearchFilters.HasCDPlayer != false ||
+    SearchFilters.HasTV != false ||
+    SearchFilters.HasNavigationSystem != false ||
+    SearchFilters.HasSoundSystem != false ||
+    SearchFilters.HasTouchScreen != false ||
+    SearchFilters.HasVoiceControl != false ||
+    SearchFilters.HasMultifunctionSteeringWheel != false ||
+    SearchFilters.HasHandsfreeKit != false ||
+    SearchFilters.HasUSBPort != false ||
+    SearchFilters.HasBluetooth != false ||
+    SearchFilters.HasAppleCarPlay != false ||
+    SearchFilters.HasAndroidAuto != false ||
+    SearchFilters.HasOnboardComputer != false ||
+    SearchFilters.HasHeadupDisplay != false ||
+    SearchFilters.HasDigitalCockpit != false ||
+    SearchFilters.HasSummerTires != false ||
+    SearchFilters.HasWinterTires != false ||
+    SearchFilters.HasAllSeasonTires != false ||
+    SearchFilters.HasEmergencyTire != false ||
+    SearchFilters.HasEmergencyTireKit != false ||
+    SearchFilters.HasPanoramicRoof != false;
     }
 
 

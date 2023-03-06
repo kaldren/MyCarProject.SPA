@@ -2,6 +2,8 @@
 public class LocalStorageConstants
 {
     // For currently logged in user
+    public const string Troshka = nameof(Troshka);
+
     public const string TroshkaCurrentUser = "Troshka_CurrentUser";
 
     public const string TroshkaCurrentUserLoggedIn = $"{TroshkaCurrentUser}_IsLoggedIn";
@@ -19,4 +21,8 @@ public class LocalStorageConstants
 
     public const string Occupations = $"{TroshkaGeneral}_Occupations";
     public const string Countries = $"{TroshkaGeneral}_Countries";
+
+    // Vehicles
+    public const string Troshka_VehicleSearch_Categories = $"{nameof(Troshka_VehicleSearch_Categories)}";
+    public const string Troshka_VehicleSearch_Regions = $"{nameof(Troshka_VehicleSearch_Regions)}";
 }
