@@ -30,9 +30,9 @@ public class CarOfferModel : BaseEntity
     public string Title { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
-    public virtual OwnerEntityModel Owner { get; set; }
-    public virtual CarSpecificationEntityModel Specification { get; set; }
-    public virtual CarEquipmentEntityModel Equipment { get; set; }
+    public OwnerEntityModel Owner { get; set; } = new();
+    public CarSpecificationEntityModel Specification { get; set; } = new();
+    public CarEquipmentEntityModel Equipment { get; set; } = new();
 }
 
 public class OwnerEntityModel : BaseEntity
@@ -48,19 +48,19 @@ public class CarSpecificationEntityModel
     public int HorsePowers { get; set; }
     public int Mileage { get; set; }
     public bool IsRegistered { get; set; }
-    public DateTimeOffset FirstRegistration { get; set; }
-    public virtual CarEngineEntityModel Engine { get; set; }
-    public virtual CarEuroStandardEntityModel Euro { get; set; }
-    public virtual CarTransmissionEntityModel Transmission { get; set; }
-    public virtual CarColorEntityModel Color { get; set; }
-    public virtual CarSeatsEntityModel Seats { get; set; }
-    public virtual CarDoorsEntityModel Doors { get; set; }
-    public virtual CarInteriorMaterialEntityModel InteriorMaterial { get; set; }
-    public virtual CarColorEntityModel InteriorColor { get; set; }
+    public DateTimeOffset FirstRegistration { get; set; } = new();
+    public CarEngineEntityModel Engine { get; set; } = new();
+    public CarEuroStandardEntityModel Euro { get; set; } = new();
+    public CarTransmissionEntityModel Transmission { get; set; } = new();
+    public CarColorEntityModel Color { get; set; } = new();
+    public CarSeatsEntityModel Seats { get; set; } = new();
+    public CarDoorsEntityModel Doors { get; set; } = new();
+    public CarInteriorMaterialEntityModel InteriorMaterial { get; set; } = new();
+    public CarColorEntityModel InteriorColor { get; set; } = new();
     public string BrandId { get; set; }
-    public virtual CarBrandEntityModel Brand { get; set; }
+    public CarBrandEntityModel Brand { get; set; } = new();
     public string ModelId { get; set; }
-    public virtual CarModelEntityModel Model { get; set; }
+    public CarModelEntityModel Model { get; set; } = new();
 }
 
 public class CarEngineEntityModel
@@ -107,7 +107,7 @@ public class CarModelEntityModel
 {
     public string Name { get; set; }
     public string CarBrandId { get; set; }
-    public virtual CarBrandEntityModel CarBrand { get; set; }
+    public CarBrandEntityModel CarBrand { get; set; } = new();
 }
 
 public class CarEquipmentEntityModel

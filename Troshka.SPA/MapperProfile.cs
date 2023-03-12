@@ -19,6 +19,7 @@ namespace Troshka.SPA
             CreateMap<CarOfferEntity, CarOfferModel>();
             CreateMap<CarOfferImagesResponseModel, CarOfferImagesModel>();
             CreateMap<VehicleOwnerResponseModel, VehicleOwnerModel>();
+            CreateMap<CarCategoryResponseModel, CarCategoryModel>();
 
             CreateMap<CategoryResponseModel, VehicleCategoryModel>();
             CreateMap<RegionResponseModel, CommonRegionModel>();

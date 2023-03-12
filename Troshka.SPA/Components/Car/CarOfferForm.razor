@@ -1,0 +1,161 @@
+﻿@using AutoMapper;
+@using Troshka.SPA.Components.Vehicle
+@using Troshka.SPA.Interfaces;
+@using Troshka.SPA.Models.Car;
+@using Troshka.SPA.Models;
+@using Troshka.SPA.Models.Common;
+@using static Troshka.SPA.Components.VehicleSearch;
+
+@inject IStringLocalizer<Localization.SharedResource> LocalizerShared
+@inject IStringLocalizer<Localization.OfferResource> LocalizerOffer
+@inject DialogService DialogService
+@inject ITroshkaApiClientPublic TroshkaApiClient
+@inject IMapper Mapper
+
+<div class="Components__CarOfferForm">
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerOffer["Specification_Category"] Data=@_categoriesList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.CategoryId Change=@(args => OnVehicleBrandChange()) />
+
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.BrandId Change=@(args => OnVehicleBrandChange()) />
+
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.ModelId />
+
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_enginesList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.EngineId Change=@(args => OnChange(args)) />
+
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerOffer["Specification_Transmission"] Data=@_transmissionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.TransmissionId Change=@(args => OnChange(args)) />
+
+    <RadzenNumeric Placeholder="Horsepower" @bind-Value=_carModel.Horsepower class="w-100" />
+    <RadzenNumeric Placeholder="Mileage" @bind-Value=_carModel.Mileage class="w-100" />
+
+ @*   <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" @bind-Value=@_carModel.Year Change=@(args => OnChange(args)) />
+*@
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+
+    <RadzenDatePicker @bind-Value=@dateProduced DateFormat="yyyy/MM" Max="DateTime.Now">
+        <FooterTemplate>
+            <RadzenButton Click=@(args => dateProduced = DateTime.Now) Text="Today" class="my-3 w-100" />
+        </FooterTemplate>
+    </RadzenDatePicker>
+
+    <RadzenRadioButtonList @bind-Value=@value TValue="int" class="mb-5">
+        <Items>
+            <RadzenRadioButtonListItem Text="New" Value="1" />
+            <RadzenRadioButtonListItem Text="Used" Value="2" />
+            <RadzenRadioButtonListItem Text="For Parts" Value="3" />
+        </Items>
+    </RadzenRadioButtonList>
+
+    <RadzenButton Text=@LocalizerOffer["Filters"] ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
+
+</div>
+
+@code {
+    private CreateCarOfferRequestModel _offer;
+    private IEnumerable<CarCategoryModel> _categoriesList;
+    private IEnumerable<VehicleBrandModel> _brandList;
+    private IEnumerable<VehicleModelModel> _modelList;
+    private IEnumerable<EuroStandardModel> _euroStandardList;
+    private IEnumerable<CommonRegionModel> _regionList;
+    private IEnumerable<CommonLocationModel> _locationList;
+    private IEnumerable<VehicleEngineModel> _enginesList;
+    private IEnumerable<VehicleTransmissionModel> _transmissionList;
+    private List<int> _yearList;
+    private ICollection<VehicleCategoryModel> _categories;
+    private Filters SearchFilters = new();
+    private CreateCarOfferRequestModel _carModel = new();
+    RadzenUpload upload;
+
+    int value = 1;
+    DateTime? dateProduced = DateTime.Now;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _offer = new();
+
+        var categories = await TroshkaApiClient.ApiCarsCategoriesAsync();
+        _categoriesList = Mapper.Map<ICollection<CarCategoryModel>>(categories.Result);
+
+        var response = await TroshkaApiClient.ApiCarsBrandsAsync();
+        _brandList = Mapper.Map<ICollection<VehicleBrandModel>>(response.Result);
+
+        var engine = await TroshkaApiClient.ApiCarsEnginesAsync();
+        _enginesList = Mapper.Map<ICollection<VehicleEngineModel>>(engine.Result);
+
+        var transmission = await TroshkaApiClient.ApiCarsTransmissionsAsync();
+        _transmissionList = Mapper.Map<ICollection<VehicleTransmissionModel>>(transmission.Result);
+
+        _yearList = new List<int>();
+        for (int i = 0; i < 100; i++)
+        {
+            _yearList.Add(DateTime.Now.Year - i);
+        }
+    }
+
+    async Task ShowFiltersDialog()
+    {
+        await DialogService.OpenAsync(@LocalizerOffer["Filters"], ds =>
+
+    @<SearchCheckboxFilters SearchFilters=SearchFilters />,
+        new DialogOptions() { CloseDialogOnOverlayClick = true, CssClass = "Dialog__SearchCheckBoxFilters" });
+    }
+
+    private void OnSubmit(string text)
+    {
+        //TroshkaApiClient.ApiCarsOffersPostAsync(new TroshkaApi.CreateCarOfferRequestModel
+        //    {
+        //        Title = _offer.Title,
+        //        Description = _offer.Description
+        //    });
+    }
+
+    async Task OnVehicleBrandChange()
+    {
+        if (!string.IsNullOrWhiteSpace(_carModel.BrandId))
+        {
+            var response = await TroshkaApiClient.ApiCarsBrandsModelsAsync(_carModel.BrandId);
+            _modelList = Mapper.Map<ICollection<VehicleModelModel>>(response.Result);
+        }
+        else
+        {
+            _modelList = null;
+        }
+    }
+
+    void OnChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+    }
+
+    void OnChange(string value)
+    {
+    }
+
+    void OnChange(UploadChangeEventArgs args, string name)
+    {
+        foreach (var file in args.Files)
+        {
+            //console.Log($"File: {file.Name} / {file.Size} bytes");
+        }
+
+        //console.Log($"{name} changed");
+    }
+
+    void OnProgress(UploadProgressArgs args, string name)
+    {
+        //console.Log($"{args.Progress}% '{name}' / {args.Loaded} of {args.Total} bytes.");
+
+        if (args.Progress == 100)
+        {
+            foreach (var file in args.Files)
+            {
+                //console.Log($"Uploaded: {file.Name} / {file.Size} bytes");
+            }
+        }
+    }
+}

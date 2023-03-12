@@ -1,0 +1,8 @@
+﻿namespace Troshka.SPA.Models
+{
+    public class EuroStandardModel
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
+}
