@@ -37,6 +37,13 @@
     <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                     Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
 
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+
+
+    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                    Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+
     <RadzenDatePicker @bind-Value=@dateProduced DateFormat="yyyy/MM" Max="DateTime.Now">
         <FooterTemplate>
             <RadzenButton Click=@(args => dateProduced = DateTime.Now) Text="Today" class="my-3 w-100" />
