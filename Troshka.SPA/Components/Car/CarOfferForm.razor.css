@@ -1,4 +1,31 @@
-﻿.Components__CarOfferForm {
+﻿h2 {text-align: center;}
+
+h2, 
+.Components__CarOfferForm--row ::deep .rz-text-subtitle2 {
+    color: #fff;
+}
+
+.Components__CarOfferForm {
     max-width: 900px;
     margin: 0 auto;
+    padding-top: 100px;
+    color: #fff;
+}
+
+.Components__CarOfferForm--row > div {
+    display: flex;
+    margin: 0.5rem;
+}
+
+.Components__CarOfferForm--row > div ::deep > div,
+.Components__CarOfferForm--row > div ::deep .rz-textarea,
+.Components__CarOfferForm--row > div ::deep .filter-btn {
+    margin: 0.5rem;
+}
+
+.Components__CarOfferForm ::deep .post-button {
+    display: block;
+    margin: 1rem auto;
+    max-width: 100%;
+    width: 100px;
 }

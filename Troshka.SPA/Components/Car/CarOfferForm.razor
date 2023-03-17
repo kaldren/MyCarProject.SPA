@@ -13,53 +13,79 @@
 @inject IMapper Mapper
 
 <div class="Components__CarOfferForm">
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerOffer["Specification_Category"] Data=@_categoriesList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.CategoryId Change=@(args => OnVehicleBrandChange()) />
+    <h2>Create new offer</h2>
 
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.BrandId Change=@(args => OnVehicleBrandChange()) />
+    <div class="Components__CarOfferForm--row">
+        <div>
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["Specification_Category"] Data=@_categoriesList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.CategoryId Change=@(args => OnVehicleBrandChange()) />
 
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.ModelId />
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Brand"] Data=@_brandList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.BrandId Change=@(args => OnVehicleBrandChange()) />
 
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_enginesList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.EngineId Change=@(args => OnChange(args)) />
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Model"] Data=@_modelList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.ModelId />
+        </div>
+    </div>
 
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerOffer["Specification_Transmission"] Data=@_transmissionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.TransmissionId Change=@(args => OnChange(args)) />
+    <div class="Components__CarOfferForm--row">
+        <div>
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["Specification_Engine"] Data=@_enginesList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.EngineId Change=@(args => OnChange(args)) />
 
-    <RadzenNumeric Placeholder="Horsepower" @bind-Value=_carModel.Horsepower class="w-100" />
-    <RadzenNumeric Placeholder="Mileage" @bind-Value=_carModel.Mileage class="w-100" />
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["Specification_Transmission"] Data=@_transmissionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.TransmissionId Change=@(args => OnChange(args)) />
 
- @*   <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" @bind-Value=@_carModel.Year Change=@(args => OnChange(args)) />
-*@
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+         @*   <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" @bind-Value=@_carModel.Year Change=@(args => OnChange(args)) />
+        *@
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                            Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
 
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+            <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                        Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+        </div>
+    </div>
 
+    <div class="Components__CarOfferForm--row">
+        <div>
+            <div>
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Horsepower</RadzenText>
+                <RadzenNumeric Placeholder="Horsepower" @bind-Value=_carModel.Horsepower class="w-100" />
+            </div>
+            <div>
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Mileage</RadzenText>
+                <RadzenNumeric Placeholder="Mileage" @bind-Value=_carModel.Mileage class="w-100" />
+            </div>
 
-    <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                    Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+            <div>
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Production date</RadzenText>
+                <RadzenDatePicker @bind-Value=@dateProduced DateFormat="yyyy/MM" Max="DateTime.Now">
+                <FooterTemplate>
+                    <RadzenButton Click=@(args => dateProduced = DateTime.Now) Text="Today" class="my-3 w-100" />
+                </FooterTemplate>
+            </RadzenDatePicker>
+            </div>
 
-    <RadzenDatePicker @bind-Value=@dateProduced DateFormat="yyyy/MM" Max="DateTime.Now">
-        <FooterTemplate>
-            <RadzenButton Click=@(args => dateProduced = DateTime.Now) Text="Today" class="my-3 w-100" />
-        </FooterTemplate>
-    </RadzenDatePicker>
+            <RadzenRadioButtonList @bind-Value=@value TValue="int" class="mb-5">
+            <Items>
+                <RadzenRadioButtonListItem Text="New" Value="1" />
+                <RadzenRadioButtonListItem Text="Used" Value="2" />
+                <RadzenRadioButtonListItem Text="For Parts" Value="3" />
+            </Items>
+        </RadzenRadioButtonList>
+        </div>
+    </div>
 
-    <RadzenRadioButtonList @bind-Value=@value TValue="int" class="mb-5">
-        <Items>
-            <RadzenRadioButtonListItem Text="New" Value="1" />
-            <RadzenRadioButtonListItem Text="Used" Value="2" />
-            <RadzenRadioButtonListItem Text="For Parts" Value="3" />
-        </Items>
-    </RadzenRadioButtonList>
-
-    <RadzenButton Text=@LocalizerOffer["Filters"] ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog />
-
+    <div class="Components__CarOfferForm--row">
+        <div>
+            <RadzenTextArea Placeholder="Description..." Change=@(args => OnChange(args)) class="w-100" />
+        </div>
+        <div>
+            <RadzenButton Text=@LocalizerOffer["Filters"] ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog class="filter-btn" />
+        </div>
+            <RadzenButton Click=@(args => OnPostButtonClick()) Disabled=@_postBtnDisabled Icon="done" ButtonStyle="ButtonStyle.Primary" class="post-button" />
+    </div>
 </div>
 
 @code {
@@ -80,6 +106,7 @@
 
     int value = 1;
     DateTime? dateProduced = DateTime.Now;
+    private bool _postBtnDisabled;
 
     protected override async Task OnInitializedAsync()
     {
@@ -133,6 +160,8 @@
             _modelList = null;
         }
     }
+
+    void OnPostButtonClick() {}
 
     void OnChange(object value)
     {
