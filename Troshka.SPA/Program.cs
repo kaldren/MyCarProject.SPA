@@ -2,11 +2,11 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
-using TroshkaApi;
 using Radzen;
 using System.Globalization;
 using Troshka.SPA;
 using Troshka.SPA.Interfaces;
+using TroshkaApi;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -16,7 +16,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddMsalAuthentication(options =>
 {
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
-    options.ProviderOptions.DefaultAccessTokenScopes.Add(builder.Configuration["Api:Scope"]);
+    options.ProviderOptions.DefaultAccessTokenScopes.Add(builder.Configuration.GetValue<string>("Api:Scope"));
     options.ProviderOptions.LoginMode = "Redirect";
 });
 

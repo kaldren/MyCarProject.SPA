@@ -20,6 +20,9 @@ namespace Troshka.SPA
             CreateMap<CarOfferImagesResponseModel, CarOfferImagesModel>();
             CreateMap<VehicleOwnerResponseModel, VehicleOwnerModel>();
             CreateMap<CarCategoryResponseModel, CarCategoryModel>();
+            CreateMap<CarEuroStandardResponseModel, EuroStandardModel>();
+            CreateMap<CarOfferFilters, TroshkaApi.Filters>();
+            CreateMap<Models.Car.CreateCarOfferRequestModel, TroshkaApi.CreateCarOfferRequestModel>();
 
             CreateMap<CategoryResponseModel, VehicleCategoryModel>();
             CreateMap<RegionResponseModel, CommonRegionModel>();

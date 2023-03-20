@@ -9,9 +9,7 @@ namespace Troshka.SPA
             NavigationManager navigationManager, IConfiguration configuration)
             : base(provider, navigationManager)
         {
-            ConfigureHandler(
-            authorizedUrls: new[] { configuration.GetValue<string>("Api:FullUrl") },
-            scopes: new[] { "Troshka.Read" });
+            ConfigureHandler(new[] { configuration.GetValue<string>("Api:FullUrl") });
         }
     }
 }

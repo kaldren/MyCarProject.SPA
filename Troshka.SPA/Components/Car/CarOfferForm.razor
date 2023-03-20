@@ -1,15 +1,19 @@
 ﻿@using AutoMapper;
+@using Microsoft.AspNetCore.Authorization;
 @using Troshka.SPA.Components.Vehicle
 @using Troshka.SPA.Interfaces;
 @using Troshka.SPA.Models.Car;
 @using Troshka.SPA.Models;
 @using Troshka.SPA.Models.Common;
+@using TroshkaApi;
 @using static Troshka.SPA.Components.VehicleSearch;
+@*@attribute [Authorize]*@
 
 @inject IStringLocalizer<Localization.SharedResource> LocalizerShared
 @inject IStringLocalizer<Localization.OfferResource> LocalizerOffer
 @inject DialogService DialogService
-@inject ITroshkaApiClientPublic TroshkaApiClient
+@inject ITroshkaApiClientPublic TroshkaApiClientPublic
+@inject ITroshkaApiClient TroshkaApiClientPrivate
 @inject IMapper Mapper
 
 <div class="Components__CarOfferForm">
@@ -36,19 +40,23 @@
             <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
                             Placeholder=@LocalizerOffer["Specification_Transmission"] Data=@_transmissionList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.TransmissionId Change=@(args => OnChange(args)) />
 
-         @*   <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerShared["Year"] Data=@_yearList TextProperty="YearName" ValueProperty="YearId" @bind-Value=@_carModel.Year Change=@(args => OnChange(args)) />
-        *@
+               <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+            Placeholder=@LocalizerShared["Year"] Data=@_yearList @bind-Value=@_carModel.Year />
+            
             <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                            Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+                            Placeholder=@LocalizerOffer["Region"] Data=@_euroStandardList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.RegionId Change=@(args => OnChange(args)) />
 
             <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
-                        Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="EuroStandard" ValueProperty="EuroStandardId" @bind-Value=@_carModel.EuroStandard Change=@(args => OnChange(args)) />
+                            Placeholder=@LocalizerOffer["Location"] Data=@_euroStandardList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.LocationId Change=@(args => OnChange(args)) />
         </div>
     </div>
 
     <div class="Components__CarOfferForm--row">
         <div>
+            <div>
+                <RadzenDropDown AllowClear="true" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true" class="w-100"
+                                Placeholder=@LocalizerOffer["Specification_Euro"] Data=@_euroStandardList TextProperty="Name" ValueProperty="Id" @bind-Value=@_carModel.EuroStandardId Change=@(args => OnChange(args)) />
+            </div>
             <div>
                 <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Horsepower</RadzenText>
                 <RadzenNumeric Placeholder="Horsepower" @bind-Value=_carModel.Horsepower class="w-100" />
@@ -59,21 +67,26 @@
             </div>
 
             <div>
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Cubics</RadzenText>
+                <RadzenNumeric Placeholder="Cubics" @bind-Value=_carModel.Cubics class="w-100" />
+            </div>
+
+            <div>
                 <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Production date</RadzenText>
                 <RadzenDatePicker @bind-Value=@dateProduced DateFormat="yyyy/MM" Max="DateTime.Now">
-                <FooterTemplate>
-                    <RadzenButton Click=@(args => dateProduced = DateTime.Now) Text="Today" class="my-3 w-100" />
-                </FooterTemplate>
-            </RadzenDatePicker>
+                    <FooterTemplate>
+                        <RadzenButton Click=@(args => dateProduced = DateTime.Now) Text="Today" class="my-3 w-100" />
+                    </FooterTemplate>
+                </RadzenDatePicker>
             </div>
 
             <RadzenRadioButtonList @bind-Value=@value TValue="int" class="mb-5">
-            <Items>
-                <RadzenRadioButtonListItem Text="New" Value="1" />
-                <RadzenRadioButtonListItem Text="Used" Value="2" />
-                <RadzenRadioButtonListItem Text="For Parts" Value="3" />
-            </Items>
-        </RadzenRadioButtonList>
+                <Items>
+                    <RadzenRadioButtonListItem Text="New" Value="1" />
+                    <RadzenRadioButtonListItem Text="Used" Value="2" />
+                    <RadzenRadioButtonListItem Text="For Parts" Value="3" />
+                </Items>
+            </RadzenRadioButtonList>
         </div>
     </div>
 
@@ -84,12 +97,11 @@
         <div>
             <RadzenButton Text=@LocalizerOffer["Filters"] ButtonStyle="ButtonStyle.Secondary" Click=@ShowFiltersDialog class="filter-btn" />
         </div>
-            <RadzenButton Click=@(args => OnPostButtonClick()) Disabled=@_postBtnDisabled Icon="done" ButtonStyle="ButtonStyle.Primary" class="post-button" />
+        <RadzenButton Click=@(args => OnPostButtonClick()) Disabled=@_postBtnDisabled Icon="done" ButtonStyle="ButtonStyle.Primary" class="post-button" />
     </div>
 </div>
 
 @code {
-    private CreateCarOfferRequestModel _offer;
     private IEnumerable<CarCategoryModel> _categoriesList;
     private IEnumerable<VehicleBrandModel> _brandList;
     private IEnumerable<VehicleModelModel> _modelList;
@@ -98,36 +110,37 @@
     private IEnumerable<CommonLocationModel> _locationList;
     private IEnumerable<VehicleEngineModel> _enginesList;
     private IEnumerable<VehicleTransmissionModel> _transmissionList;
-    private List<int> _yearList;
+    private List<string> _yearList;
     private ICollection<VehicleCategoryModel> _categories;
-    private Filters SearchFilters = new();
-    private CreateCarOfferRequestModel _carModel = new();
+    private Models.Car.CreateCarOfferRequestModel _carModel = new();
     RadzenUpload upload;
 
     int value = 1;
+    int registered = 1;
     DateTime? dateProduced = DateTime.Now;
     private bool _postBtnDisabled;
 
     protected override async Task OnInitializedAsync()
     {
-        _offer = new();
-
-        var categories = await TroshkaApiClient.ApiCarsCategoriesAsync();
+        var categories = await TroshkaApiClientPublic.ApiCarsCategoriesAsync();
         _categoriesList = Mapper.Map<ICollection<CarCategoryModel>>(categories.Result);
 
-        var response = await TroshkaApiClient.ApiCarsBrandsAsync();
+        var response = await TroshkaApiClientPublic.ApiCarsBrandsAsync();
         _brandList = Mapper.Map<ICollection<VehicleBrandModel>>(response.Result);
 
-        var engine = await TroshkaApiClient.ApiCarsEnginesAsync();
+        var engine = await TroshkaApiClientPublic.ApiCarsEnginesAsync();
         _enginesList = Mapper.Map<ICollection<VehicleEngineModel>>(engine.Result);
 
-        var transmission = await TroshkaApiClient.ApiCarsTransmissionsAsync();
+        var transmission = await TroshkaApiClientPublic.ApiCarsTransmissionsAsync();
         _transmissionList = Mapper.Map<ICollection<VehicleTransmissionModel>>(transmission.Result);
 
-        _yearList = new List<int>();
+        var euro = await TroshkaApiClientPublic.ApiCarsEuroAsync();
+        _euroStandardList = Mapper.Map<ICollection<EuroStandardModel>>(euro.Result);
+
+        _yearList = new List<string>();
         for (int i = 0; i < 100; i++)
         {
-            _yearList.Add(DateTime.Now.Year - i);
+            _yearList.Add((DateTime.Now.Year - i).ToString());
         }
     }
 
@@ -135,24 +148,20 @@
     {
         await DialogService.OpenAsync(@LocalizerOffer["Filters"], ds =>
 
-    @<SearchCheckboxFilters SearchFilters=SearchFilters />,
+    @<SearchCheckboxFilters SearchFilters=_carModel.Filters />,
         new DialogOptions() { CloseDialogOnOverlayClick = true, CssClass = "Dialog__SearchCheckBoxFilters" });
     }
 
     private void OnSubmit(string text)
     {
-        //TroshkaApiClient.ApiCarsOffersPostAsync(new TroshkaApi.CreateCarOfferRequestModel
-        //    {
-        //        Title = _offer.Title,
-        //        Description = _offer.Description
-        //    });
+        TroshkaApiClientPrivate.ApiCarsOffersPostAsync(Mapper.Map<TroshkaApi.CreateCarOfferRequestModel>(_carModel));
     }
 
     async Task OnVehicleBrandChange()
     {
         if (!string.IsNullOrWhiteSpace(_carModel.BrandId))
         {
-            var response = await TroshkaApiClient.ApiCarsBrandsModelsAsync(_carModel.BrandId);
+            var response = await TroshkaApiClientPublic.ApiCarsBrandsModelsAsync(_carModel.BrandId);
             _modelList = Mapper.Map<ICollection<VehicleModelModel>>(response.Result);
         }
         else
@@ -161,11 +170,14 @@
         }
     }
 
-    void OnPostButtonClick() {}
+    void OnPostButtonClick()
+    {
+        TroshkaApiClientPrivate.ApiCarsOffersPostAsync(Mapper.Map<TroshkaApi.CreateCarOfferRequestModel>(_carModel));
+    }
 
     void OnChange(object value)
     {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        //var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
     }
 
     void OnChange(string value)
